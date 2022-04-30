@@ -17,13 +17,13 @@ function Navigation() {
                     >
                         test_navigation
                     </Typography>
-                    <span>
+                    <span className="mr-4">
                         <Link to="/">home</Link>
                     </span>
-                    <span>
+                    <span className="mr-4">
                         <Link to="/login">login</Link>
                     </span>
-                    <span>
+                    <span className="mr-4">
                         <Link to="/mypage">mypage</Link>
                     </span>
                 </Toolbar>
