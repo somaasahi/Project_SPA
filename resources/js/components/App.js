@@ -15,6 +15,7 @@ const queryClient = new QueryClient();
 function App() {
     return (
         <Box>
+            <div>aaaa</div>
             <QueryClientProvider client={queryClient}>
                 <BrowserRouter>
                     <Navigation />
