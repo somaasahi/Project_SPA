@@ -6,7 +6,7 @@ import ReactDOM from "react-dom";
 function Home() {
 
     return (
-        <div>
+        <div className="md:text-red-500">
           home
         </div>
     );

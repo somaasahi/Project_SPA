@@ -430,4 +430,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .m-5 {
   margin: 1.25rem;
 }
+@media (min-width: 768px) {
+
+  .md\:text-red-500 {
+    --tw-text-opacity: 1;
+    color: rgb(239 68 68 / var(--tw-text-opacity));
+  }
+}
 
