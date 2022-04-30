@@ -8,7 +8,7 @@ import Home from './home/Home';
 import Mypage from './mypage/Mypage';
 import Navigation from './Navigation';
 import Login from './Login/login';
-
+huuh
 
 const queryClient = new QueryClient();
 
