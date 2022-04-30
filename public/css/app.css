@@ -430,7 +430,21 @@ Ensure the default browser behavior of the `hidden` attribute.
 .m-5 {
   margin: 1.25rem;
 }
+.inline {
+  display: inline;
+}
+.w-4\/5 {
+  width: 80%;
+}
 @media (min-width: 768px) {
+
+  .md\:flex {
+    display: flex;
+  }
+
+  .md\:w-3\/6 {
+    width: 50%;
+  }
 
   .md\:text-red-500 {
     --tw-text-opacity: 1;

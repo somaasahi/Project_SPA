@@ -8,14 +8,12 @@ import Home from './home/Home';
 import Mypage from './mypage/Mypage';
 import Navigation from './Navigation';
 import Login from './Login/login';
-huuh
 
 const queryClient = new QueryClient();
 
 function App() {
     return (
         <Box>
-            <div>aaaa</div>
             <QueryClientProvider client={queryClient}>
                 <BrowserRouter>
                     <Navigation />
