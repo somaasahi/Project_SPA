@@ -7,6 +7,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EditIcon from '@mui/icons-material/Edit';
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import Profile from "./acountTab/Profile";
 
 
 function Acount() {
@@ -20,7 +21,7 @@ function Acount() {
     function TabChange(tab) {
 
         if (tab == 'profile') {
-            return <Notification />
+            return <Profile />
         }
         else if (tab == 'post') {
             return <Friend />
