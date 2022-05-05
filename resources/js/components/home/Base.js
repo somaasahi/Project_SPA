@@ -45,6 +45,7 @@ function Base(props) {
             },
         });
         console.log(response.data);
+        console.log("test");
         const result = response.data;
 
         if (result.length < 1) {
