@@ -37,7 +37,7 @@ function Base(props) {
     const loadMore = async (page) => {
         const response = await axios.get("api/homeIndex/", {
             params: {
-                ainmal: animal,
+                animal: animal,
                 kind: kind,
                 order: order,
                 keyword: keyword,
@@ -56,21 +56,8 @@ function Base(props) {
         setPosts([...posts, ...result]);
     };
 
-    // const search = async (page) => {
-    //     const response = await axios.get("api/homeIndex/", {
-    //         params: {
-    //             ainmal: animal,
-    //             kind: kind,
-    //             order: order,
-    //             keyword: keyword,
-    //             page: page,
-    //         },
-    //     });
-    //     const result = response.data;
-    // };
-
     const index = (
-        <ImageList className="w-full">
+        <ImageList className="w-full h-full">
             {posts.map((post) => (
                 <Post key={post.id} content={post} />
             ))}
@@ -85,8 +72,11 @@ function Base(props) {
     );
 
     const loader = (
-        <div className="loader" key={0}>
-            Loading ...
+        <div className="w-full">
+            <img
+                className="object-contain"
+                src="storage/service_images/loading2.png"
+            />
         </div>
     );
 

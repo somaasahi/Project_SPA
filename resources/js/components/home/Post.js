@@ -13,7 +13,7 @@ function Post(props) {
             />
             <ImageListItemBar
                 className="h-1/4"
-                title={props.content.content}
+                title={props.content.id + props.content.content}
                 actionIcon={
                     <IconButton
                         sx={{ color: "rgba(255, 255, 255, 0.54)" }}
