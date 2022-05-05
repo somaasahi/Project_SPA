@@ -6,7 +6,8 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Outlet } from 'react-router-dom';
 
-function Notification() {
+function Notification(props) {
+    console.log(props.id);
     return (
         <div className='w-4/5'>
             <Accordion>
