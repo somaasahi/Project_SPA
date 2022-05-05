@@ -33739,12 +33739,15 @@ function UserConections() {
 
   var handleChange = function handleChange(event, newValue) {
     setValue(newValue);
-  }; //表示component
+  };
 
+  var id = 1; //表示component
 
-  function TabChange(value) {
+  function TabChange(value, id) {
     if (value == 'notification') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_connectionTab_Notification__WEBPACK_IMPORTED_MODULE_3__["default"], {});
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_connectionTab_Notification__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        id: id
+      });
     } else if (value == 'friend') {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_connectionTab_Friend__WEBPACK_IMPORTED_MODULE_2__["default"], {});
     } else if (value == 'like') {
@@ -33781,7 +33784,7 @@ function UserConections() {
         label: "\u3044\u3044\u306D\u4E00\u89A7",
         icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_icons_material_Favorite__WEBPACK_IMPORTED_MODULE_12__["default"], {})
       })]
-    }), TabChange(value)]
+    }), TabChange(value, id)]
   });
 }
 
@@ -34012,7 +34015,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function Notification() {
+function Notification(props) {
+  console.log(props.id);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "w-4/5",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_mui_material_Accordion__WEBPACK_IMPORTED_MODULE_2__["default"], {

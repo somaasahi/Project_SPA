@@ -15,12 +15,13 @@ function UserConections() {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    let id = 1;
 
     //表示component
-    function TabChange(value) {
+    function TabChange(value, id) {
 
         if (value == 'notification') {
-            return <Notification />
+            return <Notification id={id} />
         }
         else if (value == 'friend') {
             return <Friend />
@@ -61,7 +62,7 @@ function UserConections() {
                     icon={<FavoriteIcon />}
                 />
             </Tabs>
-            {TabChange(value)}
+            {TabChange(value, id)}
         </Box>
     );
 }

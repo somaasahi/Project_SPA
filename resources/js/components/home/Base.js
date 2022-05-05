@@ -157,7 +157,7 @@ function Base(props) {
                     <div
                         className="text-center m-auto py-3 px-6 text-xl rounded-md
                     text-blue-300 bg-transparent border border-blue-300 hover:text-white hover:bg-blue-300"
-                        // onClick={search}
+                    // onClick={search}
                     >
                         検索
                         <SavedSearchIcon />
