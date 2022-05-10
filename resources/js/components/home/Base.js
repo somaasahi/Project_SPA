@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -7,78 +7,83 @@ import Select from "@mui/material/Select";
 import { ImageList, TextField } from "@mui/material";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 import { useStateIfMounted } from "use-state-if-mounted";
-import InfiniteScroll from "react-infinite-scroller";
 import Post from "./Post";
+import { useInfiniteQuery } from "react-query";
+import InfiniteScroll from "react-infinite-scroller";
 
 function Base(props) {
-    const [animal, setAnimal] = useState("");
-    const animalChange = (event) => {
-        setAnimal(event.target.value);
-    };
+    // const [animal, setAnimal] = useState("");
+    // const animalChange = (event) => {
+    //     setAnimal(event.target.value);
+    // };
 
-    const [kind, setKind] = useState("");
-    const kindChange = (event) => {
-        setKind(event.target.value);
-    };
+    // const [kind, setKind] = useState("");
+    // const kindChange = (event) => {
+    //     setKind(event.target.value);
+    // };
 
-    const [order, setOrder] = useState("");
-    const orderChange = (event) => {
-        setOrder(event.target.value);
-    };
+    // const [order, setOrder] = useState("");
+    // const orderChange = (event) => {
+    //     setOrder(event.target.value);
+    // };
 
-    const [keyword, setKeyword] = useState("");
-    const keywordChange = (event) => {
-        setKeyword(event.target.value);
-    };
+    // const [keyword, setKeyword] = useState("");
+    // const keywordChange = (event) => {
+    //     setKeyword(event.target.value);
+    // };
 
-    const [posts, setPosts] = useStateIfMounted([]);
     const [hasMore, setHasMore] = useStateIfMounted(true);
 
-    const loadMore = async (page) => {
-        const response = await axios.get("api/homeIndex/", {
+    // const response = await axios.get("api/homeIndex/", {
+    //     params: {
+    //         animal: animal,
+    //         kind: kind,
+    //         order: order,
+    //         keyword: keyword,
+    //         page: page,
+    //     },
+    // });
+    // const result = response.data;
+    // if (result.length < 1) {
+    //     setHasMore(false);
+    //     console.log("dead");
+    //     return;
+    // }
+    // setPosts([...posts, ...result]);
+
+    const handleSearch = () => {
+        console.log("d");
+    };
+
+    const fetchPosts = async ({ pageParam = 1 }) => {
+        const { data } = await axios.get("api/homeIndex/", {
             params: {
-                animal: animal,
-                kind: kind,
-                order: order,
-                keyword: keyword,
+                // animal: animal,
+                // kind: kind,
+                // order: order,
+                // keyword: keyword,
                 page: page,
             },
         });
-        console.log(response.data);
-        console.log("test");
-        const result = response.data;
-
-        if (result.length < 1) {
+        if (data.length < 1) {
             setHasMore(false);
             console.log("dead");
             return;
         }
 
-        setPosts([...posts, ...result]);
+        return { data, nextPage: pageParam + 1, totalPages: 30 };
     };
 
-    const index = (
-        <ImageList className="w-full h-full">
-            {posts.map((post) => (
-                <Post key={post.id} content={post} />
-            ))}
-        </ImageList>
-    );
-    const detail = (
-        <ImageList className="w-full">
-            {posts.map((post) => (
-                <Post key={post.id} content={post} />
-            ))}
-        </ImageList>
-    );
-
-    const loader = (
-        <div className="w-full">
-            <img
-                className="object-contain"
-                src="storage/service_images/loading2.png"
-            />
-        </div>
+    const { data, isError, isLoading, fetchNextPage } = useInfiniteQuery(
+        "posts",
+        fetchPosts,
+        {
+            getNextPageParam: (lastPage, pages) => {
+                if (lastPage.nextPage < lastPage.totalPages)
+                    return lastPage.nextPage;
+                return undefined;
+            },
+        }
     );
 
     return (
@@ -158,7 +163,7 @@ function Base(props) {
                     <div
                         className="text-center m-auto py-3 px-6 text-xl rounded-md
                     text-blue-300 bg-transparent border border-blue-300 hover:text-white hover:bg-blue-300"
-                    // onClick={search}
+                        onClick={handleSearch}
                     >
                         検索
                         <SavedSearchIcon />
@@ -166,14 +171,25 @@ function Base(props) {
                 </div>
             </div>
             <div className="overflow-auto" style={{ height: "1000px" }}>
-                <InfiniteScroll
-                    loadMore={loadMore}
-                    hasMore={hasMore}
-                    loader={loader}
-                    useWindow={false}
-                >
-                    {index}
-                </InfiniteScroll>
+                {isLoading ? (
+                    <p>Loading...</p>
+                ) : isError ? (
+                    <p>There was an error</p>
+                ) : (
+                    <InfiniteScroll
+                        hasMore={hasMore}
+                        loadMore={fetchNextPage}
+                        useWindow={false}
+                    >
+                        <ImageList className="w-full h-full">
+                            {data.pages.map((page) =>
+                                page.map((post) => (
+                                    <Post key={post.id} content={post} />
+                                ))
+                            )}
+                        </ImageList>
+                    </InfiniteScroll>
+                )}
             </div>
         </div>
     );

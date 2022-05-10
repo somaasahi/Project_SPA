@@ -482,10 +482,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-transparent {
   background-color: transparent;
 }
-.object-contain {
-  -o-object-fit: contain;
-     object-fit: contain;
-}
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
