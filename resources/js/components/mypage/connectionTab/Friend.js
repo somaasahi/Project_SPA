@@ -2,6 +2,7 @@ import { Avatar, Checkbox, Divider, List, ListItem, ListItemAvatar, ListItemButt
 import React, { useEffect, useState } from "react";
 import InfoIcon from '@mui/icons-material/Info';
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 
 function Friend() {
@@ -15,15 +16,6 @@ function Friend() {
     }, []);
     if (!user) return 'load...';
     console.log(user);
-    const index = (
-        <ListItem>
-            {
-                user.map((user, key) => {
-                    <ListItemText key={key} primary={user.id} />
-                })
-            }
-        </ListItem>
-    );
 
     return (
         < List
@@ -53,6 +45,7 @@ function Friend() {
                             }
                         />
                         <ListItemButton>
+                            <Link to="/test">testへ</Link>
                             <InfoIcon />
                         </ListItemButton>
                     </ListItem>
