@@ -17,7 +17,7 @@ class FriendRelationController extends Controller
     public function index()
     {
         $friend = FriendRelation::with('user')->get();
-// Log::debug($friend);
+
         return $friend;
     }
 

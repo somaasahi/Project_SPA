@@ -1,7 +1,7 @@
 import { Badge, Box, Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import Friend from "./connectionTab/Friend";
+import Friend from "./connectionTab/Friend/Friend";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import GroupIcon from '@mui/icons-material/Group';
 import FavoriteIcon from '@mui/icons-material/Favorite';
