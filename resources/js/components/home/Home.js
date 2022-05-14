@@ -1,6 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Base from "./Base";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
+const client = new QueryClient();
 
 function Home() {
     return (
