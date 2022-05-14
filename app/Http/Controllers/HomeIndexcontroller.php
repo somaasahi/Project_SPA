@@ -17,7 +17,8 @@ class HomeIndexcontroller extends Controller
         $kind = $request->get('kind');
         $order = $request->get('order');
         $keyword = $request->get('keyword');
-        $page = $request->get('page');
+        $total = $request->get('total');
+        Log::debug($total);
 
         $query = Post::query()->withCount('likes')->withCount('reviews');
 
@@ -31,14 +32,12 @@ class HomeIndexcontroller extends Controller
             $query->where('content', 'LIKE', "%{$keyword}%");
         }
 
-        if ($page == 1) {
+        if (!empty($total)) {
 
-            $query->orderBy('id', 'ASC')->take(10)->get();
-            // Log::debug($result);
+            $query->orderBy('id', 'ASC')->skip($total)->take(10)->get();
+            Log::debug($total);
         } else {
-            $page = $page - 1;
-            $start = 15 * $page;
-            $query->orderBy('id', 'ASC')->skip($start)->take(10)->get();
+            $query->orderBy('id', 'ASC')->take(10)->get();
         }
 
         if ($order ===  1) {

@@ -8,83 +8,120 @@ import { ImageList, TextField } from "@mui/material";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 import { useStateIfMounted } from "use-state-if-mounted";
 import Post from "./Post";
-import { useInfiniteQuery } from "react-query";
-import InfiniteScroll from "react-infinite-scroller";
+import { useInView } from "react-intersection-observer";
 
 function Base(props) {
-    // const [animal, setAnimal] = useState("");
-    // const animalChange = (event) => {
-    //     setAnimal(event.target.value);
-    // };
+    const [animal, setAnimal] = useState("");
+    const animalChange = (event) => {
+        setAnimal(event.target.value);
+    };
 
-    // const [kind, setKind] = useState("");
-    // const kindChange = (event) => {
-    //     setKind(event.target.value);
-    // };
+    const [kind, setKind] = useState("");
+    const kindChange = (event) => {
+        setKind(event.target.value);
+    };
 
-    // const [order, setOrder] = useState("");
-    // const orderChange = (event) => {
-    //     setOrder(event.target.value);
-    // };
+    const [order, setOrder] = useState("");
+    const orderChange = (event) => {
+        setOrder(event.target.value);
+    };
 
-    // const [keyword, setKeyword] = useState("");
-    // const keywordChange = (event) => {
-    //     setKeyword(event.target.value);
-    // };
+    const [keyword, setKeyword] = useState("");
+    const keywordChange = (event) => {
+        setKeyword(event.target.value);
+    };
 
-    const [hasMore, setHasMore] = useStateIfMounted(true);
+    const [total, setTotal] = useState(0);
 
-    // const response = await axios.get("api/homeIndex/", {
-    //     params: {
-    //         animal: animal,
-    //         kind: kind,
-    //         order: order,
-    //         keyword: keyword,
-    //         page: page,
-    //     },
-    // });
-    // const result = response.data;
-    // if (result.length < 1) {
-    //     setHasMore(false);
-    //     console.log("dead");
-    //     return;
-    // }
-    // setPosts([...posts, ...result]);
+    const [posts, setPosts] = useStateIfMounted([]);
+    const ref = useRef(null);
+    const options = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.2,
+    };
+    const call = () => {
+        console.log("call");
+    };
+
+    const getPosts = useCallback(async () => {
+        const response = await axios.get("api/homeIndex/", {
+            params: {
+                animal: animal,
+                kind: kind,
+                order: order,
+                keyword: keyword,
+            },
+        });
+        const results = await response.data;
+        setPosts(results);
+    }, []);
+
+    useEffect(() => {
+        // 第二引数が実行された時のみ第一引数が走る
+        getPosts();
+    }, [getPosts]);
+
+    const getNextPosts = () => {
+        console.log(total);
+        // const response = await axios.get("api/homeIndex/", {
+        //     params: {
+        //         animal: animal,
+        //         kind: kind,
+        //         order: order,
+        //         keyword: keyword,
+        //         total: posts.length,
+        //     },
+        // });
+        // const results = response.data;
+        // console.log(results);
+        // if (results.length === 0) {
+        //     console.log("end");
+        // }
+        // setPosts([...posts, ...results]);
+        console.log("okok");
+    };
+    const observer = new IntersectionObserver(getNextPosts, options);
+
+    useEffect(() => {
+        observer.observe(ref.current);
+    }, [getPosts]);
+
+    useEffect(() => {
+        setTotal(posts.length);
+        console.log(total);
+        console.log("ok");
+    }, [posts]);
+
+    useEffect(() => {
+        console.log("ll");
+    }, [getNextPosts]);
+
+    // useEffect(async () => {
+    //     console.log("ok");
+    //     let num = posts.length;
+    //     setTotal(num);
+    //     console.log(total);
+    //     const response = await axios.get("api/homeIndex/", {
+    //         params: {
+    //             animal: animal,
+    //             kind: kind,
+    //             order: order,
+    //             keyword: keyword,
+    //             total: total,
+    //         },
+    //     });
+    //     const results = response.data;
+    //     // console.log(results);
+    //     if (results.length === 0) {
+    //         console.log("end");
+    //     }
+    //     setPosts([...posts, ...results]);
+    // }, [getNextPosts]);
 
     const handleSearch = () => {
         console.log("d");
     };
-
-    const fetchPosts = async ({ pageParam = 1 }) => {
-        const { data } = await axios.get("api/homeIndex/", {
-            params: {
-                // animal: animal,
-                // kind: kind,
-                // order: order,
-                // keyword: keyword,
-                page: page,
-            },
-        });
-        if (data.length < 1) {
-            setHasMore(false);
-            console.log("dead");
-            return;
-        }
-
-        return { data, nextPage: pageParam + 1, totalPages: 30 };
-    };
-
-    const { data, isError, isLoading, fetchNextPage } = useInfiniteQuery(
-        "posts",
-        fetchPosts,
-        {
-            getNextPageParam: (lastPage, pages) => {
-                if (lastPage.nextPage < lastPage.totalPages)
-                    return lastPage.nextPage;
-                return undefined;
-            },
-        }
-    );
 
     return (
         <div>
@@ -171,25 +208,12 @@ function Base(props) {
                 </div>
             </div>
             <div className="overflow-auto" style={{ height: "1000px" }}>
-                {isLoading ? (
-                    <p>Loading...</p>
-                ) : isError ? (
-                    <p>There was an error</p>
-                ) : (
-                    <InfiniteScroll
-                        hasMore={hasMore}
-                        loadMore={fetchNextPage}
-                        useWindow={false}
-                    >
-                        <ImageList className="w-full h-full">
-                            {data.pages.map((page) =>
-                                page.map((post) => (
-                                    <Post key={post.id} content={post} />
-                                ))
-                            )}
-                        </ImageList>
-                    </InfiniteScroll>
-                )}
+                <ImageList className="w-full h-full">
+                    {posts.map((post) => (
+                        <Post key={post.id} content={post} />
+                    ))}
+                </ImageList>
+                <div id="ref" ref={ref} style={{ height: "300px" }} />
             </div>
         </div>
     );

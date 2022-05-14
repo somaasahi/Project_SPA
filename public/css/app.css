@@ -448,11 +448,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-1\/4 {
   height: 25%;
 }
-.w-full {
-  width: 100%;
-}
 .w-1\/4 {
   width: 25%;
+}
+.w-full {
+  width: 100%;
 }
 .w-4\/5 {
   width: 80%;

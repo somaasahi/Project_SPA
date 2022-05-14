@@ -10,11 +10,7 @@ function Home() {
     return (
         <div className="md:w-8/12 m-auto">
             {/* <img src="storage/post_images/noimg.png" /> */}
-
-            <QueryClientProvider client={client}>
-                <Base />
-                <ReactQueryDevtools initialIsOpen={false} />
-            </QueryClientProvider>
+            <Base />
         </div>
     );
 }
