@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-function FriendDetail() {
+function FriendDetail(props) {
+    const [id, setId] = useState('');
+
+
+
+    const friendUser = ()
     return (
         <p>test</p>
     )

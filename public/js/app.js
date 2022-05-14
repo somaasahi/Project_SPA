@@ -33979,7 +33979,9 @@ function Friend() {
         }, user.id);
       });
     } else {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FriendDetail__WEBPACK_IMPORTED_MODULE_5__["default"], {});
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FriendDetail__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        id: id
+      });
     }
   };
 
@@ -34002,25 +34004,9 @@ function Friend() {
 /*!*****************************************************************************!*\
   !*** ./resources/js/components/mypage/connectionTab/Friend/FriendDetail.js ***!
   \*****************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (() => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-
-function FriendDetail() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-    children: "test"
-  });
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FriendDetail);
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /var/www/html/resources/js/components/mypage/connectionTab/Friend/FriendDetail.js: Unexpected token (8:24)\n\n\u001b[0m \u001b[90m  6 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m     \u001b[36mconst\u001b[39m friendUser \u001b[33m=\u001b[39m ()\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m                         \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m     \u001b[36mreturn\u001b[39m (\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m         \u001b[33m<\u001b[39m\u001b[33mp\u001b[39m\u001b[33m>\u001b[39mtest\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mp\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m     )\u001b[0m\n    at instantiate (/var/www/html/node_modules/@babel/parser/lib/index.js:72:32)\n    at constructor (/var/www/html/node_modules/@babel/parser/lib/index.js:358:12)\n    at Object.raise (/var/www/html/node_modules/@babel/parser/lib/index.js:3335:19)\n    at Object.unexpected (/var/www/html/node_modules/@babel/parser/lib/index.js:3373:16)\n    at Object.parseParenAndDistinguishExpression (/var/www/html/node_modules/@babel/parser/lib/index.js:13318:12)\n    at Object.parseExprAtom (/var/www/html/node_modules/@babel/parser/lib/index.js:12868:23)\n    at Object.parseExprAtom (/var/www/html/node_modules/@babel/parser/lib/index.js:8034:20)\n    at Object.parseExprSubscripts (/var/www/html/node_modules/@babel/parser/lib/index.js:12540:23)\n    at Object.parseUpdate (/var/www/html/node_modules/@babel/parser/lib/index.js:12519:21)\n    at Object.parseMaybeUnary (/var/www/html/node_modules/@babel/parser/lib/index.js:12490:23)");
 
 /***/ }),
 

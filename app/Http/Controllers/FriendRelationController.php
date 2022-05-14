@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FriendRelation;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -40,7 +41,9 @@ class FriendRelationController extends Controller
      */
     public function show($id)
     {
-        //
+        $friend = User::get($id);
+
+        return $friend;
     }
 
     /**

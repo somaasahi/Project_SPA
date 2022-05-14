@@ -46,7 +46,9 @@ function Friend() {
                 />
             ))
         } else {
-            return <FriendDetail />
+            return <FriendDetail
+                id={id}
+            />
         }
 
     }
