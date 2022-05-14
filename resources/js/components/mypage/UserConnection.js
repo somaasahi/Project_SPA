@@ -1,7 +1,7 @@
 import { Badge, Box, Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import Friend from "./connectionTab/Friend";
+import Friend from "./connectionTab/Friend/Friend";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import GroupIcon from '@mui/icons-material/Group';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -10,18 +10,24 @@ import LikeList from "./connectionTab/LikeList";
 
 
 function UserConections() {
+
+    //画面切り替え
     const [value, setValue] = useState('notification');
+
+
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    let id = 1;
+
+
+
 
     //表示component
-    function TabChange(value, id) {
+    function TabChange(value, user) {
 
         if (value == 'notification') {
-            return <Notification id={id} />
+            return <Notification />
         }
         else if (value == 'friend') {
             return <Friend />
@@ -38,7 +44,11 @@ function UserConections() {
         <Box sx={{ width: '100%' }}>
             <Tabs
                 value={value}
-                onChange={handleChange}
+                onChange={(event, value) => {
+                    // friendUser(event);
+                    handleChange(event, value);
+                }}
+
                 textColor="secondary"
                 indicatorColor="secondary"
                 aria-label="secondary tabs example"
@@ -62,7 +72,7 @@ function UserConections() {
                     icon={<FavoriteIcon />}
                 />
             </Tabs>
-            {TabChange(value, id)}
+            {TabChange(value)}
         </Box>
     );
 }
