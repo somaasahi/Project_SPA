@@ -60,6 +60,7 @@ function Friend() {
         }
     }
 
+
     return (
         <Box>
             <Stack spacing={2}>
