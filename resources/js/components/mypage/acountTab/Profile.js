@@ -1,23 +1,47 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import React from "react";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 function Profile() {
+
+    const settingList = [
+        "プロフィール編集",
+        "パスワード変更",
+        "ヘルプとサポート",
+        "push通知設定"
+    ]
+
     return (
         <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
-                component="img"
-                height="140"
-                image="/static/images/cards/contemplative-reptile.jpg"
-                alt="image"
+            <CardHeader
+                avatar={
+                    <Avatar
+                        image="storage/post_images/noimg.png"
+                        alt="profile"
+                        sx={{ width: 56, height: 56 }}
+                    />
+                }
             />
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    Lizard
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                    species, ranging across all continents except Antarctica
-                </Typography>
+                <List>
+                    <Divider />
+                    {
+                        settingList.map((listitem) => (
+                            <>
+                                <ListItem disablePadding>
+                                    <ListItemButton>
+                                        <ListItemText primary={listitem} />
+                                        <ListItemIcon>
+                                            <ChevronRightIcon />
+                                        </ListItemIcon>
+                                    </ListItemButton>
+                                </ListItem>
+                                <Divider />
+                            </>
+                        ))
+                    }
+
+                </List>
             </CardContent>
             <CardActions>
                 <Button size="small">Share</Button>

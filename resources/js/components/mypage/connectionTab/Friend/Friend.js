@@ -13,8 +13,8 @@ function Friend() {
 
     //friend情報
     const [user, setUser] = useState('');
-
-    const [value, setValue] = useState('true');
+    //freand切り替え用
+    const [swich, setSwich] = useState('true');
     //user.id
     const [id, setId] = useState('');
 
@@ -26,7 +26,7 @@ function Friend() {
 
     useEffect(() => {
         if (id) {
-            setValue('');
+            setSwich('');
         }
     }, [id]);
 
@@ -45,7 +45,7 @@ function Friend() {
 
     if (!user) return 'load...';
     const show = () => {
-        if (value == 'true') {
+        if (swich) {
             return user.slice(offset, offset + perPage).map((user) => (
                 <FriendList
                     key={user.id}
@@ -70,7 +70,7 @@ function Friend() {
                     {show()}
                 </List >
                 {/* ユーザー詳細画面移行時に非表示処理 */}
-                {value && <Pagination count={Math.ceil(user.length / perPage)} onChange={handleChange} />}
+                {swich && <Pagination count={Math.ceil(user.length / perPage)} onChange={handleChange} color="primary" />}
             </Stack>
         </Box>
     );

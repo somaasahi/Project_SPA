@@ -448,6 +448,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-1\/4 {
   height: 25%;
 }
+.h-1 {
+  height: 0.25rem;
+}
+.h-2 {
+  height: 0.5rem;
+}
 .w-1\/4 {
   width: 25%;
 }
