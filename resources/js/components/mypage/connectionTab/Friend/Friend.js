@@ -14,7 +14,7 @@ function Friend() {
     //friend情報
     const [user, setUser] = useState('');
     //freand切り替え用
-    const [swich, setSwich] = useState('true');
+    const [swich, setSwich] = useState(true);
     //user.id
     const [id, setId] = useState('');
 
@@ -26,7 +26,7 @@ function Friend() {
 
     useEffect(() => {
         if (id) {
-            setSwich('');
+            setSwich(false);
         }
     }, [id]);
 
@@ -41,9 +41,9 @@ function Friend() {
         setOffset(value);
     };
 
-
-
+    //非同期処理待ち
     if (!user) return 'load...';
+
     const show = () => {
         if (swich) {
             return user.slice(offset, offset + perPage).map((user) => (
@@ -64,9 +64,7 @@ function Friend() {
     return (
         <Box>
             <Stack spacing={2}>
-                < List
-                    sx={{ width: '100%', bgcolor: 'background.paper' }}
-                >
+                < List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                     {show()}
                 </List >
                 {/* ユーザー詳細画面移行時に非表示処理 */}

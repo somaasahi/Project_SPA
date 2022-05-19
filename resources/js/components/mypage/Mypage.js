@@ -22,6 +22,4 @@ function Mypage() {
 
 export default Mypage;
 
-if (document.getElementById("app")) {
-    ReactDOM.render(<Mypage />, document.getElementById("app"));
-}
+
