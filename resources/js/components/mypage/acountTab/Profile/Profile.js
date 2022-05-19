@@ -66,10 +66,16 @@ function Profile() {
             </Card>
         );
     }
-
+    //表示
     const showProfile = () => {
         if (swich) {
-            return <SettingChang setting={setting} />;
+            return (
+                <SettingChang
+                    setSwich={setSwich}
+                    setSetting={setSetting}
+                    setting={setting}
+                />
+            );
         } else {
             return profile();
         }

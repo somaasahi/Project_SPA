@@ -7,16 +7,18 @@ import PushSetting from "./setting/PushSetting";
 
 function SettingChang(props) {
 
+    const [swich, setSwich] = useState(false);
 
-    // const [setting, setSetting] = useState('');
-
-    // useEffect(() => {
-    //     setSetting(props.setting)
-    // }, [setting]);
+    useEffect(() => {
+        if (swich == true) {
+            props.setSwich(false);
+            props.setSetting('');
+        }
+    }, [swich]);
 
     function settingShow() {
         if (props.setting == 'プロフィール編集') {
-            return <ProfileSetting />
+            return <ProfileSetting setSwich={setSwich} />
         }
         else if (props.setting == 'パスワード変更') {
             return <PasswordSetting />

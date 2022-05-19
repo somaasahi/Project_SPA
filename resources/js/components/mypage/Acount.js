@@ -1,9 +1,5 @@
 import { Badge, Box, IconButton, Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import Friend from "./connectionTab/Friend/Friend";
-import Notification from "./connectionTab/Notification";
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EditIcon from '@mui/icons-material/Edit';
 import PostAddIcon from '@mui/icons-material/PostAdd';
