@@ -1,13 +1,11 @@
 import { Badge, Box, IconButton, Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import Friend from "./connectionTab/Friend/Friend";
-import Notification from "./connectionTab/Notification";
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EditIcon from '@mui/icons-material/Edit';
 import PostAddIcon from '@mui/icons-material/PostAdd';
-import Profile from "./acountTab/Profile";
+import Profile from "./acountTab/Profile/Profile";
+import Post from "./acountTab/Post";
+import Edit from "./acountTab/Edit";
 
 
 function Acount() {
@@ -24,13 +22,13 @@ function Acount() {
             return <Profile />
         }
         else if (tab == 'post') {
-            return <Friend />
+            return <Post />
         }
         else if (tab == 'edit') {
-            return <Notification />
+            return <Edit />
         }
         else {
-            return <Notification />
+            return <Profile />
         }
     }
 
@@ -68,6 +66,4 @@ function Acount() {
 
 export default Acount;
 
-if (document.getElementById("app")) {
-    ReactDOM.render(<Acount />, document.getElementById("app"));
-}
+

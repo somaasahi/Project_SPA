@@ -1,37 +1,23 @@
-import { Avatar, Box, Checkbox, Divider, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Typography } from "@mui/material";
+import { Avatar, Box, Checkbox, Divider, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Pagination, PaginationItem, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
+
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { ShowChart } from "@mui/icons-material";
-import Test from "../Test";
 import FriendList from "./FriendList";
 import FriendDetail from "./FriendDetail";
-import ReactPaginate from "react-paginate";
+
+
 
 
 function Friend() {
 
     //friend情報
     const [user, setUser] = useState('');
-
-    const [value, setValue] = useState('true');
+    //freand切り替え用
+    const [swich, setSwich] = useState(true);
     //user.id
     const [id, setId] = useState('');
 
-    const handleClick = (event, newValue) => {
-        setUser('true');
-
-    };
-
-    const [offset, setOffset] = useState(0); // 何番目のアイテムから表示するか
-    const perPage = 5;// 1ページあたりに表示したいアイテムの数
-
-    // クリック時のfunction
-    const handlePageChange = (data) => {
-        let page_number = data['selected']; // クリックした部分のページ数が{selected: 2}のような形で返ってくる
-        setOffset(page_number * perPage); // offsetを変更し、表示開始するアイテムの番号を変更
-    }
 
     useEffect(async () => {
         const { data } = await axios.get("/api/FriendRelation");
@@ -40,14 +26,26 @@ function Friend() {
 
     useEffect(() => {
         if (id) {
-            setValue('');
+            setSwich(false);
         }
     }, [id]);
 
+    /**ページ関連 */
+
+    // 何番目のアイテムから表示するか
+    const [offset, setOffset] = useState(0);
+    // 1ページあたりに表示したいアイテムの数
+    const perPage = 5;
+    // ページ切り替え
+    const handleChange = (event, value) => {
+        setOffset(value);
+    };
+
+    //非同期処理待ち
     if (!user) return 'load...';
-    console.log(perPage);
+
     const show = () => {
-        if (value == 'true') {
+        if (swich) {
             return user.slice(offset, offset + perPage).map((user) => (
                 <FriendList
                     key={user.id}
@@ -62,28 +60,16 @@ function Friend() {
         }
     }
 
+
     return (
         <Box>
-            < List
-                sx={{ width: '100%', bgcolor: 'background.paper' }}
-            >
-                {show()}
-            </List >
-            <ReactPaginate
-                previousLabel={'<'}
-                nextLabel={'>'}
-                breakLabel={'...'}
-                pageCount={Math.ceil(user.length / perPage)} // 全部のページ数。端数の場合も考えて切り上げに。
-                marginPagesDisplayed={2} // 一番最初と最後を基準にして、そこからいくつページ数を表示するか
-                pageRangeDisplayed={5} // アクティブなページを基準にして、そこからいくつページ数を表示するか
-                onPageChange={handlePageChange} // クリック時のfunction
-                containerClassName={'pagination'} // ページネーションであるulに着くクラス名
-                subContainerClassName={'pages pagination'}
-                activeClassName={'active'} // アクティブなページのliに着くクラス名
-                previousClassName={'pagination__previous'} // 「<」のliに着けるクラス名
-                nextClassName={'pagination__next'} // 「>」のliに着けるクラス名
-                disabledClassName={'pagination__disabled'} // 使用不可の「<,>」に着くクラス名
-            />
+            <Stack spacing={2}>
+                < List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                    {show()}
+                </List >
+                {/* ユーザー詳細画面移行時に非表示処理 */}
+                {swich && <Pagination count={Math.ceil(user.length / perPage)} onChange={handleChange} color="primary" />}
+            </Stack>
         </Box>
     );
 }
