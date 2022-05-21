@@ -15,10 +15,12 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'name'=>'赤司征十郎',
-            'email'=>'rakuzan.example.com',
-            'password'=>'12345678',
-        ]);
+        // User::create([
+        //     'name'=>'赤司征十郎',
+        //     'email'=>'rakuzan.example.com',
+        //     'password'=>'12345678',
+        // ]);
+
+
     }
 }
