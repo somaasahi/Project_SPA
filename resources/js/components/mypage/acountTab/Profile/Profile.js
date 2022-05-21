@@ -3,12 +3,11 @@ import React, { useEffect, useState } from "react";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SettingChang from "./SettingChange";
 
-
-
 function Profile() {
 
     const settingList = [
         "プロフィール編集",
+        "個人情報編集",
         "パスワード変更",
         "ヘルプとサポート",
         "push通知設定"
@@ -66,6 +65,7 @@ function Profile() {
             </Card>
         );
     }
+
     //表示
     const showProfile = () => {
         if (swich) {
@@ -81,12 +81,10 @@ function Profile() {
         }
     }
 
-
     return (
         <>
             {showProfile()}
         </>
-
     );
 }
 

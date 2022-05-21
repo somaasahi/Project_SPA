@@ -20,14 +20,17 @@ function SettingChang(props) {
         if (props.setting == 'プロフィール編集') {
             return <ProfileSetting setSwich={setSwich} />
         }
+        else if (props.setting == '個人情報編集') {
+            return <PasswordSetting setSwich={setSwich} />
+        }
         else if (props.setting == 'パスワード変更') {
-            return <PasswordSetting />
+            return <PasswordSetting setSwich={setSwich} />
         }
         else if (props.setting == 'ヘルプとサポート') {
-            return <Inquiry />
+            return <Inquiry setSwich={setSwich} />
         }
         else if (props.setting == 'push通知設定') {
-            return <PushSetting />
+            return <PushSetting setSwich={setSwich} />
         }
         else {
             return <Profile />

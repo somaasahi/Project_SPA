@@ -32659,7 +32659,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Profile() {
-  var settingList = ["プロフィール編集", "パスワード変更", "ヘルプとサポート", "push通知設定"]; //設定タイプ
+  var settingList = ["プロフィール編集", "個人情報編集", "パスワード変更", "ヘルプとサポート", "push通知設定"]; //設定タイプ
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
@@ -32805,12 +32805,22 @@ function SettingChang(props) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_setting_ProfileSetting__WEBPACK_IMPORTED_MODULE_4__["default"], {
         setSwich: setSwich
       });
+    } else if (props.setting == '個人情報編集') {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_setting_PasswordSetting__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        setSwich: setSwich
+      });
     } else if (props.setting == 'パスワード変更') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_setting_PasswordSetting__WEBPACK_IMPORTED_MODULE_3__["default"], {});
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_setting_PasswordSetting__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        setSwich: setSwich
+      });
     } else if (props.setting == 'ヘルプとサポート') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_setting_Inquiry__WEBPACK_IMPORTED_MODULE_2__["default"], {});
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_setting_Inquiry__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        setSwich: setSwich
+      });
     } else if (props.setting == 'push通知設定') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_setting_PushSetting__WEBPACK_IMPORTED_MODULE_5__["default"], {});
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_setting_PushSetting__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        setSwich: setSwich
+      });
     } else {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Profile__WEBPACK_IMPORTED_MODULE_1__["default"], {});
     }
