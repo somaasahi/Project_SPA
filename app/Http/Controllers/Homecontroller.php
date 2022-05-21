@@ -8,21 +8,26 @@ use Illuminate\Support\Facades\Log;
 
 use function PHPUnit\Framework\isEmpty;
 
-class HomeIndexcontroller extends Controller
+class Homecontroller extends Controller
 {
     public function homeIndex(Request $request)
     {
-        Log::debug($request->all());
+        // Log::debug($request->all());
         $animal = $request->get('animal');
         $kind = $request->get('kind');
         $order = $request->get('order');
         $keyword = $request->get('keyword');
         $total = $request->get('total');
-        Log::debug($total);
 
-        $query = Post::query()->withCount('likes')->withCount('reviews');
+        $query = Post::query();
+
+        $query->select('id', 'img_url1', 'content', 'updated_at');
+
+        $query->withCount('likes')->withCount('reviews');
 
         if (!empty($animal)) {
+            Log::debug('okkk');
+
             $query->where('animal_kind', $animal);
         }
         if (!empty($kind)) {
@@ -31,28 +36,31 @@ class HomeIndexcontroller extends Controller
         if (!empty($keyword)) {
             $query->where('content', 'LIKE', "%{$keyword}%");
         }
-
-        if (!empty($total)) {
-
-            $query->orderBy('id', 'ASC')->skip($total)->take(10)->get();
-            Log::debug($total);
-        } else {
-            $query->orderBy('id', 'ASC')->take(10)->get();
-        }
-
-        if ($order ===  1) {
+        if ($order === '1') {
+            // 後でupdated_atに変更
             $query->orderBy('id', 'desc');
         }
-        if ($order ===  2) {
+        if ($order === '2') {
             $query->orderBy('likes_count', 'desc');
         }
-        if ($order ===  3) {
+        if ($order === '3') {
             $query->orderBy('reviews_count', 'desc');
         }
-        if ($order ===  4) {
+        if (empty($order) || $order === '4') {
+            // 後でupdated_atに変更
             $query->orderBy('id', 'asc');
         }
+        $query->skip($total)->take(10)->get();
+
         $result = $query->get();
         return $result;
     }
+
+
+    // public function detail(Request $request)
+    // {
+    //     $id = $request->get('id');
+    //     $detail = Post::find($id);
+    //     return $detail;
+    // }
 }

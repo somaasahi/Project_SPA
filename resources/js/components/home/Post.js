@@ -18,6 +18,7 @@ function Post(props) {
                     <IconButton
                         sx={{ color: "rgba(255, 255, 255, 0.54)" }}
                         aria-label="test"
+                        onClick={() => props.handleClick(props.content.id)}
                     >
                         <InfoIcon />
                     </IconButton>

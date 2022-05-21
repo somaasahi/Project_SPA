@@ -20,8 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/FriendRelation',[FriendRelationController::class,'index']);
-Route::get('/FriendShow/{id}',[FriendRelationController::class,'show']);
+Route::get('/FriendRelation', [FriendRelationController::class, 'index']);
+Route::get('/FriendShow/{id}', [FriendRelationController::class, 'show']);
 
 
 
@@ -39,4 +39,4 @@ Route::get('/FriendShow/{id}',[FriendRelationController::class,'show']);
 
 
 
-Route::get('homeIndex', 'App\Http\Controllers\HomeIndexcontroller@homeIndex');
+Route::get('homeIndex', 'App\Http\Controllers\Homecontroller@homeIndex');
