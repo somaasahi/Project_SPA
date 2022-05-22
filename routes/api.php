@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FriendRelationController;
 use App\Http\Controllers\HomeIndexcontroller;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/FriendRelation', [FriendRelationController::class, 'index']);
 Route::get('/FriendShow/{id}', [FriendRelationController::class, 'show']);
+Route::post('/user',[UserController::class,'store']);
 
 
 
