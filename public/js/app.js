@@ -31786,13 +31786,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Card/Card.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardHeader/CardHeader.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardContent/CardContent.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TextField/TextField.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Card/Card.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardHeader/CardHeader.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardContent/CardContent.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TextField/TextField.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -31811,85 +31828,249 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 function SignUp() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  //postして送るデータ
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+    name: '',
+    email: '',
+    password: ''
+  }),
       _useState2 = _slicedToArray(_useState, 2),
-      name = _useState2[0],
-      setName = _useState2[1];
+      data = _useState2[0],
+      setData = _useState2[1]; //一時的ユーザー情報格納
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+
+  var inputName = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)(null);
+  var inputEmail = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)(null);
+  var inputPassword = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)(null); //error判定
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+    name: false,
+    email: false,
+    password: false
+  }),
       _useState4 = _slicedToArray(_useState3, 2),
-      email = _useState4[0],
-      setEmail = _useState4[1];
+      inputError = _useState4[0],
+      setInputError = _useState4[1]; //各バリデーションメッセージ格納
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('名前は必須です'),
       _useState6 = _slicedToArray(_useState5, 2),
-      password = _useState6[0],
-      setPassword = _useState6[1];
+      nameError = _useState6[0],
+      setNameError = _useState6[1];
 
-  var getName = function getName(event) {
-    setTimeout(function () {
-      setName(event.target.value);
-    }, 5000);
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('メールアドレスは必須です'),
+      _useState8 = _slicedToArray(_useState7, 2),
+      emailError = _useState8[0],
+      setEmailError = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('パスワードは必須です'),
+      _useState10 = _slicedToArray(_useState9, 2),
+      passwordError = _useState10[0],
+      setPasswordError = _useState10[1];
+
+  var getName = function getName() {
+    if (inputName.current) {
+      var _getName = inputName.current;
+
+      if (_getName.value == '') {
+        setNameError('ユーザー名は必須です');
+      } else if (_getName.value.length < 255) {
+        setNameError('ユーザー名は255文字以下で記載してください。');
+      } else {
+        setNameError('');
+        setData(_objectSpread(_objectSpread({}, data), {}, {
+          name: _getName.value
+        }));
+      }
+    }
   };
 
+  var pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/;
+
   var getEmail = function getEmail(event) {
-    setTimeout(function () {
-      setEmail(event.target.value);
-    }, 5000);
+    if (inputEmail.current) {
+      var _getEmail = inputEmail.current;
+
+      if (_getEmail.value == '') {
+        setEmailError('メールアドレスは必須です');
+      } else if (!pattern.test(_getEmail.value)) {
+        setEmailError('メールアドレスは正しく記載してください。');
+      } else {
+        setEmailError('');
+        setData(function (prevState) {
+          return _objectSpread(_objectSpread({}, data), {}, {
+            email: _getEmail.value
+          });
+        });
+      }
+    }
   };
 
   var getPassword = function getPassword(event) {
-    setTimeout(function () {
-      setPassword(event.target.value);
-    }, 5000);
+    if (inputPassword.current) {
+      var _getPassword = inputPassword.current;
+
+      if (_getPassword.value == '') {
+        setPasswordError('パスワードは必須です');
+      } else if (_getPassword.value.length <= 8) {
+        setPasswordError('パスワードは８文字以上で記載してください');
+      } else {
+        setPasswordError('');
+        setData(function (prevState) {
+          return _objectSpread(_objectSpread({}, data), {}, {
+            password: _getPassword.value
+          });
+        });
+      }
+    }
+  }; //登録処理
+
+
+  var postData = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var check;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              //初期化
+              setInputError(function (prevState) {
+                return _objectSpread(_objectSpread({}, prevState), {}, {
+                  name: false,
+                  email: false,
+                  password: false
+                });
+              }); //バリデーションチェック
+
+              check = 0;
+
+              if (nameError != '') {
+                setInputError(function (prevState) {
+                  return _objectSpread(_objectSpread({}, prevState), {}, {
+                    name: true
+                  });
+                });
+                check++;
+              }
+
+              if (emailError != '') {
+                setInputError(function (prevState) {
+                  return _objectSpread(_objectSpread({}, prevState), {}, {
+                    email: true
+                  });
+                });
+                check++;
+              }
+
+              if (passwordError != '') {
+                setInputError(function (prevState) {
+                  return _objectSpread(_objectSpread({}, prevState), {}, {
+                    password: true
+                  });
+                });
+                check++;
+              }
+
+              if (!(check > 0)) {
+                _context.next = 9;
+                break;
+              }
+
+              return _context.abrupt("return", false);
+
+            case 9:
+              _context.next = 11;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/user', data).then(function () {
+                setPostCheck(true);
+              })["catch"](function (error) {
+                console.log(error);
+              });
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function postData() {
+      return _ref.apply(this, arguments);
+    };
+  }(); //リダイレクト判定
+
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
+      _useState12 = _slicedToArray(_useState11, 2),
+      postCheck = _useState12[0],
+      setPostCheck = _useState12[1]; //登録成功時ログイン画面へ
+
+
+  var pageChack = function pageChack() {
+    if (postCheck) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Navigate, {
+        to: "/login"
+      });
+    }
   };
 
-  var postData = function postData() {};
-
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
       className: "py-3 px-6 w-2/5 m-auto",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
         title: "\u65B0\u898F\u767B\u9332"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "my-2.5",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            error: inputError.name,
             className: "w-full",
             id: "outlined-basic",
             label: "\u30E6\u30FC\u30B6\u30FC\u540D",
             variant: "outlined",
+            helperText: inputError.name && nameError,
+            inputRef: inputName,
             onChange: getName
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "my-2.5",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            error: inputError.email,
             className: "w-full",
             id: "outlined-basic",
             label: "\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9",
             variant: "outlined",
-            onChange: getEmail
+            helperText: inputError.email && emailError,
+            inputRef: inputEmail,
+            onChange: getEmail,
+            type: "email"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "my-2.5",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            error: inputError.password,
             className: "w-full",
             id: "outlined-basic",
             label: "\u30D1\u30B9\u30EF\u30FC\u30C9",
             variant: "outlined",
-            onChange: getPassword
+            helperText: inputError.password && passwordError,
+            inputRef: inputPassword,
+            onChange: getPassword,
+            type: "password"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "my-2.5 text-right",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            variant: "contained",
+            onClick: postData,
+            children: "\u767B\u9332"
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "my-2.5 text-right",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
-          variant: "contained" // onClick={postData}
-          ,
-          children: "\u767B\u9332"
-        })
       })]
-    })
+    }), pageChack()]
   });
 }
 
