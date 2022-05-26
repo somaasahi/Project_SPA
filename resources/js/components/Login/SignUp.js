@@ -34,11 +34,11 @@ function SignUp() {
             const getName = inputName.current;
             if (getName.value == '') {
                 setNameError('ユーザー名は必須です');
-            } else if (getName.value.length < 255) {
+            } else if (getName.value.length > 255) {
                 setNameError('ユーザー名は255文字以下で記載してください。');
             } else {
                 setNameError('');
-                setData({ ...data, name: getName.value });
+                setData((prevState) => ({ ...prevState, name: getName.value }));
             }
         }
     }
@@ -54,7 +54,7 @@ function SignUp() {
                 setEmailError('メールアドレスは正しく記載してください。');
             } else {
                 setEmailError('');
-                setData((prevState) => ({ ...data, email: getEmail.value }));
+                setData((prevState) => ({ ...prevState, email: getEmail.value }));
             }
         }
     }
@@ -65,11 +65,11 @@ function SignUp() {
             const getPassword = inputPassword.current;
             if (getPassword.value == '') {
                 setPasswordError('パスワードは必須です');
-            } else if (getPassword.value.length <= 8) {
+            } else if (getPassword.value.length < 8) {
                 setPasswordError('パスワードは８文字以上で記載してください');
             } else {
                 setPasswordError('');
-                setData((prevState) => ({ ...data, password: getPassword.value }));
+                setData((prevState) => ({ ...prevState, password: getPassword.value }));
             }
         }
 
@@ -101,6 +101,7 @@ function SignUp() {
             //登録処理
             await axios.post('/api/user', data).then(() => {
                 setPostCheck(true);
+                console.log('ok');
             }).catch((error) => {
                 console.log(error);
             });
@@ -173,7 +174,6 @@ function SignUp() {
             </Card>
             {pageChack()}
         </>
-
     );
 }
 
