@@ -1,9 +1,22 @@
 import { Button, Card, CardActions, CardContent, CardHeader, FormControl, Input, InputAdornment, InputLabel } from "@mui/material";
 import axios from "axios";
-import React from "react";
+import React, { useRef, useState } from "react";
 
 function ProfileSetting(props) {
-    // console.log(props);
+
+    const [profillData, setProfillData] = useState({
+        img: '',
+        name: '',
+        description: ''
+    });
+    //一時的な値
+    // const [inputValue, setInputValue] = useRef({
+    //     img: '',
+    //     name: '',
+    //     description: ''
+    // })
+
+
     function backPage() {
         props.setSwich(true);
     }
@@ -25,7 +38,7 @@ function ProfileSetting(props) {
             </CardContent>
             <CardContent>
                 <FormControl className="w-4/5" variant="standard">
-                    <InputLabel htmlFor="standard-adornment-amount">名前</InputLabel>
+                    <InputLabel htmlFor="standard-adornment-amount">紹介メッセージ</InputLabel>
                     <Input
                         id="standard-adornment-amount"
                         value={'ok'}

@@ -75,7 +75,6 @@ function Login() {
             setInputError((prevState) => ({ ...prevState, password: true }));
             check++;
         }
-        console.log(errorMessage);
         if (check > 0) {
             return false;
         }
@@ -84,8 +83,9 @@ function Login() {
         // CSRF保護の初期化
         await axios.get('/sanctum/csrf-cookie', { withCredentials: true })
             .then((response) => {
-                axios.post('/api/login', data, { withCredentials: true })
+                axios.post('api/login', data, { withCredentials: true })
                     .then((response) => {
+                        console.log('ok');
                         console.log(response);
                     })
             })
