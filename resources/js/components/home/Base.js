@@ -4,7 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { ImageList, TextField } from "@mui/material";
+import { Button, ImageList, TextField } from "@mui/material";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 import { useStateIfMounted } from "use-state-if-mounted";
 import Post from "./Post";
@@ -75,6 +75,9 @@ function Base(props) {
     );
 
     const handleSearch = () => {
+        if (detailId != "") {
+            setDetailId("");
+        }
         setPosts([]);
         getNextPosts();
     };
@@ -87,14 +90,14 @@ function Base(props) {
     let content;
     if (detailId == "") {
         content = (
-            <div className="overflow-auto" style={{ height: "1000px" }}>
+            <div className="overflow-auto" style={{ height: "2000px" }}>
                 <InfiniteScroll
-                    loadMore={getNextPosts} //項目を読み込む際に処理するコールバック関数
-                    hasMore={hasMore} //読み込みを行うかどうかの判定
+                    loadMore={getNextPosts}
+                    hasMore={hasMore}
                     loader={loader}
                     useWindow={false}
                 >
-                    <ImageList className="w-full h-full">
+                    <div className="md:flex md:flex-wrap w-full h-full">
                         {posts.map((post) => (
                             <Post
                                 key={post.id}
@@ -102,7 +105,7 @@ function Base(props) {
                                 handleClick={handleSetDetailId}
                             />
                         ))}
-                    </ImageList>
+                    </div>
                 </InfiniteScroll>
             </div>
         );
@@ -119,7 +122,7 @@ function Base(props) {
 
     return (
         <div>
-            <div className="flex content-between">
+            <div className="md:flex md:content-between">
                 <Box className="flex-1 m-5">
                     <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">
@@ -183,8 +186,8 @@ function Base(props) {
                     </FormControl>
                 </Box>
             </div>
-            <div className="flex justify-end mb-4">
-                <div className="w-1/4 m-5">
+            <div className="md:flex md:justify-end mb-4">
+                <div className="md:w-1/4 m-5">
                     <div className="m-auto w-full">
                         <TextField
                             fullWidth
@@ -195,15 +198,19 @@ function Base(props) {
                         />
                     </div>
                 </div>
-                <div className="w-1/4 m-5">
-                    <div
-                        className="text-center m-auto py-3 px-6 text-xl rounded-md
-                    text-blue-300 bg-transparent border border-blue-300 hover:text-white hover:bg-blue-300"
+                <div className="m-5 flex justify-end">
+                    <Button
+                        style={{
+                            height: "55px",
+                            width: "165px",
+                            fontSize: "20px",
+                        }}
+                        variant="outlined"
+                        endIcon={<SavedSearchIcon />}
                         onClick={handleSearch}
                     >
                         検索
-                        <SavedSearchIcon />
-                    </div>
+                    </Button>
                 </div>
             </div>
             <div id="content">{content}</div>

@@ -45,3 +45,4 @@ Route::post('user',[UserController::class,'store']);
 
 
 Route::get('homeIndex', 'App\Http\Controllers\Homecontroller@homeIndex');
+Route::get('detail', 'App\Http\Controllers\Homecontroller@detail');

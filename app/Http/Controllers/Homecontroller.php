@@ -6,8 +6,6 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-use function PHPUnit\Framework\isEmpty;
-
 class Homecontroller extends Controller
 {
     public function homeIndex(Request $request)
@@ -20,8 +18,6 @@ class Homecontroller extends Controller
         $total = $request->get('total');
 
         $query = Post::query();
-
-        $query->select('id', 'img_url1', 'content', 'updated_at');
 
         $query->withCount('likes')->withCount('reviews');
 
@@ -57,10 +53,10 @@ class Homecontroller extends Controller
     }
 
 
-    // public function detail(Request $request)
-    // {
-    //     $id = $request->get('id');
-    //     $detail = Post::find($id);
-    //     return $detail;
-    // }
+    public function detail(Request $request)
+    {
+        $id = $request->get('id');
+        $detail = Post::find($id);
+        return $detail;
+    }
 }
