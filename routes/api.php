@@ -40,3 +40,4 @@ Route::get('/FriendShow/{id}', [FriendRelationController::class, 'show']);
 
 
 Route::get('homeIndex', 'App\Http\Controllers\Homecontroller@homeIndex');
+Route::get('detail', 'App\Http\Controllers\Homecontroller@detail');
