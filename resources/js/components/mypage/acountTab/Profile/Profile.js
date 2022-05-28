@@ -12,6 +12,7 @@ function Profile() {
         "ヘルプとサポート",
         "push通知設定"
     ]
+
     //設定タイプ
     const [setting, setSetting] = useState('');
     //表示切り替え用

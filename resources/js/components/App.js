@@ -8,7 +8,7 @@ import Home from './home/Home';
 import Mypage from './mypage/Mypage';
 import Navigation from './Navigation';
 import Login from './Login/login';
-import Test from './mypage/connectionTab/Test';
+import SignUp from './Login/SignUp';
 
 const queryClient = new QueryClient();
 
@@ -23,7 +23,7 @@ function App() {
                             <Route path="/" element={<Home />} />
                             <Route path="/login" element={<Login />} />
                             <Route path="/mypage" element={<Mypage />} />
-                            <Route path="/test" element={<Test />} />
+                            <Route path="/signUp" element={<SignUp />} />
                         </Routes>
                     </main>
                 </BrowserRouter>
