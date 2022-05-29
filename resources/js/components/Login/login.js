@@ -1,11 +1,11 @@
 import { Avatar, Button, Card, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 
 
-function Login() {
+function Login(props) {
     //一時的ユーザー情報格納
     const inputEmail = useRef(null);
     const inputPassword = useRef(null);
@@ -91,6 +91,7 @@ function Login() {
                         sessionStorage.setItem('name', authUser.name);
                         sessionStorage.setItem('email', authUser.email);
                         setLoginCheck(true);
+                        props.setAuthUser(true);
                     })
             })
     }

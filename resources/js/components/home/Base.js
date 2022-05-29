@@ -49,7 +49,7 @@ function Base(props) {
             },
         });
         const results = response.data;
-        console.log(results);
+
         if (results.length < 1) {
             setHasMore(false);
         }
