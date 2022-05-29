@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 
 function Login() {
-
     //一時的ユーザー情報格納
     const inputEmail = useRef(null);
     const inputPassword = useRef(null);
@@ -30,6 +29,8 @@ function Login() {
         password: false,
     });
 
+    // ログインチェック
+    const [loginCheck, setLoginCheck] = useState(false);
 
     const pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/;
     const getEmail = () => {
@@ -85,11 +86,20 @@ function Login() {
             .then((response) => {
                 axios.post('api/login', data, { withCredentials: true })
                     .then((response) => {
-                        console.log('ok');
-                        console.log(response);
+                        const authUser = response.data;
+                        sessionStorage.setItem('id', authUser.id);
+                        sessionStorage.setItem('name', authUser.name);
+                        sessionStorage.setItem('email', authUser.email);
+                        setLoginCheck(true);
                     })
             })
+    }
 
+    //ログイン成功時にmypage画面へ
+    const pageChack = () => {
+        if (loginCheck) {
+            return <Navigate to='/mypage' />
+        }
     }
 
     return (
@@ -135,7 +145,7 @@ function Login() {
                 <Link to={"/signUp"} >新規登録の方はこちらへ</Link>
             </div>
 
-
+            {pageChack()}
         </div>
 
     );

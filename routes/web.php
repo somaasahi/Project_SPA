@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,3 +20,5 @@ use Inertia\Inertia;
 Route::get('{any}', function () {
     return view('app');
 })->where('any','.*');
+
+Route::post( 'login', [LoginController::class, 'login'] );

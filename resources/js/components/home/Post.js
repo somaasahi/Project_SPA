@@ -37,7 +37,7 @@ function Post(props) {
     return (
         <Card className="md:w-1/2">
             {/* 必要か迷い中 */}
-            {/* <CardHeader
+            <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
                         R
@@ -45,7 +45,7 @@ function Post(props) {
                 }
                 title="Shrimp and Chorizo Paella"
                 subheader="September 14, 2016"
-            /> */}
+            />
             <CardMedia
                 component="img"
                 height="194"
