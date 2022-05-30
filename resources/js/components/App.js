@@ -18,15 +18,21 @@ function App() {
 
     //trueなら認証している
     const [authUser, setAuthUser] = useState(false);
-
+    //リロードされた時認証の確認
+    if (window.performance) {
+        if (window.performance.navigation.type === 1) {
+            authCheck().then((result) => {
+                setAuthUser(result);
+            })
+        }
+    }
     //1分毎に認証されているかの確認
     useEffect(() => {
         setInterval(() =>
             authCheck().then((result) => {
-                console.log(result);
                 setAuthUser(result);
             })
-            , 10000);
+            , 60000);
     }, []);
 
     return (

@@ -31213,16 +31213,24 @@ function App() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
       authUser = _useState2[0],
-      setAuthUser = _useState2[1]; //1分毎に認証されているかの確認
+      setAuthUser = _useState2[1]; //リロードされた時認証の確認
+
+
+  if (window.performance) {
+    if (window.performance.navigation.type === 1) {
+      (0,_Login_AuthCheck__WEBPACK_IMPORTED_MODULE_10__.authCheck)().then(function (result) {
+        setAuthUser(result);
+      });
+    }
+  } //1分毎に認証されているかの確認
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setInterval(function () {
       return (0,_Login_AuthCheck__WEBPACK_IMPORTED_MODULE_10__.authCheck)().then(function (result) {
-        console.log(result);
         setAuthUser(result);
       });
-    }, 6000);
+    }, 60000);
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_query__WEBPACK_IMPORTED_MODULE_2__.QueryClientProvider, {
@@ -31284,13 +31292,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 
 
 var authCheck = /*#__PURE__*/function () {
@@ -31301,7 +31307,7 @@ var authCheck = /*#__PURE__*/function () {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().get("api/FriendRelation").then(function (response) {
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get("api/user").then(function (response) {
               var data = response.data;
             });
 
