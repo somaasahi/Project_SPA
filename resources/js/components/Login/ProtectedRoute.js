@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 
 function ProtectedRoute(props) {
-    const authUser = props.user;
+
+    const isAuth = props.authUser;
     const page = props.children;
-    console.log(props);
-    const authCheck = (authUser, page) => {
-        if (!authUser) {
+
+    const authCheck = () => {
+        console.log(isAuth);
+        if (!isAuth) {
             return <Navigate to="/login" replace />;
         }
 
@@ -15,7 +17,7 @@ function ProtectedRoute(props) {
 
     return (
         <>
-            {authCheck(authUser, page)}
+            {authCheck(isAuth, page)}
         </>
     )
 }

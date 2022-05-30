@@ -2,33 +2,45 @@ import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ReactQueryDevtools } from "react-query/devtools";
 import Home from './home/Home';
 import Mypage from './mypage/Mypage';
 import Navigation from './Navigation';
 import Login from './Login/login';
 import SignUp from './Login/SignUp';
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from './Login/ProtectedRoute';
+import { authCheck } from './Login/AuthCheck';
 
 const queryClient = new QueryClient();
 
 function App() {
 
+    //trueなら認証している
     const [authUser, setAuthUser] = useState(false);
-    console.log(authUser);
+
+    //1分毎に認証されているかの確認
+    useEffect(() => {
+        setInterval(() =>
+            authCheck().then((result) => {
+                console.log(result);
+                setAuthUser(result);
+            })
+            , 10000);
+    }, []);
+
     return (
         <Box>
             <QueryClientProvider client={queryClient}>
                 <BrowserRouter>
-                    <Navigation />
+                    <Navigation authUser={authUser} setAuthUser={setAuthUser} />
                     <main className={"m-5"}>
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/mypage"
                                 element=
                                 {
-                                    <ProtectedRoute user={authUser}>
+                                    <ProtectedRoute authUser={authUser}>
                                         <Mypage />
                                     </ProtectedRoute>
                                 } />

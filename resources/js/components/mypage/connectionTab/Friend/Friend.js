@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import FriendList from "./FriendList";
 import FriendDetail from "./FriendDetail";
+import { Navigate } from "react-router-dom";
 
 
 
@@ -18,11 +19,20 @@ function Friend() {
     //user.id
     const [id, setId] = useState('');
 
+    const [authState, setAuthState] = useState(false);
+
 
     useEffect(async () => {
-        const { data } = await axios.get("/api/FriendRelation");
-        setUser(data);
+        try {
+            const { data } = await axios.get("/api/FriendRelation");
+            setUser(data);
+        } catch (e) {
+            if (e.response && e.response.status === 401) {
+                setAuthState(true);
+            }
+        }
     }, []);
+
 
     useEffect(() => {
         if (id) {
@@ -40,6 +50,11 @@ function Friend() {
     const handleChange = (event, value) => {
         setOffset(value);
     };
+
+    //認証が切れたときの処理
+    if (authState) {
+        return <Navigate to="/login" />
+    }
 
     //非同期処理待ち
     if (!user) return 'load...';
