@@ -4,9 +4,30 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-// import { Link } from '@inertiajs/inertia-react';
+import axios from "axios";
 
-function Navigation() {
+function Navigation(props) {
+    const isAuth = props.authUser;
+
+    const logout = async () => {
+        await axios.get('api/logout').then((respons) => {
+            console.log(respons.data)
+            props.setAuthUser(respons.data);
+        })
+    }
+
+    const authChangeLogin = () => {
+        if (isAuth) {
+            return (
+                <Link
+                    to="/login"
+                    onClick={logout}
+                >logout</Link>
+            )
+        }
+        return <Link to="/login">login</Link>
+    }
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -22,10 +43,10 @@ function Navigation() {
                         <Link to="/">home</Link>
                     </span>
                     <span className="mr-4">
-                        <Link to="/login">login</Link>
+                        {authChangeLogin()}
                     </span>
                     <span className="mr-4">
-                        <Link to="/mypage">mypage</Link>
+                        {isAuth && <Link to="/mypage">mypage</Link>}
                     </span>
                 </Toolbar>
             </AppBar>
