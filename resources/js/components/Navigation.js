@@ -5,7 +5,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import axios from "axios";
-// import { Link } from '@inertiajs/inertia-react';
 
 function Navigation(props) {
     const isAuth = props.authUser;

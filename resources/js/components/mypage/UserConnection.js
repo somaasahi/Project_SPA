@@ -14,14 +14,9 @@ function UserConections() {
     //画面切り替え
     const [value, setValue] = useState('notification');
 
-
-
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
-
-
 
     //表示component
     function TabChange(value, user) {
