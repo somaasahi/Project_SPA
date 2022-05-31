@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -18,11 +20,10 @@ class Homecontroller extends Controller
         $total = $request->get('total');
 
         $query = Post::query();
-
+        Log::debug($query);
         $query->withCount('likes')->withCount('reviews');
 
         if (!empty($animal)) {
-            Log::debug('okkk');
 
             $query->where('animal_kind', $animal);
         }
@@ -53,10 +54,23 @@ class Homecontroller extends Controller
     }
 
 
-    public function detail(Request $request)
+    public function showdetail(Request $request)
     {
+        $result = [];
         $id = $request->get('id');
         $detail = Post::find($id);
-        return $detail;
+        $result[] = $detail;
+        $result[] = User::find($detail->user_id);
+        $result[] = Profile::find($detail->user_id);
+
+        return $result;
     }
+
+    // public function showuser(Request $request)
+    // {
+    //     $id = $request->get('id');
+    //     $user = User::find($id);
+    //     Log::debug('okkk');
+    //     return $user;
+    // }
 }

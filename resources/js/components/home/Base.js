@@ -39,33 +39,45 @@ function Base(props) {
     const [hasMore, setHasMore] = useStateIfMounted(true);
 
     const getNextPosts = async () => {
-        const response = await axios.get("api/homeIndex/", {
-            params: {
-                animal: animal,
-                kind: kind,
-                order: order,
-                keyword: keyword,
-                total: posts.length,
-            },
-        });
-        const results = response.data;
+        const response = await axios
+            .get("api/homeIndex/", {
+                params: {
+                    animal: animal,
+                    kind: kind,
+                    order: order,
+                    keyword: keyword,
+                    total: posts.length,
+                },
+            })
+            .then((res) => {
+                const results = res.data;
+                console.log(results);
 
-        if (results.length < 1) {
-            setHasMore(false);
-        }
-        if (posts.length > 80) {
-            setHasMore(false);
-            toast.error("これ以上表示できません(300件くらいで出す予定)", {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
+                if (results.length < 1) {
+                    setHasMore(false);
+                }
+                if (posts.length > 80) {
+                    setHasMore(false);
+                    toast.error(
+                        "これ以上表示できません(300件くらいで出す予定)",
+                        {
+                            position: "top-center",
+                            autoClose: 1000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        }
+                    );
+                }
+                setPosts([...posts, ...results]);
+            })
+            .catch((error) => {
+                const { status, statusText } = error.response;
+                alert(`Error! HTTP Status: ${status} ${statusText}`);
+                // 存在しないidをパラメータにurl叩いたらlaravelから404ページ返す？
             });
-        }
-        setPosts([...posts, ...results]);
     };
 
     const loader = (

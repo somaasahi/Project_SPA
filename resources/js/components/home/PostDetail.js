@@ -12,6 +12,7 @@ import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
+import UserInfo from "./UserInfo";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -26,19 +27,21 @@ const ExpandMore = styled((props) => {
 
 function PostDetail(props) {
     const [item, setItem] = useState([]);
-    const [expanded, setExpanded] = useState(false);
+    const [user2, setUser2] = useState([]);
+    const [profile, setProfile] = useState([]);
 
     useEffect(() => {
         axios
-            .get("api/detail/", {
+            .get("api/home/detail/", {
                 params: {
                     id: props.detailId,
                 },
             })
             .then((res) => {
                 const item = res.data;
-                setItem(item);
-                console.log(item);
+                setItem(item[0]);
+                setUser2(item[1]);
+                setProfile(item[2]);
             })
             .catch((error) => {
                 const { status, statusText } = error.response;
@@ -50,7 +53,6 @@ function PostDetail(props) {
     let img;
     if (item.img_url2 == null) {
         img = "";
-        console.log("ok");
     } else if (item.img_url3 == null) {
         img = (
             <CardMedia
@@ -73,6 +75,26 @@ function PostDetail(props) {
         );
     }
 
+    const [user, setUser] = useState();
+    let userInfo;
+    const showUser = () => {
+        setUser(item.user_id);
+    };
+    const closeUser = () => {
+        setUser(null);
+    };
+    if (user == null) {
+        userInfo = "";
+    } else {
+        userInfo = (
+            <UserInfo
+                icon={profile.img_url}
+                description={profile.description}
+                handleClick={closeUser}
+            />
+        );
+    }
+
     return (
         <div>
             <Card sx={{ width: 1 }}>
@@ -91,6 +113,8 @@ function PostDetail(props) {
                     style={{ height: "100px", fontSize: "40px" }}
                     avatar={
                         <Avatar
+                            onClick={showUser}
+                            src={profile.img_url}
                             sx={{ bgcolor: red[500] }}
                             aria-label="recipe"
                             style={{ height: "70px", width: "70px" }}
@@ -108,9 +132,10 @@ function PostDetail(props) {
                             />
                         </IconButton>
                     }
-                    title="user_name"
-                    subheader="投稿者を見る"
+                    title={user2.name}
+                    subheader="<- 投稿者を見る"
                 />
+                {userInfo}
                 <CardMedia
                     component="img"
                     height="194"
@@ -124,18 +149,7 @@ function PostDetail(props) {
                     </Typography>
                 </CardContent>
                 <CardContent>
-                    <Typography fontSize={20}>
-                        投稿の詳細入るよ Heat oil in a (14- to 16-inch) paella
-                        pan or a large, deep skillet over medium-high heat. Add
-                        chicken, shrimp and chorizo, and cook, stirring
-                        occasionally until lightly browned, 6 to 8 minutes.
-                        Transfer shrimp to a large plate and set aside, leaving
-                        chicken and chorizo in the pan. Add pimentón, bay
-                        leaves, garlic, tomatoes, onion, salt and pepper, and
-                        cook, stirring often until thickened and fragrant, about
-                        10 minutes. Add saffron broth and remaining 4 1/2 cups
-                        chicken broth; bring to a boil.
-                    </Typography>
+                    <Typography fontSize={20} className="break-words">{item.content}</Typography>
                 </CardContent>
                 <CardActions disableSpacing>
                     <ExpandMore aria-label="show more">
