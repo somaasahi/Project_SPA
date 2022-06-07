@@ -147,7 +147,7 @@ function Base(props) {
                             label="animal"
                             onChange={animalChange}
                         >
-                            <MenuItem value={null}>選択しない</MenuItem>
+                            <MenuItem value={""}>選択しない</MenuItem>
                             <MenuItem value={1}>いぬ</MenuItem>
                             <MenuItem value={2}>ねこ</MenuItem>
                             <MenuItem value={3}>さる</MenuItem>
@@ -166,7 +166,7 @@ function Base(props) {
                             label="kind"
                             onChange={kindChange}
                         >
-                            <MenuItem value={null}>選択しない</MenuItem>
+                            <MenuItem value={""}>選択しない</MenuItem>
                             <MenuItem value={1}>役立つ</MenuItem>
                             <MenuItem value={2}>面白い</MenuItem>
                             <MenuItem value={3}>助けてほしい！</MenuItem>
@@ -185,7 +185,7 @@ function Base(props) {
                             label="order"
                             onChange={orderChange}
                         >
-                            <MenuItem value={null}>選択しない</MenuItem>
+                            <MenuItem value={""}>選択しない</MenuItem>
                             <MenuItem value={1}>
                                 新しい順(今はid大きい順)
                             </MenuItem>

@@ -20,7 +20,7 @@ class LoginController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-        Log::debug($credentials);
+        // Log::debug($credentials);
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
