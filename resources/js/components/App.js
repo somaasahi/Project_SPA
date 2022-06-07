@@ -43,13 +43,7 @@ function App() {
                     <main className={"m-5"}>
                         <Routes>
                             <Route path="/" element={<Home />} />
-                            <Route path="/mypage"
-                                element=
-                                {
-                                    <ProtectedRoute authUser={authUser}>
-                                        <Mypage />
-                                    </ProtectedRoute>
-                                } />
+                            <Route path="/mypage" element={<Mypage />} />
                             <Route path="/login" element={<Login setAuthUser={setAuthUser} />} />
                             <Route path="/signUp" element={<SignUp />} />
                         </Routes>
