@@ -39,12 +39,16 @@ function Post(props) {
             {/* 必要か迷い中 */}
             <CardHeader
                 avatar={
-                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                        R
+                    <Avatar
+                        src={props.content.img_url}
+                        aria-label="recipe"
+                        style={{ height: "70px", width: "70px" }}
+                    >
+                        img
                     </Avatar>
                 }
-                title="Shrimp and Chorizo Paella"
-                subheader="September 14, 2016"
+                title={props.content.name}
+                subheader={props.content.created_at}
             />
             <CardMedia
                 component="img"
@@ -60,6 +64,7 @@ function Post(props) {
             <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites">
                     <FavoriteIcon style={{ height: "30px", width: "30px" }} />
+                    {props.content.likes_count}
                 </IconButton>
                 <ExpandMore
                     aria-label="show more"
