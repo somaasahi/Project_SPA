@@ -3,8 +3,6 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 
-
-
 function Login(props) {
     //一時的ユーザー情報格納
     const inputEmail = useRef(null);
@@ -17,7 +15,6 @@ function Login(props) {
     });
 
     //各バリデーションメッセージ格納
-
     const [errorMessage, setErrorMessage] = useState({
         email: 'メールアドレスは必須です',
         password: 'パスワードは必須です'
