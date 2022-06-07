@@ -45,6 +45,13 @@ Route::group( ['middleware' => ['auth:sanctum']], function () {
 
 
 
-
 Route::get('homeIndex', 'App\Http\Controllers\Homecontroller@homeIndex');
-Route::get('detail', 'App\Http\Controllers\Homecontroller@detail');
+Route::get('detail', 'App\Http\Controllers\Homecontroller@showDetail');
+Route::post('detail/like', 'App\Http\Controllers\Homecontroller@like');
+Route::get('detail/review', 'App\Http\Controllers\Homecontroller@showReview');
+Route::post('detail/review', 'App\Http\Controllers\Homecontroller@postReview');
+
+
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+});

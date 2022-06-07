@@ -29,7 +29,7 @@ class ReviewTableSeeder extends Seeder
         for ($i = 0; $i < 5; $i++) {
             DB::table('reviews')->insert([
                 'user_id' => 1,
-                'post_id' => 10,
+                'post_id' => 2,
                 'comment' => $comment2,
             ]);
         }
