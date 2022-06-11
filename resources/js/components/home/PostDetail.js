@@ -14,6 +14,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import UserInfo from "./UserInfo";
 import Review from "./Review";
+import { ToastContainer, toast } from "react-toastify";
+import { authCheck } from "../Login/AuthCheck";
+import { authId } from "../Login/AuthId";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -31,6 +34,7 @@ function PostDetail(props) {
     const [user2, setUser2] = useState([]);
     const [profile, setProfile] = useState([]);
     const [likes, setLikes] = useState();
+    const [userLike, setUserLike] = useState(false);
 
     useEffect(() => {
         axios
@@ -41,7 +45,6 @@ function PostDetail(props) {
             })
             .then((res) => {
                 const item = res.data;
-                console.log(item);
                 setItem(item[0]);
                 setUser2(item[1]);
                 setProfile(item[2]);
@@ -51,6 +54,30 @@ function PostDetail(props) {
                 const { status, statusText } = error.response;
                 alert(`Error! HTTP Status: ${status} ${statusText}`);
                 // 存在しないidをパラメータにurl叩いたらlaravelから404ページ返す？
+            });
+
+        axios
+            .get("api/user/")
+            .then((res) => {
+                const user = res.data;
+                axios
+                    .get("api/detail/checkLike", {
+                        params: {
+                            user_id: user.id,
+                            post_id: props.detailId,
+                        },
+                    })
+                    .then((res) => {
+                        if (res.data != "") {
+                            setUserLike(true);
+                        }
+                    })
+                    .catch((error) => {
+                        console.log("エラー");
+                    });
+            })
+            .catch((error) => {
+                console.log("未ログイン");
             });
     }, []);
 
@@ -113,28 +140,88 @@ function PostDetail(props) {
         reviewInfo = <Review postId={item.id} handleClick={closeReview} />;
     }
 
+    let test;
+
     const pushLike = () => {
         axios
-            .post("api/detail/like", {
-                params: {
-                    user_id: 1,
-                    post_id: props.detailId,
-                },
-            })
+            .get("api/user/")
             .then((res) => {
-                console.log(res.data);
-                setLikes(res.data);
+                const user = res.data;
+                axios
+                    .post("api/detail/like", {
+                        params: {
+                            user_id: user.id,
+                            post_id: props.detailId,
+                        },
+                    })
+                    .then((res) => {
+                        setLikes(res.data[0]);
+                        setUserLike(res.data[1]);
+                    })
+                    .catch((error) => {
+                        toast.error("システムエラー", {
+                            position: "top-center",
+                            autoClose: 1000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                    });
             })
             .catch((error) => {
                 const { status, statusText } = error.response;
-                alert(`Error! HTTP Status: ${status} ${statusText}`);
-                // 存在しないidをパラメータにurl叩いたらlaravelから404ページ返す？
+                if (status == 401) {
+                    toast.error("ログインが必要です。", {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                } else {
+                    toast.error("システムエラー。", {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                }
             });
     };
+
+    let favIcon;
+    if (userLike) {
+        favIcon = (
+            <FavoriteIcon
+                style={{
+                    height: "40px",
+                    width: "40px",
+                    color: "red",
+                }}
+            />
+        );
+    } else {
+        favIcon = (
+            <FavoriteIcon
+                style={{
+                    height: "40px",
+                    width: "40px",
+                }}
+            />
+        );
+    }
 
     return (
         <div>
             <Card sx={{ width: 1 }}>
+                {test}
                 <CardHeader style={{ height: "10px" }} />
                 <IconButton
                     onClick={() => props.handleClick("")}
@@ -166,9 +253,7 @@ function PostDetail(props) {
                             style={{ height: "70px", width: "70px" }}
                             aria-label="add to favorites"
                         >
-                            <FavoriteIcon
-                                style={{ height: "40px", width: "40px" }}
-                            />
+                            {favIcon}
                             {likes}
                         </IconButton>
                     }

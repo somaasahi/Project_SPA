@@ -26,7 +26,6 @@ class Homecontroller extends Controller
             ->select('posts.id as id', 'posts.img_url1', 'posts.content', 'posts.created_at', 'users.name', 'profiles.img_url')
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->leftJoin('profiles', 'users.id', '=', 'profiles.user_id');
-        Log::debug('ok');
         // いいね数の取得まだ
         // $query->withCount('likes');
 
@@ -55,9 +54,17 @@ class Homecontroller extends Controller
         }
         $query->skip($total)->take(10)->get();
 
-        $result = $query->get();
-        // Log::debug($result);
-        return $result;
+        $results = $query->get();
+        // foreach ($results as $result) {
+        //     Log::debug($result);
+        // }
+        return $results;
+    }
+
+    public function likeCount(Request $request)
+    {
+        $count = Like::where('post_id', $request->get('post_id'))->count();
+        return $count;
     }
 
 
@@ -79,18 +86,29 @@ class Homecontroller extends Controller
 
         Log::debug($check);
         $like = new Like();
+        $results = [];
         if (empty($check)) {
             $like->post_id = $request['params']['post_id'];
             $like->user_id = $request['params']['user_id'];
             $like->save();
-            $count = Like::where('post_id', $request['params']['post_id'])->count();
-            return $count;
+            $results[0] = Like::where('post_id', $request['params']['post_id'])->count();
+            $results[1] = true;
+            return $results;
         } else {
             $like->where('post_id', $request['params']['post_id'])
                 ->where('user_id', $request['params']['user_id'])->delete();
-            $count = Like::where('post_id', $request['params']['post_id'])->count();
-            return $count;
+            $results[0] = Like::where('post_id', $request['params']['post_id'])->count();
+            $results[1] = false;
+            return $results;
         }
+    }
+
+    public function checkLike(Request $request)
+    {
+        $user_id = $request->get('user_id');
+        $post_id = $request->get('post_id');
+        $check = Like::where("user_id", $user_id)->where('post_id', $post_id)->exists();
+        return $check;
     }
 
     public function showReview(Request $request)
@@ -106,10 +124,7 @@ class Homecontroller extends Controller
 
         DB::transaction(function () use ($request) {
             $review = new Review();
-            $user_id = 1;
-            // 仮で1にしている
-            // $user_id = $request['params']['user_id'];
-            $review->user_id = $user_id;
+            $review->user_id = $request['params']['user_id'];
             $review->post_id = $request['params']['post_id'];
             $review->comment = $request['params']['comment'];
             $review->save();
