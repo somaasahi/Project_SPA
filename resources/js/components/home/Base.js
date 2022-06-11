@@ -51,7 +51,6 @@ function Base(props) {
             })
             .then((res) => {
                 const results = res.data;
-                console.log(results);
 
                 if (results.length < 1) {
                     setHasMore(false);
@@ -74,9 +73,15 @@ function Base(props) {
                 setPosts([...posts, ...results]);
             })
             .catch((error) => {
-                const { status, statusText } = error.response;
-                alert(`Error! HTTP Status: ${status} ${statusText}`);
-                // 存在しないidをパラメータにurl叩いたらlaravelから404ページ返す？
+                toast.error("システムエラー", {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
             });
     };
 

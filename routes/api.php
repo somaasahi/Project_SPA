@@ -20,16 +20,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return true;
+    return Auth::user();
 });
 
 Route::post('login', [AuthController::class, 'login']);
 Route::get('logout', [AuthController::class, 'logout']);
 
-Route::group( ['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('FriendRelation', [FriendRelationController::class, 'index']);
     Route::get('FriendShow/{id}', [FriendRelationController::class, 'show']);
-    Route::post('user',[UserController::class,'store']);
+    Route::post('user', [UserController::class, 'store']);
 });
 
 
@@ -46,8 +46,10 @@ Route::group( ['middleware' => ['auth:sanctum']], function () {
 
 
 Route::get('homeIndex', 'App\Http\Controllers\Homecontroller@homeIndex');
+Route::get('home/likeCount', 'App\Http\Controllers\Homecontroller@likeCount');
 Route::get('detail', 'App\Http\Controllers\Homecontroller@showDetail');
 Route::post('detail/like', 'App\Http\Controllers\Homecontroller@like');
+Route::get('detail/checkLike', 'App\Http\Controllers\Homecontroller@checkLike');
 Route::get('detail/review', 'App\Http\Controllers\Homecontroller@showReview');
 Route::post('detail/review', 'App\Http\Controllers\Homecontroller@postReview');
 
