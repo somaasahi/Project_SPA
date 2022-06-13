@@ -4,6 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import { Button, TextField } from "@mui/material";
 import { Box } from "@mui/system";
+import { ToastContainer, toast } from "react-toastify";
 
 function Review(props) {
     const [reviews, setReview] = useState([]);
@@ -32,23 +33,52 @@ function Review(props) {
     };
     const handleSubmit = () => {
         // バリデーションまだ
-        console.log(props.postId);
         axios
-            .post("api/detail/review", {
-                params: {
-                    post_id: props.postId,
-                    comment: comment,
-                },
-            })
+            .get("api/user/")
             .then((res) => {
-                const results = res.data;
-                setReview(results);
+                const user = res.data;
+                axios
+                    .post("api/detail/review", {
+                        params: {
+                            user_id: user.id,
+                            post_id: props.postId,
+                            comment: comment,
+                        },
+                    })
+                    .then((res) => {
+                        const results = res.data;
+                        setReview(results);
+                    })
+                    .catch((error) => {
+                        toast.error("システムエラー", {
+                            position: "top-center",
+                            autoClose: 1000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                    });
             })
             .catch((error) => {
-                console.log(props.postId);
                 const { status, statusText } = error.response;
-                alert(`Error! HTTP Status: ${status} ${statusText}`);
+                if (status == 401) {
+                    toast.error("ログインが必要です。", {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                } else {
+                    alert(`Error! HTTP Status: ${status} ${statusText}`);
+                }
             });
+
+        console.log(props.postId);
     };
 
     let noreview;
@@ -70,7 +100,7 @@ function Review(props) {
                                 aria-label="recipe"
                                 style={{ height: "70px", width: "70px" }}
                             >
-                                img
+                                noimg
                             </Avatar>
                         </div>
                         <div className="ml-4 px-7 border-2 rounded-md w-full inline-block align-middle">
