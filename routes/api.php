@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FriendRelationController;
 use App\Http\Controllers\HomeIndexcontroller;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,16 +21,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return true;
+    return Auth::user();
 });
 
 Route::post('login', [AuthController::class, 'login']);
 Route::get('logout', [AuthController::class, 'logout']);
+Route::post('user',[UserController::class,'store']);
 
 Route::group( ['middleware' => ['auth:sanctum']], function () {
     Route::get('FriendRelation', [FriendRelationController::class, 'index']);
     Route::get('FriendShow/{id}', [FriendRelationController::class, 'show']);
-    Route::post('user',[UserController::class,'store']);
+    //プロフィール
+    Route::get('ProfileShow/{id}', [ProfileController::class, 'show']);
+    Route::post('ProfileStor', [ProfileController::class, 'stor']);
+    Route::post('ProfileUpdate', [ProfileController::class, 'update']);
 });
 
 

@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
-class UserController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,19 +25,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $tesut = User::all();
+        $profile = new Profile;
 
-        $user = new User;
+        $profile->description = $request->description;
+        $profile->img_url = $request->img;
+        $profile->profileName = $request->profileName;
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->email_verified_at = now();
-        $user->password = Hash::make($request->password);
-        $user->remember_token = Str::random(10);
-
-        $user->save();
-
-        return $user;
+        $profile->save();
     }
 
     /**
@@ -50,7 +42,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $profile =  Profile::where('user_id', '=', $id)->get();
+
+        return $profile;
     }
 
     /**
@@ -60,9 +54,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        \Log::debug($request);
+        $profile = Profile::find($request->id);
+
+        $profile->description = $request->description;
+        $profile->img_url = $request->img;
+        $profile->profileName = $request->name;
+
+        $profile->update();
     }
 
     /**

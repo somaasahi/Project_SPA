@@ -32,15 +32,13 @@ function Profile() {
     const profile = () => {
         return (
             <Card className="w-4/5">
-                <CardHeader
-                    avatar={
-                        <Avatar
-                            image="storage/post_images/noimg.png"
-                            alt="profile"
-                            sx={{ width: 56, height: 56 }}
-                        />
-                    }
-                />
+                <CardContent>
+                    <Avatar
+                        image="storage/post_images/noimg.png"
+                        alt="profile"
+                        sx={{ width: 80, height: 80 }}
+                    />
+                </CardContent>
                 <CardContent>
                     <List>
                         <Divider />

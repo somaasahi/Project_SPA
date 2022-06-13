@@ -83,12 +83,10 @@ function Login(props) {
             .then((response) => {
                 axios.post('api/login', data, { withCredentials: true })
                     .then((response) => {
-                        const authUser = response.data;
-                        sessionStorage.setItem('id', authUser.id);
-                        sessionStorage.setItem('name', authUser.name);
-                        sessionStorage.setItem('email', authUser.email);
                         setLoginCheck(true);
                         props.setAuthUser(true);
+                    }).catch((e) => {
+                        console.log(e.message);
                     })
             })
     }

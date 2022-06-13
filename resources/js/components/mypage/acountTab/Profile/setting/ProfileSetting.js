@@ -1,15 +1,35 @@
-import { Update } from "@mui/icons-material";
+import { LocalDining, Update } from "@mui/icons-material";
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, FormControl, Input, InputAdornment, InputLabel, TextField } from "@mui/material";
+import { flexbox } from "@mui/system";
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 function ProfileSetting(props) {
+
+    //プロフィール情報の有無
+    const [profileEmpty, setProfileEmpty] = useState({
+        check: '',
+        profileName: '',
+        description: '',
+    });
+
+    //user
+    const [user, setUser] = useState('');
+    //user取得
+    useEffect(async () => {
+        const data = await axios.get('api/user').then((res) => {
+            setUser(res.data);
+        })
+    }, []);
+
     //postして送るデータ
     const [profillData, setProfillData] = useState({
+        id: '',
         img: '',
         name: '',
         description: ''
     });
+
 
     const [name, setName] = useState('');
 
@@ -39,7 +59,6 @@ function ProfileSetting(props) {
 
     const getDescription = (event) => {
         const description = event.target.value;
-        console.log(description);
         if (description.langh > 255) {
             setErrorMessage((prevState) => ({ ...prevState, description: '名前は255文字以下で記載してください。' }));
         } else {
@@ -48,50 +67,126 @@ function ProfileSetting(props) {
         }
     }
 
+    //プロフィールデータ検索
+    useEffect(async () => {
+        await axios.get('api/ProfileShow/' + user.id).then((res) => {
+            const data = res.data;
+            if (data[0].id == '') {
+                return false;
+            }
+            //あれば、デフォルトの設定で使う
+            setProfileEmpty((prevState) => ({ ...prevState, check: (data[0].id) }));
+            setProfileEmpty((prevState) => ({ ...prevState, profileName: (data[0].profileName) }));
+            setProfileEmpty((prevState) => ({ ...prevState, description: (data[0].description) }));
+            //プロフィールデータ検索用
+            setProfillData((prevState) => ({ ...prevState, id: (data[0].id) }));
+        }).catch((e) => {
+            console.log(e.message);
+        })
+    }, [user]);
+
     //更新処理
-    const updateProfile = () => {
-        //エラーメッセージ初期化
-        setInputError((prevState) => ({ ...prevState, img: false, name: false, description: false }));
-        console.log(errorMessage);
-        console.log('ok');
-        //バリデーションチェック
-        let check = 0;
-        if (errorMessage.name != '') {
-            setInputError((prevState) => ({ ...prevState, name: true }));
-            check++;
+    const changeProfile = async () => {
+        const data = {
+            id: profillData.id,
+            img: profillData.img,
+            name: profillData.name,
+            description: profillData.description
         }
-        if (errorMessage.description != '') {
-            setInputError((prevState) => ({ ...prevState, description: true }));
-            check++;
-        }
-        if (check > 0) {
-            return false;
+        //プロフィールがあれば、更新処理
+        if (profileEmpty.profileName) {
+            let error1 = true;
+            let error2 = true;
+            //名前に変更がなければ更新前の値を入れなおす
+            if (!profillData.name) {
+                setErrorMessage((prevState) => ({ ...prevState, name: '' }));
+                data.name = profileEmpty.profileName;
+                error1 = false;
+            }
+            //紹介メッセージに変更がなければ更新前の値を入れなおす
+            if (!profillData.description) {
+                setErrorMessage((prevState) => ({ ...prevState, description: '' }));
+                data.description = profileEmpty.description;
+                error2 = false;
+            }
+
+            //エラーメッセージ初期化
+            setInputError((prevState) => ({ ...prevState, img: false, name: false, description: false }));
+            //バリデーションチェック
+            let check = 0;
+            if (!error1) {
+                true;
+            } else if (errorMessage.name != '') {
+                setInputError((prevState) => ({ ...prevState, name: true }));
+                check++;
+            }
+
+            if (!error2) {
+                true;
+            } else if (errorMessage.description != '') {
+                setInputError((prevState) => ({ ...prevState, description: true }));
+                check++;
+            }
+
+            if (check > 0) {
+                return false;
+            }
+            console.log(data);
+            await axios.post('api/ProfileUpdate', data).then((res) => {
+                console.log('ok');
+            }).catch((e) => {
+                console.log(e.message);
+            })
+            //プロフィールがなければ新規追加処理
+        } else {
+            //エラーメッセージ初期化
+            setInputError((prevState) => ({ ...prevState, img: false, name: false, description: false }));
+            //バリデーションチェック
+            let check = 0;
+            if (errorMessage.name != '') {
+                setInputError((prevState) => ({ ...prevState, name: true }));
+                check++;
+            }
+            if (errorMessage.description != '') {
+                setInputError((prevState) => ({ ...prevState, description: true }));
+                check++;
+            }
+            if (check > 0) {
+                return false;
+            }
+
+            await axios.post('api/ProfileStor', profillData).then((res) => {
+                console.log('ok');
+            }).catch((e) => {
+                console.log(e.message);
+            })
         }
 
-        return alert(profillData);
+        return alert(data);
     }
-
 
     //戻る
     function backPage() {
         props.setSwich(true);
     }
 
+    if (!user) { return 'Loading...' };
+
     return (
-        <Card className="w-4/5">
+        <Card className="w-5/6">
             <CardHeader
-                avatar={
-                    <Avatar
-                        image="storage/post_images/noimg.png"
-                        alt="profile"
-                        sx={{ width: 80, height: 80 }}
-                        className=''
-                    />
-                }
-                title="画像を選択してください"
             />
             <CardContent>
+                <Avatar
+                    image="storage/post_images/noimg.png"
+                    alt="profile"
+                    sx={{ width: 160, height: 160 }}
+                    className='m-auto'
+                />
+            </CardContent>
+            <CardContent>
                 <TextField
+                    sx={{ width: 3 / 4 }}
                     error={inputError.name}
                     helperText={inputError.name && errorMessage.name}
                     id="filled-search"
@@ -99,22 +194,32 @@ function ProfileSetting(props) {
                     type='text'
                     variant="standard"
                     onChange={getName}
+                    defaultValue={profileEmpty.profileName && profileEmpty.profileName}
+                    inputProps={{ style: { fontSize: 40 } }}
                 />
             </CardContent>
             <CardContent>
-                <FormControl className="w-4/5" variant="standard">
+                <FormControl className="w-5/6" variant="standard">
                     <TextField
+                        fullWidth sx={{ m: 1 }}
                         id="outlined-multiline-static"
                         label="紹介メッセージ"
                         multiline
-                        rows={6}
+                        rows={9}
                         onChange={getDescription}
+                        inputProps={{ style: { fontSize: 30 } }}
+                        defaultValue={profileEmpty.description && profileEmpty.description}
                     />
                 </FormControl>
             </CardContent>
-            <CardActions>
-                <Button size="small" onClick={backPage}>戻る</Button>
-                <Button size="small" onClick={updateProfile}>更新する</Button>
+
+            <CardActions className="flex justify-end">
+                <button onClick={backPage} className="text-lg bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                    戻る
+                </button>
+                <button onClick={changeProfile} className="text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    更新
+                </button>
             </CardActions>
         </Card>
     )
