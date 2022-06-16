@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('FriendRelation', [FriendRelationController::class, 'index']);
     Route::get('FriendShow/{id}', [FriendRelationController::class, 'show']);
     Route::post('user', [UserController::class, 'store']);
+    Route::get('mypage/likelist', 'App\Http\Controllers\Likelistcontroller@index');
+    Route::get('mypage/postlist', 'App\Http\Controllers\Postlistcontroller@index');
 });
 
 

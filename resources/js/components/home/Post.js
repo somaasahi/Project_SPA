@@ -35,7 +35,7 @@ function Post(props) {
     }
 
     return (
-        <Card className="md:w-1/2">
+        <Card className="">
             {/* 必要か迷い中 */}
             <CardHeader
                 avatar={
