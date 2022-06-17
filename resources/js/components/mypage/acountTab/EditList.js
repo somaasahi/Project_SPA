@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useStateIfMounted } from "use-state-if-mounted";
-import PostDetail from "../../home/PostDetail";
-import Post from "../acountTab/Post";
+import Edit from "./Edit";
+import PostEdit from "./PostEdit";
 
-function LikeList() {
+function EditList() {
     const [posts, setPosts] = useStateIfMounted([]);
     useEffect(() => {
         axios
@@ -12,7 +12,7 @@ function LikeList() {
             .then((res) => {
                 const user = res.data;
                 axios
-                    .get("api/mypage/likelist", {
+                    .get("api/mypage/postlist", {
                         params: {
                             user_id: user.id,
                         },
@@ -20,17 +20,7 @@ function LikeList() {
                     .then((res) => {
                         const results = res.data;
                         console.log(results);
-                        if (posts.length > 30) {
-                            toast.error("これ以上表示できません", {
-                                position: "top-center",
-                                autoClose: 1000,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                            });
-                        }
+
                         setPosts([...posts, ...results]);
                     })
                     .catch((error) => {
@@ -68,7 +58,7 @@ function LikeList() {
             <div className="overflow-auto" style={{ height: "1000px" }}>
                 <div className="w-full h-full">
                     {posts.map((post) => (
-                        <Post
+                        <Edit
                             key={post.id}
                             content={post}
                             handleClick={handleSetDetailId}
@@ -79,7 +69,7 @@ function LikeList() {
         );
     } else {
         content = (
-            <PostDetail
+            <PostEdit
                 detailId={detailId}
                 handleClick={handleSetDetailId}
                 class="bg-orange-200"
@@ -106,4 +96,4 @@ function LikeList() {
     );
 }
 
-export default LikeList;
+export default EditList;

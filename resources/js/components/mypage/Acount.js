@@ -5,7 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import Profile from "./acountTab/Profile/Profile";
 import PostList from "./acountTab/PostList";
-import Edit from "./acountTab/Edit";
+import EditList from "./acountTab/EditList";
 
 function Acount() {
     const [value, setValue] = useState("profile");
@@ -21,7 +21,7 @@ function Acount() {
         } else if (tab == "post") {
             return <PostList />;
         } else if (tab == "edit") {
-            return <Edit />;
+            return <EditList />;
         } else {
             return <Profile />;
         }
