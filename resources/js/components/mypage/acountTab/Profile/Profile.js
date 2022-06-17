@@ -31,16 +31,14 @@ function Profile() {
     //通常表示
     const profile = () => {
         return (
-            <Card className="w-4/5">
-                <CardHeader
-                    avatar={
-                        <Avatar
-                            image="storage/post_images/noimg.png"
-                            alt="profile"
-                            sx={{ width: 56, height: 56 }}
-                        />
-                    }
-                />
+            <Card className="w-full">
+                <CardContent>
+                    <Avatar
+                        image="storage/post_images/noimg.png"
+                        alt="profile"
+                        sx={{ width: 80, height: 80 }}
+                    />
+                </CardContent>
                 <CardContent>
                     <List>
                         <Divider />

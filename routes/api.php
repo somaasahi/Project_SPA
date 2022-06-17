@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FriendRelationController;
-use App\Http\Controllers\HomeIndexcontroller;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,45 +17,36 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware( 'auth:sanctum' )->get( '/user', function ( Request $request ) {
     return Auth::user();
-});
-Route::post('user', [UserController::class, 'store']);
-Route::post('login', [AuthController::class, 'login']);
-Route::get('logout', [AuthController::class, 'logout']);
+} );
+Route::post( 'user', [UserController::class, 'store'] );
+Route::post( 'login', [AuthController::class, 'login'] );
+Route::get( 'logout', [AuthController::class, 'logout'] );
+Route::post( 'user', [UserController::class, 'store'] );
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('FriendRelation', [FriendRelationController::class, 'index']);
-    Route::get('FriendShow/{id}', [FriendRelationController::class, 'show']);
+Route::group( ['middleware' => ['auth:sanctum']], function () {
+    Route::get( 'FriendRelation', [FriendRelationController::class, 'index'] );
+    Route::get( 'FriendShow/{id}', [FriendRelationController::class, 'show'] );
 
-    Route::get('mypage/likelist', 'App\Http\Controllers\Likelistcontroller@index');
-    Route::get('mypage/postlist', 'App\Http\Controllers\Postlistcontroller@index');
-});
+    //プロフィール
+    Route::get( 'ProfileShow/{id}', [ProfileController::class, 'show'] );
+    Route::post( 'ProfileStor', [ProfileController::class, 'store'] );
+    Route::post( 'ProfileUpdate', [ProfileController::class, 'update'] );
+    Route::post( 'user', [UserController::class, 'store'] );
+    Route::get( 'mypage/likelist', 'App\Http\Controllers\Likelistcontroller@index' );
+    Route::get( 'mypage/postlist', 'App\Http\Controllers\Postlistcontroller@index' );
+} );
 
+Route::get( 'homeIndex', 'App\Http\Controllers\Homecontroller@homeIndex' );
+Route::get( 'home/likeCount', 'App\Http\Controllers\Homecontroller@likeCount' );
+Route::get( 'detail', 'App\Http\Controllers\Homecontroller@showDetail' );
+Route::post( 'detail/like', 'App\Http\Controllers\Homecontroller@like' );
+Route::get( 'detail/checkLike', 'App\Http\Controllers\Homecontroller@checkLike' );
+Route::get( 'detail/review', 'App\Http\Controllers\Homecontroller@showReview' );
+Route::post( 'detail/review', 'App\Http\Controllers\Homecontroller@postReview' );
 
-
-
-
-
-
-
-
-
-
-
-
-
-Route::get('homeIndex', 'App\Http\Controllers\Homecontroller@homeIndex');
-Route::get('home/likeCount', 'App\Http\Controllers\Homecontroller@likeCount');
-Route::get('detail', 'App\Http\Controllers\Homecontroller@showDetail');
-Route::post('detail/like', 'App\Http\Controllers\Homecontroller@like');
-Route::get('detail/checkLike', 'App\Http\Controllers\Homecontroller@checkLike');
-Route::get('detail/review', 'App\Http\Controllers\Homecontroller@showReview');
-Route::post('detail/review', 'App\Http\Controllers\Homecontroller@postReview');
-
-
-
-Route::group(['middleware' => ['auth:sanctum']], function () {
-});
+Route::group( ['middleware' => ['auth:sanctum']], function () {
+} );
