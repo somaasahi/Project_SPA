@@ -35876,6 +35876,7 @@ function PostDetail(props) {
       }
     }).then(function (res) {
       var item = res.data;
+      console.log(item);
       setItem(item[0]);
       setUser2(item[1]);
       setProfile(item[2]);
@@ -35947,7 +35948,7 @@ function PostDetail(props) {
     setUser(null);
   };
 
-  if (user == null) {
+  if (profile == null) {
     userInfo = "";
   } else {
     userInfo = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_UserInfo__WEBPACK_IMPORTED_MODULE_1__["default"], {
