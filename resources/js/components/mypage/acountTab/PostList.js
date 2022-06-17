@@ -56,14 +56,16 @@ function PostList() {
     let content;
     if (detailId == "") {
         content = (
-            <div className="w-full h-full">
-                {posts.map((post) => (
-                    <Post
-                        key={post.id}
-                        content={post}
-                        handleClick={handleSetDetailId}
-                    />
-                ))}
+            <div className="overflow-auto" style={{ height: "1000px" }}>
+                <div className="w-full h-full">
+                    {posts.map((post) => (
+                        <Post
+                            key={post.id}
+                            content={post}
+                            handleClick={handleSetDetailId}
+                        />
+                    ))}
+                </div>
             </div>
         );
     } else {
