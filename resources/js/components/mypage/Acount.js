@@ -1,15 +1,14 @@
 import { Badge, Box, IconButton, Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import EditIcon from '@mui/icons-material/Edit';
-import PostAddIcon from '@mui/icons-material/PostAdd';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import EditIcon from "@mui/icons-material/Edit";
+import PostAddIcon from "@mui/icons-material/PostAdd";
 import Profile from "./acountTab/Profile/Profile";
-import Post from "./acountTab/Post";
-import Edit from "./acountTab/Edit";
-
+import PostList from "./acountTab/PostList";
+import EditList from "./acountTab/EditList";
 
 function Acount() {
-    const [value, setValue] = useState('profile');
+    const [value, setValue] = useState("profile");
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -17,26 +16,21 @@ function Acount() {
 
     //表示component
     function TabChange(tab) {
-
-        if (tab == 'profile') {
-            return <Profile />
-        }
-        else if (tab == 'post') {
-            return <Post />
-        }
-        else if (tab == 'edit') {
-            return <Edit />
-        }
-        else {
-            return <Profile />
+        if (tab == "profile") {
+            return <Profile />;
+        } else if (tab == "post") {
+            return <PostList />;
+        } else if (tab == "edit") {
+            return <EditList />;
+        } else {
+            return <Profile />;
         }
     }
 
     //通知
 
-
     return (
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: "100%" }}>
             <Tabs
                 value={value}
                 onChange={handleChange}
@@ -49,15 +43,8 @@ function Acount() {
                     label="プロフィール"
                     icon={<AccountCircleIcon />}
                 />
-                <Tab
-                    value="post"
-                    label="投稿一覧"
-                    icon={<EditIcon />}
-                />
-                <Tab
-                    value="edit"
-                    label="編集一覧"
-                    icon={<PostAddIcon />} />
+                <Tab value="post" label="投稿一覧" icon={<EditIcon />} />
+                <Tab value="edit" label="編集一覧" icon={<PostAddIcon />} />
             </Tabs>
             {TabChange(value)}
         </Box>
@@ -65,5 +52,3 @@ function Acount() {
 }
 
 export default Acount;
-
-
