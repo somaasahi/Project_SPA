@@ -9,6 +9,10 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    function __construct(User $user)
+    {
+        $this->user = $user;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,19 +31,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $tesut = User::all();
+        $this->user->name = $request->name;
+        $this->user->email = $request->email;
+        $this->user->email_verified_at = now();
+        $this->user->password = Hash::make($request->password);
+        $this->user->remember_token = Str::random(10);
 
-        $user = new User;
+        $this->user->save();
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->email_verified_at = now();
-        $user->password = Hash::make($request->password);
-        $user->remember_token = Str::random(10);
-
-        $user->save();
-
-        return $user;
+        return $this->user;
     }
 
     /**

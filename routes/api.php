@@ -34,7 +34,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //プロフィール
     Route::get('ProfileShow/{id}', [ProfileController::class, 'show']);
-    Route::post('ProfileStor', [ProfileController::class, 'stor']);
+    Route::post('ProfileStor', [ProfileController::class, 'store']);
     Route::post('ProfileUpdate', [ProfileController::class, 'update']);
     Route::post('user', [UserController::class, 'store']);
 });

@@ -3,10 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
+use App\UseCases\Profile\Validate as ProfileValidate;
 use Illuminate\Http\Request;
+use App\UseCases\Validate;
+use Error;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use PhpParser\Node\Stmt\TryCatch;
 
 class ProfileController extends Controller
 {
+
+    public function __construct(Profile $profile)
+    {
+        $this->profile = $profile;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,17 +33,36 @@ class ProfileController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param Validate $Validate
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(
+        Request $request,
+        ProfileValidate $ProfileValidate
+        )
     {
-        $profile = new Profile;
+        $error = $ProfileValidate($request);
+        //バリデーション
+        if(count($error) > 0){
+            return response()->json(['message' => $error]);
+        }
 
-        $profile->description = $request->description;
-        $profile->img_url = $request->img;
-        $profile->profileName = $request->profileName;
+        DB::beginTransaction();
+        try {
+        $this->profile->user_id = $request->id;
+        $this->profile->description = $request->description;
+        $this->profile->img_url = $request->img;
+        $this->profile->profileName = $request->name;
+        $this->profile->save();
 
-        $profile->save();
+        DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            Log::error($e->getMessage());
+            return response()->json(['error' => 'プロフィール更新エラー']);
+        }
+
+        return true;
     }
 
     /**
@@ -51,19 +82,40 @@ class ProfileController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param Validate $Validate
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(
+        Request $request,
+        ProfileValidate $ProfileValidate
+        )
     {
-        \Log::debug($request);
-        $profile = Profile::find($request->id);
+        $error = $ProfileValidate($request);
+        //バリデーション
+        if(count($error) > 0){
+            return response()->json(['message' => $error]);
+        }
 
-        $profile->description = $request->description;
-        $profile->img_url = $request->img;
-        $profile->profileName = $request->name;
+        DB::beginTransaction();
+        try {
+            $profile = Profile::find($request->id);
 
-        $profile->update();
+            $profile->description = $request->description;
+            $profile->img_url = $request->img;
+            $profile->profileName = $request->name;
+
+            $profile->update();
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            Log::error($e->getMessage());
+            return response()->json(['error' => 'プロフィール更新エラー']);
+        }
+
+
+        return true;
     }
 
     /**

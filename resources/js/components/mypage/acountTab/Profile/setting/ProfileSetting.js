@@ -3,6 +3,8 @@ import { Avatar, Button, Card, CardActions, CardContent, CardHeader, FormControl
 import { flexbox } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 function ProfileSetting(props) {
 
@@ -12,6 +14,9 @@ function ProfileSetting(props) {
         profileName: '',
         description: '',
     });
+
+    //更新成功flug
+    const [editFlug, setEditFlug] = useState(false);
 
     //user
     const [user, setUser] = useState('');
@@ -88,11 +93,12 @@ function ProfileSetting(props) {
     //更新処理
     const changeProfile = async () => {
         const data = {
-            id: profillData.id,
+            id: profillData.id ? profillData.id : user.id,
             img: profillData.img,
             name: profillData.name,
             description: profillData.description
         }
+        console.log(user);
         //プロフィールがあれば、更新処理
         if (profileEmpty.profileName) {
             let error1 = true;
@@ -133,10 +139,41 @@ function ProfileSetting(props) {
             }
             console.log(data);
             await axios.post('api/ProfileUpdate', data).then((res) => {
-                console.log('ok');
-            }).catch((e) => {
-                console.log(e.message);
-            })
+                if (res.data == true) {
+                    setEditFlug(true);
+                    return toast.success(
+                        "更新しました",
+                        {
+                            position: "top-center",
+                            autoClose: 1000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        }
+                    );
+
+                }
+                const errorList = res.data.message;
+                let validMessage = '';
+                errorList.forEach(error => {
+                    validMessage += error;
+                });
+                console.log(validMessage);
+                return toast.error(
+                    validMessage,
+                    {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    }
+                );
+            });
             //プロフィールがなければ新規追加処理
         } else {
             //エラーメッセージ初期化
@@ -155,14 +192,38 @@ function ProfileSetting(props) {
                 return false;
             }
 
-            await axios.post('api/ProfileStor', profillData).then((res) => {
-                console.log('ok');
-            }).catch((e) => {
-                console.log(e.message);
+            await axios.post('api/ProfileStor', data).then((res) => {
+                if (res.data == true) {
+                    return setEditFlug(true);
+                }
+                const errorList = res.data.message;
+                let validMessage = '';
+                errorList.forEach(error => {
+                    validMessage += error;
+                });
+                console.log(validMessage);
+
+                toast.error(
+                    validMessage,
+                    {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    }
+                )
+
             })
         }
+    }
 
-        return alert(data);
+    function editPage() {
+        if (editFlug) {
+            location.reload();
+        }
     }
 
     //戻る
@@ -186,7 +247,7 @@ function ProfileSetting(props) {
             </CardContent>
             <CardContent>
                 <TextField
-                    sx={{ width: 3 / 4 }}
+                    className='w-full'
                     error={inputError.name}
                     helperText={inputError.name && errorMessage.name}
                     id="filled-search"
@@ -199,9 +260,9 @@ function ProfileSetting(props) {
                 />
             </CardContent>
             <CardContent>
-                <FormControl className="w-5/6" variant="standard">
+                <FormControl className='w-full' variant="standard">
                     <TextField
-                        fullWidth sx={{ m: 1 }}
+                        className='w-full'
                         id="outlined-multiline-static"
                         label="紹介メッセージ"
                         multiline
@@ -221,6 +282,18 @@ function ProfileSetting(props) {
                     更新
                 </button>
             </CardActions>
+            <ToastContainer
+                position="top-center"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
+            {editPage()}
         </Card>
     )
 }

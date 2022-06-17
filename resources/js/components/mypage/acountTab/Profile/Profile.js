@@ -31,7 +31,7 @@ function Profile() {
     //通常表示
     const profile = () => {
         return (
-            <Card className="w-4/5">
+            <Card className="w-full">
                 <CardContent>
                     <Avatar
                         image="storage/post_images/noimg.png"
