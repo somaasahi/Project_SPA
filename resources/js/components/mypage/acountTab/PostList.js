@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { ToastContainer, toast } from "react-toastify";
 import { useStateIfMounted } from "use-state-if-mounted";
-import Post from "../../home/Post";
 import PostDetail from "../../home/PostDetail";
+import Post from "./Post";
 
 function PostList() {
     const [posts, setPosts] = useStateIfMounted([]);

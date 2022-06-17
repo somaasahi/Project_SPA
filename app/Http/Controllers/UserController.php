@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -27,15 +29,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        Log::debug("oo");
         $user = new User;
-
         $user->name = $request->name;
         $user->email = $request->email;
         $user->email_verified_at = now();
         $user->password = Hash::make($request->password);
         $user->remember_token = Str::random(10);
-
         $user->save();
+        $user_id = $user->id;
+
+        $profile = new Profile;
+        $profile->user_id = $user_id;
+        $profile->description = "自己紹介は未登録です。";
+        $profile->img_url = "storage/post_images/noimg.png";
+        $profile->save();
     }
 
     /**

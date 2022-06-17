@@ -45,6 +45,7 @@ function PostDetail(props) {
             })
             .then((res) => {
                 const item = res.data;
+                console.log(item);
                 setItem(item[0]);
                 setUser2(item[1]);
                 setProfile(item[2]);
@@ -114,7 +115,7 @@ function PostDetail(props) {
     const closeUser = () => {
         setUser(null);
     };
-    if (user == null) {
+    if (profile == null) {
         userInfo = "";
     } else {
         userInfo = (
