@@ -527,6 +527,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mt-7 {
     margin-top: 1.75rem;
 }
+.mt-10 {
+  margin-top: 2.5rem;
+}
 
 .inline-block {
     display: inline-block;
@@ -611,6 +614,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .border-slate-200 {
     --tw-border-opacity: 1;
     border-color: rgb(226 232 240 / var(--tw-border-opacity));
+}
+.border-violet-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(139 92 246 / var(--tw-border-opacity));
 }
 
 .border-blue-500 {
@@ -703,6 +710,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-cyan-400 {
     --tw-text-opacity: 1;
     color: rgb(34 211 238 / var(--tw-text-opacity));
+}
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .text-blue-700 {

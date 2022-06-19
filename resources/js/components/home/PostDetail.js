@@ -107,7 +107,7 @@ function PostDetail(props) {
         );
     }
 
-    const [user, setUser] = useState();
+    const [user, setUser] = useState(null);
     let userInfo;
     const showUser = () => {
         setUser(item.user_id);
@@ -115,7 +115,7 @@ function PostDetail(props) {
     const closeUser = () => {
         setUser(null);
     };
-    if (profile == null) {
+    if (user == null) {
         userInfo = "";
     } else {
         userInfo = (

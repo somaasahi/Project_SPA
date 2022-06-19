@@ -52,6 +52,34 @@ function EditList() {
     const handleSetDetailId = (event) => {
         setDetailId(event);
     };
+    const deletePost = (event) => {
+        console.log(event);
+        axios
+            .post("api/mypage/postlist/delete", {
+                params: {
+                    id: event,
+                },
+            })
+            .then((res) => {
+                if (res.status == 200) {
+                    const results = posts.filter((value, index) => {
+                        return value.id != event;
+                    });
+                    setPosts(results);
+                }
+            })
+            .catch((error) => {
+                toast.error("システムエラー", {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            });
+    };
     let content;
     if (detailId == "") {
         content = (
@@ -62,6 +90,7 @@ function EditList() {
                             key={post.id}
                             content={post}
                             handleClick={handleSetDetailId}
+                            deletePost={deletePost}
                         />
                     ))}
                 </div>
