@@ -6,11 +6,16 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    public function __construct( User $user, Profile $profile )
+    {
+        $this->user    = $user;
+        $this->profile = $profile;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +32,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store( Request $request )
     {
         $user = new User;
         $user->name = $request->name;
@@ -38,11 +43,15 @@ class UserController extends Controller
         $user->save();
         $user_id = $user->id;
 
-        $profile = new Profile;
-        $profile->user_id = $user_id;
-        $profile->description = "自己紹介は未登録です。";
-        $profile->img_url = "storage/post_images/noimg.png";
-        $profile->save();
+        $this->user->save();
+
+        $user_id = $this->user->id;
+
+        $this->profile->user_id     = $user_id;
+        $this->profile->description = "自己紹介は未登録です。";
+        $this->profile->img_url     = "storage/post_images/noimg.png";
+        $this->profile->profileName = 'ニックネームは未登録です';
+        $this->profile->save();
     }
 
     /**
@@ -51,7 +60,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show( $id )
     {
         //
     }
@@ -63,7 +72,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update( Request $request, $id )
     {
         //
     }
@@ -74,7 +83,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy( $id )
     {
         //
     }

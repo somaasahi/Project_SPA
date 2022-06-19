@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Profile from "./Profile";
 import Inquiry from "./setting/Inquiry";
 import PasswordSetting from "./setting/PasswordSetting";
+import PrivateSetting from "./setting/PrivateSetting";
 import ProfileSetting from "./setting/ProfileSetting";
 import PushSetting from "./setting/PushSetting";
 
@@ -21,7 +22,7 @@ function SettingChang(props) {
             return <ProfileSetting setSwich={setSwich} />
         }
         else if (props.setting == '個人情報編集') {
-            return <PasswordSetting setSwich={setSwich} />
+            return <PrivateSetting setSwich={setSwich} />
         }
         else if (props.setting == 'パスワード変更') {
             return <PasswordSetting setSwich={setSwich} />
