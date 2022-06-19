@@ -174,49 +174,6 @@ function ProfileSetting(props) {
                     }
                 );
             });
-            //プロフィールがなければ新規追加処理
-        } else {
-            //エラーメッセージ初期化
-            setInputError((prevState) => ({ ...prevState, img: false, name: false, description: false }));
-            //バリデーションチェック
-            let check = 0;
-            if (errorMessage.name != '') {
-                setInputError((prevState) => ({ ...prevState, name: true }));
-                check++;
-            }
-            if (errorMessage.description != '') {
-                setInputError((prevState) => ({ ...prevState, description: true }));
-                check++;
-            }
-            if (check > 0) {
-                return false;
-            }
-
-            await axios.post('api/ProfileStor', data).then((res) => {
-                if (res.data == true) {
-                    return setEditFlug(true);
-                }
-                const errorList = res.data.message;
-                let validMessage = '';
-                errorList.forEach(error => {
-                    validMessage += error;
-                });
-                console.log(validMessage);
-
-                toast.error(
-                    validMessage,
-                    {
-                        position: "top-center",
-                        autoClose: 1000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    }
-                )
-
-            })
         }
     }
 

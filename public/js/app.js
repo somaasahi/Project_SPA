@@ -34820,8 +34820,7 @@ function ProfileSetting(props) {
 
   var changeProfile = /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-      var data, error1, error2, check, _check;
-
+      var data, error1, error2, check;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -34835,7 +34834,7 @@ function ProfileSetting(props) {
               console.log(user); //プロフィールがあれば、更新処理
 
               if (!profileEmpty.profileName) {
-                _context3.next = 18;
+                _context3.next = 16;
                 break;
               }
 
@@ -34938,71 +34937,6 @@ function ProfileSetting(props) {
               });
 
             case 16:
-              _context3.next = 26;
-              break;
-
-            case 18:
-              //エラーメッセージ初期化
-              setInputError(function (prevState) {
-                return _objectSpread(_objectSpread({}, prevState), {}, {
-                  img: false,
-                  name: false,
-                  description: false
-                });
-              }); //バリデーションチェック
-
-              _check = 0;
-
-              if (errorMessage.name != '') {
-                setInputError(function (prevState) {
-                  return _objectSpread(_objectSpread({}, prevState), {}, {
-                    name: true
-                  });
-                });
-                _check++;
-              }
-
-              if (errorMessage.description != '') {
-                setInputError(function (prevState) {
-                  return _objectSpread(_objectSpread({}, prevState), {}, {
-                    description: true
-                  });
-                });
-                _check++;
-              }
-
-              if (!(_check > 0)) {
-                _context3.next = 24;
-                break;
-              }
-
-              return _context3.abrupt("return", false);
-
-            case 24:
-              _context3.next = 26;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().post('api/ProfileStor', data).then(function (res) {
-                if (res.data == true) {
-                  return setEditFlug(true);
-                }
-
-                var errorList = res.data.message;
-                var validMessage = '';
-                errorList.forEach(function (error) {
-                  validMessage += error;
-                });
-                console.log(validMessage);
-                react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.error(validMessage, {
-                  position: "top-center",
-                  autoClose: 1000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined
-                });
-              });
-
-            case 26:
             case "end":
               return _context3.stop();
           }
