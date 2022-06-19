@@ -4,13 +4,12 @@ import Acount from "./Acount";
 import UserConnection from "./UserConnection";
 
 function Mypage() {
-
     return (
         <div className="md:flex">
-            <div className="md:w-3/6">
+            <div className="md:w-3/6 m-5">
                 <Acount />
             </div>
-            <div className="md:w-3/6">
+            <div className="md:w-3/6 m-5">
                 <UserConnection />
             </div>
         </div>
@@ -18,5 +17,3 @@ function Mypage() {
 }
 
 export default Mypage;
-
-

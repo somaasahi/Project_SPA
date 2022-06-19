@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PostlistController extends Controller
 {
@@ -26,5 +27,12 @@ class PostlistController extends Controller
             $result[] = $a[0];
         }
         return $result;
+    }
+
+    public function delete(Request $request)
+    {
+        $post = Post::find($request['params']['id']);
+        $post->delete();
+        return $post->id;
     }
 }
