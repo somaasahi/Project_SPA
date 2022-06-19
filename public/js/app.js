@@ -35930,23 +35930,16 @@ function ProfileSetting(props) {
   }),
       _useState2 = _slicedToArray(_useState, 2),
       profileEmpty = _useState2[0],
-      setProfileEmpty = _useState2[1]; //更新成功flug
+      setProfileEmpty = _useState2[1]; //user
 
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
-      editFlug = _useState4[0],
-      setEditFlug = _useState4[1]; //user
-
-
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
-      _useState6 = _slicedToArray(_useState5, 2),
-      user = _useState6[0],
-      setUser = _useState6[1]; //user取得
+      user = _useState4[0],
+      setUser = _useState4[1]; //user取得
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-    var data;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -35957,9 +35950,6 @@ function ProfileSetting(props) {
             });
 
           case 2:
-            data = _context.sent;
-
-          case 3:
           case "end":
             return _context.stop();
         }
@@ -35967,39 +35957,34 @@ function ProfileSetting(props) {
     }, _callee);
   })), []); //postして送るデータ
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
     id: '',
     img: '',
     name: '',
     description: ''
   }),
-      _useState8 = _slicedToArray(_useState7, 2),
-      profillData = _useState8[0],
-      setProfillData = _useState8[1];
-
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
-      _useState10 = _slicedToArray(_useState9, 2),
-      name = _useState10[0],
-      setName = _useState10[1]; //各バリデーションメッセージ格納
+      _useState6 = _slicedToArray(_useState5, 2),
+      profillData = _useState6[0],
+      setProfillData = _useState6[1]; //各バリデーションメッセージ格納
 
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
     name: '名前は必須です',
     password: ''
   }),
-      _useState12 = _slicedToArray(_useState11, 2),
-      errorMessage = _useState12[0],
-      setErrorMessage = _useState12[1]; //error判定
+      _useState8 = _slicedToArray(_useState7, 2),
+      errorMessage = _useState8[0],
+      setErrorMessage = _useState8[1]; //error判定
 
 
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
     img: false,
     email: false,
     password: false
   }),
-      _useState14 = _slicedToArray(_useState13, 2),
-      inputError = _useState14[0],
-      setInputError = _useState14[1];
+      _useState10 = _slicedToArray(_useState9, 2),
+      inputError = _useState10[0],
+      setInputError = _useState10[1];
 
   var getName = function getName(event) {
     var name = event.target.value;
@@ -36118,11 +36103,6 @@ function ProfileSetting(props) {
               };
               console.log(user); //プロフィールがあれば、更新処理
 
-              if (!profileEmpty.profileName) {
-                _context3.next = 16;
-                break;
-              }
-
               error1 = true;
               error2 = true; //名前に変更がなければ更新前の値を入れなおす
 
@@ -36181,18 +36161,16 @@ function ProfileSetting(props) {
               }
 
               if (!(check > 0)) {
-                _context3.next = 13;
+                _context3.next = 12;
                 break;
               }
 
               return _context3.abrupt("return", false);
 
-            case 13:
-              console.log(data);
-              _context3.next = 16;
+            case 12:
+              _context3.next = 14;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().post('api/ProfileUpdate', data).then(function (res) {
                 if (res.data == true) {
-                  setEditFlug(true);
                   return react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.success("更新しました", {
                     position: "top-center",
                     autoClose: 1000,
@@ -36209,7 +36187,6 @@ function ProfileSetting(props) {
                 errorList.forEach(function (error) {
                   validMessage += error;
                 });
-                console.log(validMessage);
                 return react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.error(validMessage, {
                   position: "top-center",
                   autoClose: 1000,
@@ -36221,7 +36198,7 @@ function ProfileSetting(props) {
                 });
               });
 
-            case 16:
+            case 14:
             case "end":
               return _context3.stop();
           }
@@ -36232,13 +36209,7 @@ function ProfileSetting(props) {
     return function changeProfile() {
       return _ref3.apply(this, arguments);
     };
-  }();
-
-  function editPage() {
-    if (editFlug) {
-      location.reload();
-    }
-  } //戻る
+  }(); //戻る
 
 
   function backPage() {

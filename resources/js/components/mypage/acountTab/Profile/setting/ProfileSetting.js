@@ -15,14 +15,11 @@ function ProfileSetting(props) {
         description: '',
     });
 
-    //更新成功flug
-    const [editFlug, setEditFlug] = useState(false);
-
     //user
     const [user, setUser] = useState('');
     //user取得
     useEffect(async () => {
-        const data = await axios.get('api/user').then((res) => {
+        await axios.get('api/user').then((res) => {
             setUser(res.data);
         })
     }, []);
@@ -34,9 +31,6 @@ function ProfileSetting(props) {
         name: '',
         description: ''
     });
-
-
-    const [name, setName] = useState('');
 
     //各バリデーションメッセージ格納
     const [errorMessage, setErrorMessage] = useState({
@@ -100,69 +94,47 @@ function ProfileSetting(props) {
         }
         console.log(user);
         //プロフィールがあれば、更新処理
-        if (profileEmpty.profileName) {
-            let error1 = true;
-            let error2 = true;
-            //名前に変更がなければ更新前の値を入れなおす
-            if (!profillData.name) {
-                setErrorMessage((prevState) => ({ ...prevState, name: '' }));
-                data.name = profileEmpty.profileName;
-                error1 = false;
-            }
-            //紹介メッセージに変更がなければ更新前の値を入れなおす
-            if (!profillData.description) {
-                setErrorMessage((prevState) => ({ ...prevState, description: '' }));
-                data.description = profileEmpty.description;
-                error2 = false;
-            }
 
-            //エラーメッセージ初期化
-            setInputError((prevState) => ({ ...prevState, img: false, name: false, description: false }));
-            //バリデーションチェック
-            let check = 0;
-            if (!error1) {
-                true;
-            } else if (errorMessage.name != '') {
-                setInputError((prevState) => ({ ...prevState, name: true }));
-                check++;
-            }
+        let error1 = true;
+        let error2 = true;
+        //名前に変更がなければ更新前の値を入れなおす
+        if (!profillData.name) {
+            setErrorMessage((prevState) => ({ ...prevState, name: '' }));
+            data.name = profileEmpty.profileName;
+            error1 = false;
+        }
+        //紹介メッセージに変更がなければ更新前の値を入れなおす
+        if (!profillData.description) {
+            setErrorMessage((prevState) => ({ ...prevState, description: '' }));
+            data.description = profileEmpty.description;
+            error2 = false;
+        }
 
-            if (!error2) {
-                true;
-            } else if (errorMessage.description != '') {
-                setInputError((prevState) => ({ ...prevState, description: true }));
-                check++;
-            }
+        //エラーメッセージ初期化
+        setInputError((prevState) => ({ ...prevState, img: false, name: false, description: false }));
+        //バリデーションチェック
+        let check = 0;
+        if (!error1) {
+            true;
+        } else if (errorMessage.name != '') {
+            setInputError((prevState) => ({ ...prevState, name: true }));
+            check++;
+        }
 
-            if (check > 0) {
-                return false;
-            }
-            console.log(data);
-            await axios.post('api/ProfileUpdate', data).then((res) => {
-                if (res.data == true) {
-                    setEditFlug(true);
-                    return toast.success(
-                        "更新しました",
-                        {
-                            position: "top-center",
-                            autoClose: 1000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        }
-                    );
+        if (!error2) {
+            true;
+        } else if (errorMessage.description != '') {
+            setInputError((prevState) => ({ ...prevState, description: true }));
+            check++;
+        }
 
-                }
-                const errorList = res.data.message;
-                let validMessage = '';
-                errorList.forEach(error => {
-                    validMessage += error;
-                });
-                console.log(validMessage);
-                return toast.error(
-                    validMessage,
+        if (check > 0) {
+            return false;
+        }
+        await axios.post('api/ProfileUpdate', data).then((res) => {
+            if (res.data == true) {
+                return toast.success(
+                    "更新しました",
                     {
                         position: "top-center",
                         autoClose: 1000,
@@ -173,14 +145,25 @@ function ProfileSetting(props) {
                         progress: undefined,
                     }
                 );
+            }
+            const errorList = res.data.message;
+            let validMessage = '';
+            errorList.forEach(error => {
+                validMessage += error;
             });
-        }
-    }
-
-    function editPage() {
-        if (editFlug) {
-            location.reload();
-        }
+            return toast.error(
+                validMessage,
+                {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                }
+            );
+        });
     }
 
     //戻る

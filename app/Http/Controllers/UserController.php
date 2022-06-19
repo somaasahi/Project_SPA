@@ -6,14 +6,15 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function __construct( User $user )
+    public function __construct( User $user, Profile $profile )
     {
-        $this->user = $user;
+        $this->user    = $user;
+        $this->profile = $profile;
+
     }
 
     /**
@@ -35,30 +36,20 @@ class UserController extends Controller
     public function store( Request $request )
     {
 
-        // $this->user->name = $request->name;
-        // $this->user->email = $request->email;
-        // $this->user->email_verified_at = now();
-        // $this->user->password = Hash::make($request->password);
-        // $this->user->remember_token = Str::random(10);
+        $this->user->name              = $request->name;
+        $this->user->email             = $request->email;
+        $this->user->email_verified_at = now();
+        $this->user->password          = Hash::make( $request->password );
+        $this->user->remember_token    = Str::random( 10 );
 
-        // $this->user->save();
+        $this->user->save();
+        $user_id = $this->user->id;
 
-        // return $this->user;
-        Log::debug( "oo" );
-        $user                    = new User;
-        $user->name              = $request->name;
-        $user->email             = $request->email;
-        $user->email_verified_at = now();
-        $user->password          = Hash::make( $request->password );
-        $user->remember_token    = Str::random( 10 );
-        $user->save();
-        $user_id = $user->id;
-
-        $profile              = new Profile;
-        $profile->user_id     = $user_id;
-        $profile->description = "自己紹介は未登録です。";
-        $profile->img_url     = "storage/post_images/noimg.png";
-        $profile->save();
+        $this->profile->user_id     = $user_id;
+        $this->profile->description = "自己紹介は未登録です。";
+        $this->profile->img_url     = "storage/post_images/noimg.png";
+        $this->profile->profileName = 'ニックネーム';
+        $this->profile->save();
     }
 
     /**
