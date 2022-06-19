@@ -71,11 +71,14 @@ class Homecontroller extends Controller
     public function showDetail(Request $request)
     {
         $result = [];
+
         $id = $request->get('id');
+
         $detail = Post::withCount('likes')->find($id);
         $result[] = $detail;
+        Log::debug($detail->user_id);
         $result[] = User::find($detail->user_id);
-        $result[] = Profile::find($detail->user_id);
+        $result[] = Profile::where('user_id', $detail->user_id)->first();
         return $result;
     }
 
@@ -136,11 +139,5 @@ class Homecontroller extends Controller
         return $reviews;
     }
 
-    // public function showuser(Request $request)
-    // {
-    //     $id = $request->get('id');
-    //     $user = User::find($id);
-    //     Log::debug('okkk');
-    //     return $user;
-    // }
+   
 }

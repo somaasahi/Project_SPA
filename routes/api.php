@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('mypage/likelist', 'App\Http\Controllers\Likelistcontroller@index');
     Route::get('mypage/postlist', 'App\Http\Controllers\Postlistcontroller@index');
+    Route::post('mypage/postlist/delete', 'App\Http\Controllers\Postlistcontroller@delete');
 });
 
 

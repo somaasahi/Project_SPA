@@ -14,7 +14,7 @@ function UserInfo(props) {
                 </div>
             </div>
             <IconButton
-                onClick={() => props.handleClick("")}
+                onClick={() => props.handleClick(null)}
                 style={{ height: "70px", width: "70px" }}
                 aria-label="add to favorites"
             >
