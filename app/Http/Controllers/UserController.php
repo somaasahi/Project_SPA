@@ -14,6 +14,7 @@ class UserController extends Controller
     {
         $this->user    = $user;
         $this->profile = $profile;
+
     }
 
     /**
@@ -34,23 +35,20 @@ class UserController extends Controller
      */
     public function store( Request $request )
     {
-        $user = new User;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->email_verified_at = now();
-        $user->password = Hash::make($request->password);
-        $user->remember_token = Str::random(10);
-        $user->save();
-        $user_id = $user->id;
+
+        $this->user->name              = $request->name;
+        $this->user->email             = $request->email;
+        $this->user->email_verified_at = now();
+        $this->user->password          = Hash::make( $request->password );
+        $this->user->remember_token    = Str::random( 10 );
 
         $this->user->save();
-
         $user_id = $this->user->id;
 
         $this->profile->user_id     = $user_id;
         $this->profile->description = "自己紹介は未登録です。";
         $this->profile->img_url     = "storage/post_images/noimg.png";
-        $this->profile->profileName = 'ニックネームは未登録です';
+        $this->profile->profileName = 'ニックネーム';
         $this->profile->save();
     }
 
