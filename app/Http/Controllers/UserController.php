@@ -6,11 +6,12 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function __construct( User $user, Profile $profile )
+    public function __construct(User $user, Profile $profile)
     {
         $this->user    = $user;
         $this->profile = $profile;
@@ -32,7 +33,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store( Request $request )
+    public function store(Request $request)
     {
         $user = new User;
         $user->name = $request->name;
@@ -60,7 +61,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show( $id )
+    public function show($id)
     {
         //
     }
@@ -72,7 +73,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update( Request $request, $id )
+    public function update(Request $request, $id)
     {
         //
     }
@@ -83,7 +84,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $id )
+    public function destroy($id)
     {
         //
     }

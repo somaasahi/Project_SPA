@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FriendRelationController;
+use App\Http\Controllers\Homecontroller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -25,11 +26,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('user', [UserController::class, 'store']);
 Route::post('login', [AuthController::class, 'login']);
 Route::get('logout', [AuthController::class, 'logout']);
-Route::post('user', [UserController::class, 'store']);
+
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('FriendRelation', [FriendRelationController::class, 'index']);
     Route::get('FriendShow/{id}', [FriendRelationController::class, 'show']);
+    Route::get('userInfo/checkFriend', [Homecontroller::class, 'checkFriend']);
+    Route::post('userInfo/makeFriend', [Homecontroller::class, 'makeFriend']);
 
     Route::get('mypage/likelist', 'App\Http\Controllers\Likelistcontroller@index');
     Route::get('mypage/postlist', 'App\Http\Controllers\Postlistcontroller@index');
@@ -39,9 +42,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //プロフィール
     Route::get('ProfileShow/{id}', [ProfileController::class, 'show']);
-    Route::post('ProfileStor', [ProfileController::class, 'store']);
+
     Route::post('ProfileUpdate', [ProfileController::class, 'update']);
-    Route::post('user', [UserController::class, 'store']);
 });
 
 Route::get('homeIndex', 'App\Http\Controllers\Homecontroller@homeIndex');

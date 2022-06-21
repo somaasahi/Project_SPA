@@ -19,7 +19,6 @@ function EditList() {
                     })
                     .then((res) => {
                         const results = res.data;
-                        console.log(results);
 
                         setPosts([...posts, ...results]);
                     })

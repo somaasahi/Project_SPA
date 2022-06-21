@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FriendRelation;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\Profile;
@@ -139,5 +140,50 @@ class Homecontroller extends Controller
         return $reviews;
     }
 
-   
+    public function checkFriend(Request $request)
+    {
+        $from_id = $request->get('from_user_id');
+        $to_id = $request->get('to_user_id');
+
+        $exist = FriendRelation::where('from_user_id', $from_id)->where('to_user_id', $to_id)->exists();
+        $exist2 = FriendRelation::where('from_user_id', $to_id)->where('to_user_id', $from_id)->exists();
+
+        if (empty($exist)) {
+            if (empty($exist2)) {
+                return 3;
+            } else {
+                $status = FriendRelation::where('from_user_id', $to_id)->where('to_user_id', $from_id)->pluck("status");
+                Log::debug($status);
+                if ($status[0] == 0) {
+                    return 3;
+                }
+                return $status;
+            }
+        } else {
+            $status = FriendRelation::where('from_user_id', $from_id)->where('to_user_id', $to_id)->pluck("status");
+            return $status;
+        }
+    }
+
+    public function makeFriend(Request $request)
+    {
+        $from_id = $request['params']['from_user_id'];
+        $to_id = $request['params']['to_user_id'];
+
+        $exist = FriendRelation::where('to_user_id', $from_id)->where('from_user_id', $to_id)->where('status', 0)->exists();
+
+        if (!empty($exist)) {
+            FriendRelation::where('to_user_id', $from_id)
+                ->where('from_user_id', $to_id)->where('status', 0)->update(['status' => 1]);
+
+            return 1;
+        } else {
+            $record = new FriendRelation;
+            $record->from_user_id = $from_id;
+            $record->to_user_id = $to_id;
+            $record->status = 0;
+            $record->save();
+            return 0;
+        }
+    }
 }
