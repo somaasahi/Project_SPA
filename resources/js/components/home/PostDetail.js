@@ -122,6 +122,7 @@ function PostDetail(props) {
             <UserInfo
                 icon={profile.img_url}
                 description={profile.description}
+                postUserId={item.user_id}
                 handleClick={closeUser}
             />
         );
