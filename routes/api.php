@@ -42,7 +42,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //プロフィール
     Route::get('ProfileShow/{id}', [ProfileController::class, 'show']);
-
+    Route::post('ProfileStor', [ProfileController::class, 'store']);
     Route::post('ProfileUpdate', [ProfileController::class, 'update']);
 });
 
@@ -51,7 +51,6 @@ Route::get('home/likeCount', 'App\Http\Controllers\Homecontroller@likeCount');
 Route::get('detail', 'App\Http\Controllers\Homecontroller@showDetail');
 Route::get('detail/checkLike', 'App\Http\Controllers\Homecontroller@checkLike');
 Route::get('detail/review', 'App\Http\Controllers\Homecontroller@showReview');
-
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 });
