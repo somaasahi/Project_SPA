@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Profile;
 use App\Models\User;
+use App\UseCases\User\Validate as UserValidate;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -70,9 +74,30 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update( Request $request, $id )
+    public function update( Request $request, UserValidate $UserValidate )
     {
-        //
+        $error = $UserValidate( $request );
+
+        if ( count( $error ) > 0 ) {
+            return response()->json( ['message' => $error] );
+        }
+
+        DB::beginTransaction();
+        try {
+            $user = $this->user->find( $request->id );
+
+            $user->name  = $request->name;
+            $user->email = $request->email;
+            $user->save();
+
+            DB::commit();
+        } catch ( Exception $e ) {
+            DB::rollback();
+            Log::error( $e->getMessage() );
+            return response()->json( ['error' => 'プロフィール更新エラー'] );
+        }
+
+        return response()->json( true );
     }
 
     /**
@@ -85,4 +110,5 @@ class UserController extends Controller
     {
         //
     }
+
 }

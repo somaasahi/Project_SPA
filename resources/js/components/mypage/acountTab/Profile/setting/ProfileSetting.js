@@ -1,10 +1,11 @@
 import { LocalDining, Update } from "@mui/icons-material";
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, FormControl, Input, InputAdornment, InputLabel, TextField } from "@mui/material";
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Divider, FormControl, Input, InputAdornment, InputLabel, TextField } from "@mui/material";
 import { flexbox } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import PrivateSetting from "./PrivateSetting";
 
 function ProfileSetting(props) {
 
@@ -19,8 +20,23 @@ function ProfileSetting(props) {
     const [user, setUser] = useState('');
     //user取得
     useEffect(async () => {
-        await axios.get('api/user').then((res) => {
+        await axios.get('api/user').then(async (res) => {
             setUser(res.data);
+            //プロフィールデータ検索
+            await axios.get('api/ProfileShow/' + res.data.id).then((res) => {
+                const data = res.data;
+                if (data[0].id == '') {
+                    return false;
+                }
+                //あれば、デフォルトの設定で使う
+                setProfileEmpty((prevState) => ({ ...prevState, check: (data[0].id) }));
+                setProfileEmpty((prevState) => ({ ...prevState, profileName: (data[0].profileName) }));
+                setProfileEmpty((prevState) => ({ ...prevState, description: (data[0].description) }));
+                //プロフィールデータ検索用
+                setProfillData((prevState) => ({ ...prevState, id: (data[0].id) }));
+            }).catch((e) => {
+                console.log(e.message);
+            })
         })
     }, []);
 
@@ -66,23 +82,6 @@ function ProfileSetting(props) {
         }
     }
 
-    //プロフィールデータ検索
-    useEffect(async () => {
-        await axios.get('api/ProfileShow/' + user.id).then((res) => {
-            const data = res.data;
-            if (data[0].id == '') {
-                return false;
-            }
-            //あれば、デフォルトの設定で使う
-            setProfileEmpty((prevState) => ({ ...prevState, check: (data[0].id) }));
-            setProfileEmpty((prevState) => ({ ...prevState, profileName: (data[0].profileName) }));
-            setProfileEmpty((prevState) => ({ ...prevState, description: (data[0].description) }));
-            //プロフィールデータ検索用
-            setProfillData((prevState) => ({ ...prevState, id: (data[0].id) }));
-        }).catch((e) => {
-            console.log(e.message);
-        })
-    }, [user]);
 
     //更新処理
     const changeProfile = async () => {
@@ -94,7 +93,6 @@ function ProfileSetting(props) {
         }
         console.log(user);
         //プロフィールがあれば、更新処理
-
         let error1 = true;
         let error2 = true;
         //名前に変更がなければ更新前の値を入れなおす
@@ -131,6 +129,7 @@ function ProfileSetting(props) {
         if (check > 0) {
             return false;
         }
+        //更新処理
         await axios.post('api/ProfileUpdate', data).then((res) => {
             if (res.data == true) {
                 return toast.success(
@@ -172,69 +171,76 @@ function ProfileSetting(props) {
     }
 
     if (!user) { return 'Loading...' };
-
+    console.log(profileEmpty.profileName);
     return (
-        <Card className="w-5/6">
-            <CardHeader
-            />
-            <CardContent>
-                <Avatar
-                    image="storage/post_images/noimg.png"
-                    alt="profile"
-                    sx={{ width: 160, height: 160 }}
-                    className='m-auto'
-                />
-            </CardContent>
-            <CardContent>
-                <TextField
-                    className='w-full'
-                    error={inputError.name}
-                    helperText={inputError.name && errorMessage.name}
-                    id="filled-search"
-                    label='ニックネーム'
-                    type='text'
-                    variant="standard"
-                    onChange={getName}
-                    defaultValue={profileEmpty.profileName && profileEmpty.profileName}
-                    inputProps={{ style: { fontSize: 40 } }}
-                />
-            </CardContent>
-            <CardContent>
-                <FormControl className='w-full' variant="standard">
+        <>
+            <Card className="w-full">
+                <CardContent>
+                    <div>
+                        プロフィール変更
+                    </div>
+                </CardContent>
+                <Divider />
+                <CardContent>
+                    <Avatar
+                        image="storage/post_images/noimg.png"
+                        alt="profile"
+                        sx={{ width: 160, height: 160 }}
+                        className='m-auto'
+                    />
+                </CardContent>
+                <CardContent>
+                    <label>ニックネーム</label>
                     <TextField
                         className='w-full'
-                        id="outlined-multiline-static"
-                        label="紹介メッセージ"
+                        error={inputError.name}
+                        helperText={inputError.name && errorMessage.name}
+                        id="filled-search"
                         multiline
-                        rows={9}
-                        onChange={getDescription}
-                        inputProps={{ style: { fontSize: 30 } }}
-                        defaultValue={profileEmpty.description && profileEmpty.description}
+                        type='text'
+                        variant="standard"
+                        onChange={getName}
+                        defaultValue={profileEmpty.profileName}
+                        inputProps={{ style: { fontSize: 25, padding: 4 } }}
                     />
-                </FormControl>
-            </CardContent>
+                </CardContent>
+                <CardContent>
+                    <FormControl className='w-full' variant="standard">
+                        <label>紹介メッセージ</label>
+                        <TextField
+                            className='w-full p-1'
+                            id="outlined-multiline-static"
+                            multiline
+                            rows={9}
+                            onChange={getDescription}
+                            inputProps={{ style: { fontSize: 25, padding: 4 } }}
+                            defaultValue={profileEmpty.description}
+                        />
+                    </FormControl>
+                </CardContent>
 
-            <CardActions className="flex justify-end">
-                <button onClick={backPage} className="text-lg bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                    戻る
-                </button>
-                <button onClick={changeProfile} className="text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    更新
-                </button>
-            </CardActions>
-            <ToastContainer
-                position="top-center"
-                autoClose={1000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
-            {editPage()}
-        </Card>
+                <CardActions className="flex justify-end">
+                    <button onClick={backPage} className="text-lg bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                        戻る
+                    </button>
+                    <button onClick={changeProfile} className="text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        更新
+                    </button>
+                </CardActions>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={1000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
+            </Card>
+            <PrivateSetting />
+        </>
     )
 }
 

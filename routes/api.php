@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FriendRelationController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -26,6 +27,8 @@ Route::post( 'user', [UserController::class, 'store'] );
 Route::post( 'login', [AuthController::class, 'login'] );
 Route::get( 'logout', [AuthController::class, 'logout'] );
 
+Route::get( 'mail/sendMail', [MailController::class, 'sendMail'] );
+
 Route::group( ['middleware' => ['auth:sanctum']], function () {
     Route::get( 'FriendRelation', [FriendRelationController::class, 'index'] );
     Route::get( 'FriendShow/{id}', [FriendRelationController::class, 'show'] );
@@ -36,7 +39,8 @@ Route::group( ['middleware' => ['auth:sanctum']], function () {
     Route::post( 'detail/review', 'App\Http\Controllers\Homecontroller@postReview' );
     Route::post( 'detail/like', 'App\Http\Controllers\Homecontroller@like' );
 
-    //プロフィール
+    Route::post( 'user/updata', [UserController::class, 'update'] );
+
     Route::get( 'ProfileShow/{id}', [ProfileController::class, 'show'] );
     Route::post( 'ProfileStor', [ProfileController::class, 'store'] );
     Route::post( 'ProfileUpdate', [ProfileController::class, 'update'] );

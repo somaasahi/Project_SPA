@@ -7,7 +7,6 @@ function Profile() {
 
     const settingList = [
         "プロフィール編集",
-        "個人情報編集",
         "パスワード変更",
         "ヘルプとサポート",
         "push通知設定"
