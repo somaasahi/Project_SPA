@@ -15,10 +15,13 @@ class FriendRelationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $friend = FriendRelation::with('user')->get();
-
+        $friend = FriendRelation::with('user.profile')
+            ->orderBy('updated_at', 'desc')
+            ->where("to_user_id", $request->get("user_id"))
+            ->where("status", "<>", 2)
+            ->get();
         return $friend;
     }
 
@@ -53,9 +56,35 @@ class FriendRelationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        $fid = $request['params']['from_user_id'];
+        $tid = $request['params']['to_user_id'];
+        $status = $request['params']['status'];
+
+        if ($status == 1) {
+            FriendRelation::where('to_user_id', $tid)
+                ->where('from_user_id', $fid)->update(['status' => 1]);
+
+            $record = new FriendRelation;
+            $record->from_user_id = $tid;
+            $record->to_user_id = $fid;
+            $record->status = 1;
+            $record->save();
+
+            return $record->status;
+        } else {
+            FriendRelation::where('to_user_id', $tid)
+                ->where('from_user_id', $fid)->update(['status' => 2]);
+
+            $record = new FriendRelation;
+            $record->from_user_id = $tid;
+            $record->to_user_id = $fid;
+            $record->status = 2;
+            $record->save();
+            return $record->status;
+        }
     }
 
     /**

@@ -6,6 +6,7 @@ import Post from "../acountTab/Post";
 
 function LikeList() {
     const [posts, setPosts] = useStateIfMounted([]);
+    
     useEffect(() => {
         axios
             .get("api/user/")

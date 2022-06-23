@@ -468,6 +468,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mt-7 {
   margin-top: 1.75rem;
 }
+.mr-3 {
+  margin-right: 0.75rem;
+}
 .inline-block {
   display: inline-block;
 }

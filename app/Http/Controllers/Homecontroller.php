@@ -153,7 +153,6 @@ class Homecontroller extends Controller
                 return 3;
             } else {
                 $status = FriendRelation::where('from_user_id', $to_id)->where('to_user_id', $from_id)->pluck("status");
-                Log::debug($status);
                 if ($status[0] == 0) {
                     return 3;
                 }
@@ -175,6 +174,11 @@ class Homecontroller extends Controller
         if (!empty($exist)) {
             FriendRelation::where('to_user_id', $from_id)
                 ->where('from_user_id', $to_id)->where('status', 0)->update(['status' => 1]);
+            $record = new FriendRelation;
+            $record->from_user_id = $from_id;
+            $record->to_user_id = $to_id;
+            $record->status = 1;
+            $record->save();
 
             return 1;
         } else {
