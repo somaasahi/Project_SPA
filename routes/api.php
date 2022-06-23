@@ -31,6 +31,8 @@ Route::get('logout', [AuthController::class, 'logout']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('FriendRelation', [FriendRelationController::class, 'index']);
     Route::get('FriendShow/{id}', [FriendRelationController::class, 'show']);
+    Route::post('mypage/update', [FriendRelationController::class, 'update']);
+
     Route::get('userInfo/checkFriend', [Homecontroller::class, 'checkFriend']);
     Route::post('userInfo/makeFriend', [Homecontroller::class, 'makeFriend']);
 
