@@ -27,7 +27,7 @@ Route::post( 'user', [UserController::class, 'store'] );
 Route::post( 'login', [AuthController::class, 'login'] );
 Route::get( 'logout', [AuthController::class, 'logout'] );
 
-Route::get( 'mail/sendMail', [MailController::class, 'sendMail'] );
+Route::post( '/forgot-password', [MailController::class, 'sendMail'] )->middleware( 'guest' );
 
 Route::group( ['middleware' => ['auth:sanctum']], function () {
     Route::get( 'FriendRelation', [FriendRelationController::class, 'index'] );

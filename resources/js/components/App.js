@@ -11,6 +11,7 @@ import Login from './Login/login';
 import SignUp from './Login/SignUp';
 import ProtectedRoute from './Login/ProtectedRoute';
 import { authCheck } from './Login/AuthCheck';
+import PasswordReset from './Login/PasswordReset';
 
 const queryClient = new QueryClient();
 
@@ -46,6 +47,7 @@ function App() {
                             <Route path="/mypage" element={<Mypage />} />
                             <Route path="/login" element={<Login setAuthUser={setAuthUser} />} />
                             <Route path="/signUp" element={<SignUp />} />
+                            <Route path="/passwordReset" element={<PasswordReset />} />
                         </Routes>
                     </main>
                 </BrowserRouter>

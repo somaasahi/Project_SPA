@@ -43,6 +43,14 @@ function Login(props) {
             }
         }
     }
+    useEffect(async () => {
+        //プロフィールデータ検索
+        await axios.get('api/mail/sendMail').then((res) => {
+            console.log('ok');
+        }).catch((e) => {
+            console.log(e.message);
+        })
+    }, [data]);
 
     const getPassword = () => {
         if (inputPassword.current) {
@@ -139,6 +147,9 @@ function Login(props) {
             </Card>
             <div className="w-2/5 m-auto text-right mt-2 text-cyan-400">
                 <Link to={"/signUp"} >新規登録の方はこちらへ</Link>
+            </div>
+            <div className="w-2/5 m-auto text-right mt-2 text-cyan-400">
+                <Link to={"/passwordReset"} >パスワードお忘れの方はこちらへ</Link>
             </div>
 
             {pageChack()}
