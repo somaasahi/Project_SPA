@@ -19,7 +19,7 @@ function FriendList(props) {
         setStatus(props.user.status);
     }, []);
     const show = (event, id) => {
-        props.setValue(id);
+        props.setId(id);
     };
     const postFriend = (e) => {
         axios

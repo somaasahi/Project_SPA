@@ -21,7 +21,7 @@ import FriendDetail from "./FriendDetail";
 import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-function Friend() {
+function Friend(props) {
     //friend情報
     const [user, setUser] = useState("");
     //freand切り替え用
@@ -75,12 +75,6 @@ function Friend() {
             });
     }, []);
 
-    useEffect(() => {
-        if (id) {
-            setSwich(false);
-        }
-    }, [id]);
-
     /**ページ関連 */
 
     // 何番目のアイテムから表示するか
@@ -100,35 +94,33 @@ function Friend() {
     //非同期処理待ち
     if (!user) return "load...";
 
-    const show = () => {
-        if (swich) {
-            return user
-                .slice(offset, offset + perPage)
-                .map((user) => (
-                    <FriendList key={user.id} user={user} setValue={setId} />
-                ));
-        } else {
-            return <FriendDetail id={id} />;
-        }
-    };
-
-    return (
-        <Box>
-            <Stack spacing={2}>
-                <List sx={{ width: "100%", bgcolor: "background.paper" }}>
-                    {show()}
-                </List>
-                {/* ユーザー詳細画面移行時に非表示処理 */}
-                {swich && (
+    let base;
+    if (id == "") {
+        base = (
+            <div>
+                <Stack spacing={2}>
+                    <List sx={{ width: "100%", bgcolor: "background.paper" }}>
+                        {user.slice(offset, offset + perPage).map((user) => (
+                            <FriendList
+                                key={user.id}
+                                user={user}
+                                setId={setId}
+                            />
+                        ))}
+                    </List>
                     <Pagination
                         count={Math.ceil(user.length / perPage)}
                         onChange={handleChange}
                         color="primary"
                     />
-                )}
-            </Stack>
-        </Box>
-    );
+                </Stack>
+            </div>
+        );
+    } else {
+        base = <FriendDetail id={id} setId={setId} />;
+    }
+
+    return <Box>{base}</Box>;
 }
 
 export default Friend;

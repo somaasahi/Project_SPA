@@ -16,14 +16,16 @@ class Friend_RelationsSeeder extends Seeder
      */
     public function run()
     {
-        // FriendRelation::create([
-        //     'from_user_id' => '1',
-        //     'to_user_id' => '2',
-        // ]);
-        // FriendRelation::create([
-        //     'from_user_id' => '2',
-        //     'to_user_id' => '1',
-        // ]);
+        FriendRelation::create([
+            'from_user_id' => 10,
+            'to_user_id' => 1,
+            'status' => 1,
+        ]);
+        FriendRelation::create([
+            'from_user_id' => 1,
+            'to_user_id' => 10,
+            'status' => 1,
+        ]);
         // FriendRelation::create([
         //     'from_user_id' => '1',
         //     'to_user_id' => '3',
