@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FriendRelation;
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -96,5 +97,16 @@ class FriendRelationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function friendDetail(Request $request)
+    {
+        $result = [];
+        $a = User::where('id', $request->get("user_id"))->get();
+        $result[0] = $a[0];
+        $p = Profile::where('user_id', $request->get("user_id"))->get();
+        $result[1] = $p[0];
+        Log::debug($result);
+        return $result;
     }
 }
