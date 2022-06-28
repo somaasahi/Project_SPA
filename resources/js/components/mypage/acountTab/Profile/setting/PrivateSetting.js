@@ -3,6 +3,7 @@ import { Avatar, Button, Card, CardActions, CardContent, CardHeader, FormControl
 import { flexbox } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 function PrivateSetting(props) {
     //user
@@ -15,18 +16,16 @@ function PrivateSetting(props) {
     }, []);
 
     //postして送るデータ
-    const [profillData, setProfillData] = useState({
+    const [privateData, setPrivateData] = useState({
         img: '',
         name: '',
-        description: ''
+        email: ''
     });
-
-    const [name, setName] = useState('');
 
     //各バリデーションメッセージ格納
     const [errorMessage, setErrorMessage] = useState({
         name: '名前は必須です',
-        password: ''
+        email: 'メールアドレスは必須です'
     });
     //error判定
     const [inputError, setInputError] = useState({
@@ -43,41 +42,101 @@ function PrivateSetting(props) {
             setErrorMessage((prevState) => ({ ...prevState, name: '名前は255文字以下で記載してください。' }));
         } else {
             setErrorMessage((prevState) => ({ ...prevState, name: '' }));
-            setProfillData((prevState) => ({ ...prevState, name: name }));
+            setPrivateData((prevState) => ({ ...prevState, name: name }));
         }
     }
-
-    const getDescription = (event) => {
-        const description = event.target.value;
-        console.log(description);
-        if (description.langh > 255) {
-            setErrorMessage((prevState) => ({ ...prevState, description: '名前は255文字以下で記載してください。' }));
+    const pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/;
+    const getEmail = (event) => {
+        const email = event.target.value;
+        console.log(email);
+        if (email == '') {
+            setErrorMessage((prevState) => ({ ...prevState, email: 'メールアドレスは必須です' }));
+        } else if (!pattern.test(email.value)) {
+            setErrorMessage((prevState) => ({ ...prevState, email: 'メールアドレスは正しく記載してください。' }));
         } else {
-            setErrorMessage((prevState) => ({ ...prevState, description: '' }));
-            setProfillData((prevState) => ({ ...prevState, description: description }));
+            setErrorMessage((prevState) => ({ ...prevState, email: '' }));
+            setPrivateData((prevState) => ({ ...prevState, email: email }));
         }
     }
 
     //更新処理
-    const updateProfile = () => {
+    const updatePrivate = async () => {
+        const postData = {
+            id: user.id,
+            name: privateData.name,
+            email: privateData.email
+        };
+        //プロフィールがあれば、更新処理
+        let error1 = true;
+        let error2 = true;
+        //名前に変更がなければ更新前の値を入れなおす
+        if (!privateData.name) {
+            setErrorMessage((prevState) => ({ ...prevState, name: '' }));
+            postData.name = user.name;
+            error1 = false;
+        }
+        //メールアドレスに変更がなければ更新前の値を入れなおす
+        if (!privateData.email) {
+            setErrorMessage((prevState) => ({ ...prevState, email: '' }));
+            postData.email = user.email;
+            error2 = false;
+        }
         //エラーメッセージ初期化
-        setInputError((prevState) => ({ ...prevState, img: false, name: false, description: false }));
+        setInputError((prevState) => ({ ...prevState, img: false, name: false, email: false }));
         console.log(errorMessage);
         //バリデーションチェック
         let check = 0;
-        if (errorMessage.name != '') {
+        if (!error1) {
+            true;
+        } else if (errorMessage.name != '') {
             setInputError((prevState) => ({ ...prevState, name: true }));
             check++;
         }
-        if (errorMessage.description != '') {
-            setInputError((prevState) => ({ ...prevState, description: true }));
+
+        if (!error2) {
+            true;
+        } else if (errorMessage.email != '') {
+            setInputError((prevState) => ({ ...prevState, email: true }));
             check++;
         }
         if (check > 0) {
             return false;
         }
+        //更新処理
+        await axios.post('api/user/updata', postData).then((res) => {
+            if (res.data == true) {
+                return toast.success(
+                    "更新しました",
+                    {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    }
+                );
+            }
 
-        return alert(profillData);
+            const errorList = res.data.message;
+            let validMessage = '';
+            errorList.forEach(error => {
+                validMessage += error;
+            });
+            return toast.error(
+                validMessage,
+                {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                }
+            );
+        })
     }
 
     //戻る
@@ -88,7 +147,7 @@ function PrivateSetting(props) {
     if (!user) { return 'Loading...' };
 
     return (
-        <Card className="w-5/6">
+        <Card className="w-full mt-3">
             <CardHeader
                 title='個人情報設定'
             />
@@ -115,20 +174,28 @@ function PrivateSetting(props) {
                     label='メールアドレス'
                     type='text'
                     variant="standard"
-                    onChange={getName}
+                    onChange={getEmail}
                     defaultValue={user.email}
                     inputProps={{ style: { fontSize: 20 } }}
                 />
             </CardContent>
 
             <CardActions className="flex justify-end">
-                <button onClick={backPage} className="text-lg bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                    戻る
-                </button>
-                <button onClick={updateProfile} className="text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button onClick={updatePrivate} className="text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     変更
                 </button>
             </CardActions>
+            <ToastContainer
+                position="top-center"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </Card>
     )
 }

@@ -21,9 +21,6 @@ function SettingChang(props) {
         if (props.setting == 'プロフィール編集') {
             return <ProfileSetting setSwich={setSwich} />
         }
-        else if (props.setting == '個人情報編集') {
-            return <PrivateSetting setSwich={setSwich} />
-        }
         else if (props.setting == 'パスワード変更') {
             return <PasswordSetting setSwich={setSwich} />
         }
