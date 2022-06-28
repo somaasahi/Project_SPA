@@ -35677,23 +35677,64 @@ function PasswordReset() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
       email = _useState2[0],
-      setEmail = _useState2[1];
+      setEmail = _useState2[1]; //各バリデーションメッセージ格納
 
-  function getEmail(e) {
-    setEmail(e.target.value); // console.log(e.target.value);
-  }
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('メールアドレスは必須です'),
+      _useState4 = _slicedToArray(_useState3, 2),
+      errorMessage = _useState4[0],
+      setErrorMessage = _useState4[1]; //error判定
+
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      inputError = _useState6[0],
+      setInputError = _useState6[1];
+
+  var pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/;
+
+  var getEmail = function getEmail(event) {
+    var emailData = event.target.value;
+
+    if (emailData == '') {
+      setErrorMessage('メールアドレスは必須です');
+    } else if (!pattern.test(emailData)) {
+      setErrorMessage('メールアドレスは正しく記載してください。');
+    } else {
+      setErrorMessage('');
+      setEmail(emailData);
+    }
+  };
 
   var handleSubmit = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var data;
+      var check, data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              //初期化
+              setInputError(false); //バリデーションチェック
+
+              check = 0;
+
+              if (errorMessage != '') {
+                setInputError(true);
+                check++;
+              }
+
+              if (!(check > 0)) {
+                _context.next = 5;
+                break;
+              }
+
+              return _context.abrupt("return", false);
+
+            case 5:
               data = {
                 email: email
               };
-              _context.next = 3;
+              _context.next = 8;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().post('api/forgot-password', data).then(function (res) {
                 setEmail('');
                 return react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.success("送信しました！", {
@@ -35705,11 +35746,11 @@ function PasswordReset() {
                   draggable: true,
                   progress: undefined
                 });
-              })["catch"](function (e) {
-                console.log(e.message);
+              })["catch"](function (res) {
+                console.log(res);
               });
 
-            case 3:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -35729,16 +35770,15 @@ function PasswordReset() {
         title: "\u30D1\u30B9\u30EF\u30FC\u30C9\u30EA\u30BB\u30C3\u30C8"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "my-2.5",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"] // error={inputError.email}
-        , {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          error: inputError,
           className: "w-full",
           id: "outlined-basic",
           label: "\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9",
-          variant: "outlined" // helperText={inputError.email && errorMessage.email}
-          ,
+          variant: "outlined",
+          helperText: inputError && errorMessage,
           onChange: getEmail,
-          type: "email",
-          value: email
+          type: "email"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "my-2.5 text-right",

@@ -6,12 +6,39 @@ import { toast, ToastContainer } from "react-toastify";
 function PasswordReset() {
     const [email, setEmail] = useState('');
 
-    function getEmail(e) {
-        setEmail(e.target.value);
-        // console.log(e.target.value);
+    //各バリデーションメッセージ格納
+    const [errorMessage, setErrorMessage] = useState('メールアドレスは必須です');
+    //error判定
+    const [inputError, setInputError] = useState(false);
+
+    const pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/;
+    const getEmail = (event) => {
+        const emailData = event.target.value;
+        if (emailData == '') {
+            setErrorMessage('メールアドレスは必須です');
+        } else if (!pattern.test(emailData)) {
+            setErrorMessage('メールアドレスは正しく記載してください。');
+        } else {
+            setErrorMessage('');
+            setEmail(emailData);
+        }
     }
 
     const handleSubmit = async () => {
+        //初期化
+        setInputError(false);
+
+        //バリデーションチェック
+        let check = 0;
+        if (errorMessage != '') {
+            setInputError(true);
+            check++;
+        }
+
+        if (check > 0) {
+            return false;
+        }
+
         const data = { email: email }
         await axios.post('api/forgot-password', data).then((res) => {
             setEmail('');
@@ -27,8 +54,8 @@ function PasswordReset() {
                     progress: undefined,
                 }
             );
-        }).catch((e) => {
-            console.log(e.message);
+        }).catch((res) => {
+            console.log(res);
         });
     }
 
@@ -39,15 +66,14 @@ function PasswordReset() {
                 <CardHeader title='パスワードリセット' />
                 <div className="my-2.5">
                     <TextField
-                        // error={inputError.email}
+                        error={inputError}
                         className="w-full"
                         id="outlined-basic"
                         label="メールアドレス"
                         variant="outlined"
-                        // helperText={inputError.email && errorMessage.email}
+                        helperText={inputError && errorMessage}
                         onChange={getEmail}
                         type={"email"}
-                        value={email}
                     />
                 </div>
 
@@ -70,7 +96,6 @@ function PasswordReset() {
         </div>
 
     )
-
 }
 
 export default PasswordReset;
