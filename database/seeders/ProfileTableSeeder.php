@@ -22,6 +22,7 @@ class ProfileTableSeeder extends Seeder
                 'user_id' => $i,
                 'description' => "ユーザの説明" . $text,
                 'img_url' => "storage/post_images/noimg.png",
+                'profileName' => "プロフィールネーム",
             ]);
         }
     }

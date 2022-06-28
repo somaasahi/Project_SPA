@@ -45,7 +45,6 @@ function PostDetail(props) {
             })
             .then((res) => {
                 const item = res.data;
-                console.log(item);
                 setItem(item[0]);
                 setUser2(item[1]);
                 setProfile(item[2]);
@@ -122,6 +121,7 @@ function PostDetail(props) {
             <UserInfo
                 icon={profile.img_url}
                 description={profile.description}
+                postUserId={item.user_id}
                 handleClick={closeUser}
             />
         );
@@ -240,7 +240,6 @@ function PostDetail(props) {
                         <Avatar
                             onClick={showUser}
                             src={profile.img_url}
-                            // なかったときにnoimgを表示する処理
                             sx={{ bgcolor: red[500] }}
                             aria-label="recipe"
                             style={{ height: "70px", width: "70px" }}
