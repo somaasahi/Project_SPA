@@ -20,7 +20,7 @@ function FriendDetail(props) {
             })
             .then((res) => {
                 const result = res.data;
-                console.log(result[0].name);
+
                 setName(result[0].name);
                 setImg(result[1].img_url);
                 setDescription(result[1].description);
@@ -44,7 +44,7 @@ function FriendDetail(props) {
                 },
             })
             .then((res) => {
-                console.log(res.data);
+
                 setChat(res.data);
             })
             .catch((error) => {
@@ -73,7 +73,7 @@ function FriendDetail(props) {
                 },
             })
             .then((res) => {
-                console.log(res.data);
+
                 setChat([...chat, res.data]);
                 setMessage("");
             })

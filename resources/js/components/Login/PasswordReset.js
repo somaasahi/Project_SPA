@@ -55,7 +55,7 @@ function PasswordReset() {
                 }
             );
         }).catch((res) => {
-            console.log(res);
+
         });
     }
 

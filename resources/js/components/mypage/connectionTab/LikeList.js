@@ -6,7 +6,7 @@ import Post from "../acountTab/Post";
 
 function LikeList() {
     const [posts, setPosts] = useStateIfMounted([]);
-    
+
     useEffect(() => {
         axios
             .get("api/user/")
@@ -20,7 +20,7 @@ function LikeList() {
                     })
                     .then((res) => {
                         const results = res.data;
-                        console.log(results);
+
                         if (posts.length > 30) {
                             toast.error("これ以上表示できません", {
                                 position: "top-center",

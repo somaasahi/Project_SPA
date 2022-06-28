@@ -91,7 +91,7 @@ function ProfileSetting(props) {
             name: profillData.name,
             description: profillData.description
         }
-        console.log(user);
+
         //プロフィールがあれば、更新処理
         let error1 = true;
         let error2 = true;
@@ -171,7 +171,7 @@ function ProfileSetting(props) {
     }
 
     if (!user) { return 'Loading...' };
-    console.log(profileEmpty.profileName);
+
     return (
         <>
             <Card className="w-full">
