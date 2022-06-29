@@ -2,6 +2,7 @@ import { Avatar, Button, Card, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 function Login(props) {
     //一時的ユーザー情報格納
@@ -94,7 +95,17 @@ function Login(props) {
                         setLoginCheck(true);
                         props.setAuthUser(true);
                     }).catch((e) => {
-                        console.log(e.message);
+                        return toast.error(
+                            "ログインに失敗しました。",
+                            {
+                                position: "top-center",
+                                autoClose: 1000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            })
                     })
             })
     }
@@ -151,6 +162,17 @@ function Login(props) {
             <div className="w-2/5 m-auto text-right mt-2 text-cyan-400">
                 <Link to={"/passwordReset"} >パスワードお忘れの方はこちらへ</Link>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
 
             {pageChack()}
         </div>
