@@ -37674,20 +37674,36 @@ function Review(props) {
         setReview(results);
         setComment("");
       })["catch"](function (error) {
-        react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.error("システムエラー", {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined
-        });
+        var _error$response2 = error.response,
+            status = _error$response2.status,
+            statusText = _error$response2.statusText;
+
+        if (status === 400) {
+          react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.error("2~50文字で入力してください", {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+          });
+        } else {
+          react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.error("システムエラー", {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+          });
+        }
       });
     })["catch"](function (error) {
-      var _error$response2 = error.response,
-          status = _error$response2.status,
-          statusText = _error$response2.statusText;
+      var _error$response3 = error.response,
+          status = _error$response3.status,
+          statusText = _error$response3.statusText;
 
       if (status == 401) {
         react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.error("ログインが必要です。", {
@@ -40318,15 +40334,31 @@ function FriendDetail(props) {
       setChat([].concat(_toConsumableArray(chat), [res.data]));
       setMessage("");
     })["catch"](function (error) {
-      react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error("システムエラー", {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined
-      });
+      var _error$response = error.response,
+          status = _error$response.status,
+          statusText = _error$response.statusText;
+
+      if (status === 400) {
+        react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error("2~50文字で入力してください", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+      } else {
+        react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error("システムエラー", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+      }
     });
   };
 

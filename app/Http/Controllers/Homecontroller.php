@@ -8,9 +8,11 @@ use App\Models\Post;
 use App\Models\Profile;
 use App\Models\Review;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class Homecontroller extends Controller
 {
@@ -125,19 +127,36 @@ class Homecontroller extends Controller
 
     public function postReview(Request $request)
     {
+        $validator = Validator::make($request['params'], [
+            'comment' => 'required|min:2|max:50',
+        ]);
+        if ($validator->fails()) {
 
-        DB::transaction(function () use ($request) {
-            $review = new Review();
-            $review->user_id = $request['params']['user_id'];
-            $review->post_id = $request['params']['post_id'];
-            $review->comment = $request['params']['comment'];
-            $review->save();
-        });
-        $reviews = Review::select('reviews.id as id', 'reviews.comment', 'reviews.created_at', 'users.name', 'profiles.img_url')
-            ->join('users', 'reviews.user_id', '=', 'users.id')
-            ->leftJoin('profiles', 'users.id', '=', 'profiles.user_id')
-            ->where('reviews.post_id', $request['params']['post_id'])->get();
-        return $reviews;
+            return response()->json(['message' => '2~50文字で入力してください'], 400);
+        } else {
+            DB::beginTransaction();
+
+            try {
+
+                $review = new Review();
+                $review->user_id = $request['params']['user_id'];
+                $review->post_id = $request['params']['post_id'];
+                $review->comment = $request['params']['comment'];
+                $review->save();
+
+                $reviews = Review::select('reviews.id as id', 'reviews.comment', 'reviews.created_at', 'users.name', 'profiles.img_url')
+                    ->join('users', 'reviews.user_id', '=', 'users.id')
+                    ->leftJoin('profiles', 'users.id', '=', 'profiles.user_id')
+                    ->where('reviews.post_id', $request['params']['post_id'])->get();
+
+                DB::commit();
+
+                return $reviews;
+            } catch (Exception $exception) {
+                DB::rollBack();
+                return response()->json(['message' => 'システムエラー'], 500);
+            }
+        }
     }
 
     public function checkFriend(Request $request)

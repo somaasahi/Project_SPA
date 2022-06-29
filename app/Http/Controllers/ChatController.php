@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chat;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class ChatController extends Controller
 {
@@ -24,11 +27,26 @@ class ChatController extends Controller
 
     public function store(Request $request)
     {
-        $chat = new Chat();
-        $chat->from_user_id = Auth::user()->id;
-        $chat->to_user_id = $request['params']['to_user_id'];
-        $chat->chat = $request['params']['message'];
-        $chat->save();
-        return $chat;
+        $validator = Validator::make($request['params'], [
+            'message' => 'required|min:2|max:50',
+        ]);
+        if ($validator->fails()) {
+
+            return response()->json(['message' => '2~50文字で入力してください'], 400);
+        } else {
+            DB::beginTransaction();
+            try {
+                $chat = new Chat();
+                $chat->from_user_id = Auth::user()->id;
+                $chat->to_user_id = $request['params']['to_user_id'];
+                $chat->chat = $request['params']['message'];
+                $chat->save();
+                DB::commit();
+                return $chat;
+            } catch (Exception $exception) {
+                DB::rollBack();
+                return response()->json(['message' => 'システムエラー'], 500);
+            }
+        }
     }
 }
