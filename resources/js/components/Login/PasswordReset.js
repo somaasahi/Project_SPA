@@ -41,6 +41,22 @@ function PasswordReset() {
 
         const data = { email: email }
         await axios.post('api/forgot-password', data).then((res) => {
+
+            if (res.data['message']) {
+                return toast.error(
+                    res.data['message'],
+                    {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    }
+                );
+            }
+
             setEmail('');
             return toast.success(
                 "送信しました！",
@@ -54,8 +70,6 @@ function PasswordReset() {
                     progress: undefined,
                 }
             );
-        }).catch((res) => {
-
         });
     }
 
@@ -94,7 +108,6 @@ function PasswordReset() {
                 {/* </form> */}
             </Card>
         </div>
-
     )
 }
 

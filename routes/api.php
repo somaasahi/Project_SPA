@@ -3,7 +3,10 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\FriendRelationController;
+use App\Http\Controllers\Homecontroller;
+use App\Http\Controllers\LikelistController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\PostlistController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -21,45 +24,44 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware( 'auth:sanctum' )->get( '/user', function ( Request $request ) {
     return Auth::user();
-});
-Route::post('user', [UserController::class, 'store']);
-Route::post('login', [AuthController::class, 'login']);
-Route::get('logout', [AuthController::class, 'logout']);
+} );
+Route::post( 'user', [UserController::class, 'store'] );
+Route::post( 'login', [AuthController::class, 'login'] );
+Route::get( 'logout', [AuthController::class, 'logout'] );
 
-Route::post('/forgot-password', [MailController::class, 'sendMail'])->middleware('guest');
+Route::post( '/forgot-password', [MailController::class, 'sendMail'] )->middleware( 'guest' );
 
+Route::group( ['middleware' => ['auth:sanctum']], function () {
+    Route::get( 'FriendRelation', [FriendRelationController::class, 'index'] );
+    Route::get( 'FriendShow/{id}', [FriendRelationController::class, 'show'] );
+    Route::post( 'mypage/update', [FriendRelationController::class, 'update'] );
+    Route::get( 'mypage/friendDetail', [FriendRelationController::class, 'friendDetail'] );
+    Route::get( 'mypage/chat', [ChatController::class, 'index'] );
+    Route::post( 'mypage/chat', [ChatController::class, 'store'] );
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('FriendRelation', [FriendRelationController::class, 'index']);
-    Route::get('FriendShow/{id}', [FriendRelationController::class, 'show']);
-    Route::post('mypage/update', [FriendRelationController::class, 'update']);
-    Route::get('mypage/friendDetail', [FriendRelationController::class, 'friendDetail']);
-    Route::get('mypage/chat', [ChatController::class, 'index']);
-    Route::post('mypage/chat', [ChatController::class, 'store']);
+    Route::get( 'userInfo/checkFriend', [Homecontroller::class, 'checkFriend'] );
+    Route::post( 'userInfo/makeFriend', [Homecontroller::class, 'makeFriend'] );
 
-    Route::get('userInfo/checkFriend', [Homecontroller::class, 'checkFriend']);
-    Route::post('userInfo/makeFriend', [Homecontroller::class, 'makeFriend']);
+    Route::get( 'mypage/likelist', [LikelistController::class, 'index'] );
+    Route::get( 'mypage/postlist', [PostlistController::class, 'index'] );
+    Route::post( 'mypage/postlist/delete', [PostlistController::class, 'delete'] );
+    Route::post( 'detail/review', [Homecontroller::class, 'postReview'] );
+    Route::post( 'detail/like', [Homecontroller::class, 'like'] );
 
-    Route::get('mypage/likelist', 'App\Http\Controllers\Likelistcontroller@index');
-    Route::get('mypage/postlist', 'App\Http\Controllers\Postlistcontroller@index');
-    Route::post('mypage/postlist/delete', 'App\Http\Controllers\Postlistcontroller@delete');
-    Route::post('detail/review', 'App\Http\Controllers\Homecontroller@postReview');
-    Route::post('detail/like', 'App\Http\Controllers\Homecontroller@like');
+    Route::post( 'user/updata', [UserController::class, 'update'] );
 
-    Route::post('user/updata', [UserController::class, 'update']);
+    Route::get( 'ProfileShow/{id}', [ProfileController::class, 'show'] );
+    Route::post( 'ProfileStor', [ProfileController::class, 'store'] );
+    Route::post( 'ProfileUpdate', [ProfileController::class, 'update'] );
+} );
 
-    Route::get('ProfileShow/{id}', [ProfileController::class, 'show']);
-    Route::post('ProfileStor', [ProfileController::class, 'store']);
-    Route::post('ProfileUpdate', [ProfileController::class, 'update']);
-});
+Route::get( 'homeIndex', 'App\Http\Controllers\Homecontroller@homeIndex' );
+Route::get( 'home/likeCount', 'App\Http\Controllers\Homecontroller@likeCount' );
+Route::get( 'detail', 'App\Http\Controllers\Homecontroller@showDetail' );
+Route::get( 'detail/checkLike', 'App\Http\Controllers\Homecontroller@checkLike' );
+Route::get( 'detail/review', 'App\Http\Controllers\Homecontroller@showReview' );
 
-Route::get('homeIndex', 'App\Http\Controllers\Homecontroller@homeIndex');
-Route::get('home/likeCount', 'App\Http\Controllers\Homecontroller@likeCount');
-Route::get('detail', 'App\Http\Controllers\Homecontroller@showDetail');
-Route::get('detail/checkLike', 'App\Http\Controllers\Homecontroller@checkLike');
-Route::get('detail/review', 'App\Http\Controllers\Homecontroller@showReview');
-
-Route::group(['middleware' => ['auth:sanctum']], function () {
-});
+Route::group( ['middleware' => ['auth:sanctum']], function () {
+} );
