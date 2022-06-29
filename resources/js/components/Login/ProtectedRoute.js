@@ -7,7 +7,7 @@ function ProtectedRoute(props) {
     const page = props.children;
 
     const authCheck = () => {
-        console.log(isAuth);
+
         if (!isAuth) {
             return <Navigate to="/login" replace />;
         }

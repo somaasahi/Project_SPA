@@ -31,7 +31,7 @@ function FriendList(props) {
                 },
             })
             .then((res) => {
-                console.log(res.data);
+
 
                 setStatus(res.data);
             })
