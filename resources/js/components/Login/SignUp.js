@@ -101,7 +101,7 @@ function SignUp() {
             //登録処理
             await axios.post('/api/user', data).then(() => {
                 setPostCheck(true);
-                console.log('ok');
+
             }).catch((error) => {
                 console.log(error);
             });

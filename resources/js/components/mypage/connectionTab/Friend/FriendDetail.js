@@ -20,7 +20,7 @@ function FriendDetail(props) {
             })
             .then((res) => {
                 const result = res.data;
-                console.log(result[0].name);
+
                 setName(result[0].name);
                 setImg(result[1].img_url);
                 setDescription(result[1].description);
@@ -44,7 +44,6 @@ function FriendDetail(props) {
                 },
             })
             .then((res) => {
-                console.log(res.data);
                 setChat(res.data);
             })
             .catch((error) => {
@@ -73,20 +72,32 @@ function FriendDetail(props) {
                 },
             })
             .then((res) => {
-                console.log(res.data);
                 setChat([...chat, res.data]);
                 setMessage("");
             })
             .catch((error) => {
-                toast.error("システムエラー", {
-                    position: "top-center",
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
+                const { status, statusText } = error.response;
+                if (status === 400) {
+                    toast.error("2~50文字で入力してください", {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                } else {
+                    toast.error("システムエラー", {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                }
             });
     };
 

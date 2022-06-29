@@ -52,7 +52,7 @@ function EditList() {
         setDetailId(event);
     };
     const deletePost = (event) => {
-        console.log(event);
+
         axios
             .post("api/mypage/postlist/delete", {
                 params: {

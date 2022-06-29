@@ -35896,8 +35896,6 @@ function ProtectedRoute(props) {
   var page = props.children;
 
   var authCheck = function authCheck() {
-    console.log(isAuth);
-
     if (!isAuth) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Navigate, {
         to: "/login",
@@ -36129,7 +36127,6 @@ function SignUp() {
               _context.next = 11;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/user', data).then(function () {
                 setPostCheck(true);
-                console.log('ok');
               })["catch"](function (error) {
                 console.log(error);
               });
@@ -36355,9 +36352,7 @@ function Login(props) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().get('api/mail/sendMail').then(function (res) {
-              console.log('ok');
-            })["catch"](function (e) {
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get('api/mail/sendMail').then(function (res) {})["catch"](function (e) {
               console.log(e.message);
             });
 
@@ -36611,8 +36606,7 @@ function Navigation(props) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default().get('api/logout').then(function (respons) {
-                console.log(respons.data);
+              return axios__WEBPACK_IMPORTED_MODULE_2___default().get("api/logout").then(function (respons) {
                 props.setAuthUser(respons.data);
               });
 
@@ -36821,7 +36815,6 @@ function Base(props) {
                 }
               }).then(function (res) {
                 var results = res.data;
-                console.log(results);
 
                 if (results.length < 1) {
                   setHasMore(false);
@@ -37713,21 +37706,38 @@ function Review(props) {
       }).then(function (res) {
         var results = res.data;
         setReview(results);
+        setComment("");
       })["catch"](function (error) {
-        react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.error("システムエラー", {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined
-        });
+        var _error$response2 = error.response,
+            status = _error$response2.status,
+            statusText = _error$response2.statusText;
+
+        if (status === 400) {
+          react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.error("2~50文字で入力してください", {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+          });
+        } else {
+          react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.error("システムエラー", {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+          });
+        }
       });
     })["catch"](function (error) {
-      var _error$response2 = error.response,
-          status = _error$response2.status,
-          statusText = _error$response2.statusText;
+      var _error$response3 = error.response,
+          status = _error$response3.status,
+          statusText = _error$response3.statusText;
 
       if (status == 401) {
         react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.error("ログインが必要です。", {
@@ -37743,7 +37753,6 @@ function Review(props) {
         alert("Error! HTTP Status: ".concat(status, " ").concat(statusText));
       }
     });
-    console.log(props.postId);
   };
 
   var noreview;
@@ -37774,8 +37783,8 @@ function Review(props) {
               children: "noimg"
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            className: "ml-4 px-7 border-2 rounded-md w-full inline-block align-middle",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+            className: "flex items-center ml-4 px-7 border-2 rounded-md w-full",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
               className: "",
               children: review.comment
             })
@@ -37791,7 +37800,8 @@ function Review(props) {
           fullWidth: true,
           size: "big",
           maxRows: 5,
-          onChange: handleComment
+          onChange: handleComment,
+          value: comment
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_system__WEBPACK_IMPORTED_MODULE_5__["default"], {
         className: "mt-7 grid justify-items-end",
@@ -37882,7 +37892,6 @@ function UserInfo(props) {
           to_user_id: props.postUserId
         }
       }).then(function (res) {
-        console.log(res.data);
         setFriend(res.data);
       })["catch"](function (error) {
         react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.error("システムエラー", {
@@ -38548,7 +38557,6 @@ function EditList() {
   };
 
   var deletePost = function deletePost(event) {
-    console.log(event);
     axios.post("api/mypage/postlist/delete", {
       params: {
         id: event
@@ -39357,7 +39365,6 @@ function PrivateSetting(props) {
 
   var getEmail = function getEmail(event) {
     var email = event.target.value;
-    console.log(email);
 
     if (email == '') {
       setErrorMessage(function (prevState) {
@@ -39430,8 +39437,7 @@ function PrivateSetting(props) {
                   name: false,
                   email: false
                 });
-              });
-              console.log(errorMessage); //バリデーションチェック
+              }); //バリデーションチェック
 
               check = 0;
 
@@ -39458,14 +39464,14 @@ function PrivateSetting(props) {
               }
 
               if (!(check > 0)) {
-                _context2.next = 12;
+                _context2.next = 11;
                 break;
               }
 
               return _context2.abrupt("return", false);
 
-            case 12:
-              _context2.next = 14;
+            case 11:
+              _context2.next = 13;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().post('api/user/updata', postData).then(function (res) {
                 if (res.data == true) {
                   return react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.success("更新しました", {
@@ -39495,7 +39501,7 @@ function PrivateSetting(props) {
                 });
               });
 
-            case 14:
+            case 13:
             case "end":
               return _context2.stop();
           }
@@ -39830,8 +39836,7 @@ function ProfileSetting(props) {
                 img: profillData.img,
                 name: profillData.name,
                 description: profillData.description
-              };
-              console.log(user); //プロフィールがあれば、更新処理
+              }; //プロフィールがあれば、更新処理
 
               error1 = true;
               error2 = true; //名前に変更がなければ更新前の値を入れなおす
@@ -39891,14 +39896,14 @@ function ProfileSetting(props) {
               }
 
               if (!(check > 0)) {
-                _context3.next = 12;
+                _context3.next = 11;
                 break;
               }
 
               return _context3.abrupt("return", false);
 
-            case 12:
-              _context3.next = 14;
+            case 11:
+              _context3.next = 13;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().post('api/ProfileUpdate', data).then(function (res) {
                 if (res.data == true) {
                   return react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.success("更新しました", {
@@ -39928,7 +39933,7 @@ function ProfileSetting(props) {
                 });
               });
 
-            case 14:
+            case 13:
             case "end":
               return _context3.stop();
           }
@@ -39951,7 +39956,6 @@ function ProfileSetting(props) {
   }
 
   ;
-  console.log(profileEmpty.profileName);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
       className: "w-full",
@@ -40144,7 +40148,6 @@ function Friend(props) {
         }
       }).then(function (res) {
         var results = res.data;
-        console.log(results);
         setUser(results);
       })["catch"](function (error) {
         react_toastify__WEBPACK_IMPORTED_MODULE_4__.toast.error("システムエラー", {
@@ -40313,7 +40316,6 @@ function FriendDetail(props) {
       }
     }).then(function (res) {
       var result = res.data;
-      console.log(result[0].name);
       setName(result[0].name);
       setImg(result[1].img_url);
       setDescription(result[1].description);
@@ -40333,7 +40335,6 @@ function FriendDetail(props) {
         user_id: props.id
       }
     }).then(function (res) {
-      console.log(res.data);
       setChat(res.data);
     })["catch"](function (error) {
       react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error("システムエラー", {
@@ -40364,19 +40365,34 @@ function FriendDetail(props) {
         message: message
       }
     }).then(function (res) {
-      console.log(res.data);
       setChat([].concat(_toConsumableArray(chat), [res.data]));
       setMessage("");
     })["catch"](function (error) {
-      react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error("システムエラー", {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined
-      });
+      var _error$response = error.response,
+          status = _error$response.status,
+          statusText = _error$response.statusText;
+
+      if (status === 400) {
+        react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error("2~50文字で入力してください", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+      } else {
+        react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error("システムエラー", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+      }
     });
   };
 
@@ -40521,7 +40537,6 @@ function FriendList(props) {
         status: e
       }
     }).then(function (res) {
-      console.log(res.data);
       setStatus(res.data);
     })["catch"](function (error) {
       react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.error("システムエラー", {
@@ -40677,7 +40692,6 @@ function LikeList() {
         }
       }).then(function (res) {
         var results = res.data;
-        console.log(results);
 
         if (posts.length > 30) {
           react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.error("これ以上表示できません", {

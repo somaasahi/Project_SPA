@@ -51,7 +51,7 @@ function Base(props) {
             })
             .then((res) => {
                 const results = res.data;
-                console.log(results);
+
 
                 if (results.length < 1) {
                     setHasMore(false);

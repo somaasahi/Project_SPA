@@ -488,9 +488,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .block {
   display: block;
 }
-.inline-block {
-  display: inline-block;
-}
 .inline {
   display: inline;
 }
@@ -656,9 +653,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .text-right {
   text-align: right;
-}
-.align-middle {
-  vertical-align: middle;
 }
 .text-lg {
   font-size: 1.125rem;

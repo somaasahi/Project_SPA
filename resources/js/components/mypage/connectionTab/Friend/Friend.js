@@ -44,7 +44,7 @@ function Friend(props) {
                     })
                     .then((res) => {
                         const results = res.data;
-                        console.log(results);
+
                         setUser(results);
                     })
                     .catch((error) => {

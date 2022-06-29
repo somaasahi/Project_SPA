@@ -47,7 +47,7 @@ function Login(props) {
     useEffect(async () => {
         //プロフィールデータ検索
         await axios.get('api/mail/sendMail').then((res) => {
-            console.log('ok');
+
         }).catch((e) => {
             console.log(e.message);
         })

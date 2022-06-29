@@ -10,23 +10,21 @@ function Navigation(props) {
     const isAuth = props.authUser;
 
     const logout = async () => {
-        await axios.get('api/logout').then((respons) => {
-            console.log(respons.data)
+        await axios.get("api/logout").then((respons) => {
             props.setAuthUser(respons.data);
-        })
-    }
+        });
+    };
 
     const authChangeLogin = () => {
         if (isAuth) {
             return (
-                <Link
-                    to="/login"
-                    onClick={logout}
-                >logout</Link>
-            )
+                <Link to="/login" onClick={logout}>
+                    logout
+                </Link>
+            );
         }
-        return <Link to="/login">login</Link>
-    }
+        return <Link to="/login">login</Link>;
+    };
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -42,9 +40,7 @@ function Navigation(props) {
                     <span className="mr-4">
                         <Link to="/">home</Link>
                     </span>
-                    <span className="mr-4">
-                        {authChangeLogin()}
-                    </span>
+                    <span className="mr-4">{authChangeLogin()}</span>
                     <span className="mr-4">
                         {isAuth && <Link to="/mypage">mypage</Link>}
                     </span>

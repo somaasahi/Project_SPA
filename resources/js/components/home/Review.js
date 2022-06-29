@@ -48,17 +48,31 @@ function Review(props) {
                     .then((res) => {
                         const results = res.data;
                         setReview(results);
+                        setComment("");
                     })
                     .catch((error) => {
-                        toast.error("システムエラー", {
-                            position: "top-center",
-                            autoClose: 1000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        });
+                        const { status, statusText } = error.response;
+                        if (status === 400) {
+                            toast.error("2~50文字で入力してください", {
+                                position: "top-center",
+                                autoClose: 1000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            });
+                        } else {
+                            toast.error("システムエラー", {
+                                position: "top-center",
+                                autoClose: 1000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            });
+                        }
                     });
             })
             .catch((error) => {
@@ -77,8 +91,6 @@ function Review(props) {
                     alert(`Error! HTTP Status: ${status} ${statusText}`);
                 }
             });
-
-        console.log(props.postId);
     };
 
     let noreview;
@@ -103,8 +115,8 @@ function Review(props) {
                                 noimg
                             </Avatar>
                         </div>
-                        <div className="ml-4 px-7 border-2 rounded-md w-full inline-block align-middle">
-                            <p className="">{review.comment}</p>
+                        <div className="flex items-center ml-4 px-7 border-2 rounded-md w-full">
+                            <div className="">{review.comment}</div>
                         </div>
                     </div>
                 ))}
@@ -118,6 +130,7 @@ function Review(props) {
                         size="big"
                         maxRows={5}
                         onChange={handleComment}
+                        value={comment}
                     />
                 </div>
                 <Box className="mt-7 grid justify-items-end">

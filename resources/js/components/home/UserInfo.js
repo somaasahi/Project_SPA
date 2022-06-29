@@ -19,7 +19,7 @@ function UserInfo(props) {
                         },
                     })
                     .then((res) => {
-                        console.log(res.data);
+
                         setFriend(res.data);
                     })
                     .catch((error) => {

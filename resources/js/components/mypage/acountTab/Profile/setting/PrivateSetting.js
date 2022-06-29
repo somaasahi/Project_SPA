@@ -48,7 +48,7 @@ function PrivateSetting(props) {
     const pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/;
     const getEmail = (event) => {
         const email = event.target.value;
-        console.log(email);
+
         if (email == '') {
             setErrorMessage((prevState) => ({ ...prevState, email: 'メールアドレスは必須です' }));
         } else if (!pattern.test(email.value)) {
@@ -83,7 +83,7 @@ function PrivateSetting(props) {
         }
         //エラーメッセージ初期化
         setInputError((prevState) => ({ ...prevState, img: false, name: false, email: false }));
-        console.log(errorMessage);
+
         //バリデーションチェック
         let check = 0;
         if (!error1) {
