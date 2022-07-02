@@ -497,6 +497,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .grid {
   display: grid;
 }
+.hidden {
+  display: none;
+}
 .h-full {
   height: 100%;
 }
@@ -614,11 +617,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .p-3 {
   padding: 0.75rem;
 }
-.p-6 {
-  padding: 1.5rem;
-}
 .p-1 {
   padding: 0.25rem;
+}
+.p-6 {
+  padding: 1.5rem;
 }
 .py-3 {
   padding-top: 0.75rem;

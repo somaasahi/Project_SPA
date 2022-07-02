@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\FriendRelationController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -38,6 +39,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('mypage/friendDetail', [FriendRelationController::class, 'friendDetail']);
     Route::get('mypage/chat', [ChatController::class, 'index']);
     Route::post('mypage/chat', [ChatController::class, 'store']);
+    Route::post('mypage/post/store', [PostController::class, 'store']);
 
     Route::get('userInfo/checkFriend', [Homecontroller::class, 'checkFriend']);
     Route::post('userInfo/makeFriend', [Homecontroller::class, 'makeFriend']);

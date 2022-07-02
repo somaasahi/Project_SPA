@@ -43,6 +43,7 @@ function Acount() {
                     label="プロフィール"
                     icon={<AccountCircleIcon />}
                 />
+
                 <Tab value="post" label="自分の投稿" icon={<EditIcon />} />
                 <Tab value="edit" label="編集・削除" icon={<PostAddIcon />} />
             </Tabs>

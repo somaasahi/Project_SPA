@@ -20,10 +20,11 @@ import FriendList from "./FriendList";
 import FriendDetail from "./FriendDetail";
 import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useStateIfMounted } from "use-state-if-mounted";
 
 function Friend(props) {
     //friend情報
-    const [user, setUser] = useState("");
+    const [user, setUser] = useStateIfMounted("");
     //freand切り替え用
     const [swich, setSwich] = useState(true);
     //user.id

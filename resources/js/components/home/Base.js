@@ -52,7 +52,6 @@ function Base(props) {
             .then((res) => {
                 const results = res.data;
 
-
                 if (results.length < 1) {
                     setHasMore(false);
                 }
@@ -149,14 +148,17 @@ function Base(props) {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={animal}
                             label="animal"
+                            value={animal}
                             onChange={animalChange}
                         >
                             <MenuItem value={""}>選択しない</MenuItem>
                             <MenuItem value={1}>いぬ</MenuItem>
                             <MenuItem value={2}>ねこ</MenuItem>
-                            <MenuItem value={3}>さる</MenuItem>
+                            <MenuItem value={3}>鳥</MenuItem>
+                            <MenuItem value={4}>爬虫類</MenuItem>
+                            <MenuItem value={5}>昆虫</MenuItem>
+                            <MenuItem value={6}>その他</MenuItem>
                         </Select>
                     </FormControl>
                 </Box>
@@ -168,8 +170,8 @@ function Base(props) {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={kind}
                             label="kind"
+                            value={kind}
                             onChange={kindChange}
                         >
                             <MenuItem value={""}>選択しない</MenuItem>
