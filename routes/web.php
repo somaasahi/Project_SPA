@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,12 +16,23 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+//管理者ログインルート
+Route::prefix( 'admin' )->group( function () {
+    Route::get( 'login', [LoginController::class, 'index'] )->name( 'admin.index' );
+    Route::post( 'login', [LoginController::class, 'login'] )->name( 'admin.login' );
+    Route::get( 'logout', [LoginController::class, 'logout'] )->name( 'admin.logout' );
+} );
+//管理者認証ルート
+Route::prefix( 'admin' )->middleware( 'auth:admin' )->group( function () {
+    Route::get( '/', [IndexController::class, 'index'] )->name( 'index' );
+} );
+//パスワードリセットルート
 Route::get( '/reset-password/{token}', function ( $token ) {
     return view( 'reset-password', ['token' => $token] );
 } )->middleware( 'guest' )->name( 'password.reset' );
-
 Route::post( '/forgot-password', [AuthController::class, 'passwordReset'] )->middleware( 'guest' )->name( 'password.update' );
 
+//ユーザールート
 Route::get( '{any}', function () {
     return view( 'app' );
 } )->where( 'any', '.*' );

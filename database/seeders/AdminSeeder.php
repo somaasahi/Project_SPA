@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class UserSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create( [
+        Admin::create( [
             'name' => '赤司征十郎',
             'email' => 'rakuzan@example.com',
             'email_verified_at' => now(),
@@ -25,5 +25,6 @@ class UserSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ] );
+
     }
 }
