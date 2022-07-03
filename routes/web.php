@@ -25,6 +25,10 @@ Route::prefix( 'admin' )->group( function () {
 //管理者認証ルート
 Route::prefix( 'admin' )->middleware( 'auth:admin' )->group( function () {
     Route::get( '/', [IndexController::class, 'index'] )->name( 'index' );
+    Route::get( 'getUser', [IndexController::class, 'getUser'] )->name( 'getUser' );
+    Route::get( 'getPost', [IndexController::class, 'getPost'] )->name( 'getPost' );
+    Route::get( 'detailUser', [IndexController::class, 'getUser'] )->name( 'detailUser' );
+    Route::get( 'detailPost', [IndexController::class, 'getPost'] )->name( 'detailPost' );
 } );
 //パスワードリセットルート
 Route::get( '/reset-password/{token}', function ( $token ) {

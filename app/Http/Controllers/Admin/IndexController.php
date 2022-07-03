@@ -9,9 +9,8 @@ class IndexController extends Controller
 {
     public function __construct( User $user, Post $post )
     {
-        $this->user = $user;
-        $this->post = $post;
-
+        $this->user     = $user;
+        $this->post     = $post;
         $this->viewData = [];
     }
 
@@ -20,17 +19,25 @@ class IndexController extends Controller
         return view( 'Admin.index' );
     }
 
-    public function userData()
+    public function getUser()
     {
         $this->viewData['userList'] = $this->user->get();
 
-        return view( 'Admin.userData', $this->viewData );
+        return view( 'Admin.ManagementList.UserManagementList.userList', $this->viewData );
     }
 
-    public function postData()
+    public function dtailUser( $id )
     {
-        $this->viewData['postList'] = $this->post->get();
 
-        return view( 'Admin.postData', $this->viewData );
+        return view( 'Admin.ManagementList.UserManagementList.detailUser' );
+    }
+
+    public function getPost()
+    {
+        $this->viewData['postList'] = $this->post
+            ->leftJoin( 'users', 'user_id', '=', 'users.id' )
+            ->get();
+
+        return view( 'Admin.ManagementList.PostManagementList.postList', $this->viewData );
     }
 }

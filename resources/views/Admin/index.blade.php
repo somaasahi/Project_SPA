@@ -16,7 +16,7 @@
     <table class="table w-50 m-auto">
         <thead class="table-light">
             <tr>
-                <th>#</th>
+                <th></th>
                 <th>管理リスト</th>
                 <th>リンク</th>
             </tr>
@@ -25,12 +25,12 @@
             <tr>
                 <td>1</td>
                 <td>ユーザーリスト</td>
-                <td><a href="{{ route('admin.index') }}">ユーザーリストへ</a></td>
+                <td><a href="{{ route('getUser') }}">ユーザーリストへ</a></td>
             </tr>
             <tr>
                 <td>2</td>
                 <td>投稿リスト</td>
-                <td><a href="{{ route('admin.index') }}">投稿リストへ</a></td>
+                <td><a href="{{ route('getPost') }}">投稿リストへ</a></td>
             </tr>
         </tbody>
       </table>
