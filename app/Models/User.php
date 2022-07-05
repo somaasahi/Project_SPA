@@ -67,4 +67,16 @@ class User extends Authenticatable
         $url = url( "reset-password/${token}" );
         $this->notify( new ResetPasswordNotification( $url ) );
     }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting( function ( $user ) {
+            $user->posts()->delete();
+            $user->reviews()->delete();
+            $user->toAdminMessages()->delete();
+            $user->profile()->delete();
+        } );
+    }
 }

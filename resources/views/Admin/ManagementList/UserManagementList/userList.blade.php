@@ -23,7 +23,7 @@
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
                 <td>{{$user->created_at}}</td>
-                <td><a href="{{ route('detailUser' , '['id' => '{{$user->id}}']') }}">詳細</a></td>
+                <td><a href="{{ route('detailUser' , $user->id ) }}">詳細</a></td>
                 <td><a href="{{ route('admin.index') }}">論理削除</a></td>
             </tr>
             @endforeach

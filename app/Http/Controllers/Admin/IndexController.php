@@ -26,10 +26,11 @@ class IndexController extends Controller
         return view( 'Admin.ManagementList.UserManagementList.userList', $this->viewData );
     }
 
-    public function dtailUser( $id )
+    public function getDetailUser( $id )
     {
+        $this->viewData['user'] = $this->user->find( $id );
 
-        return view( 'Admin.ManagementList.UserManagementList.detailUser' );
+        return view( 'Admin.ManagementList.UserManagementList.userDetail', $this->viewData );
     }
 
     public function getPost()

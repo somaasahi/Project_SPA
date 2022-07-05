@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DeleteController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\AuthController;
@@ -27,8 +28,9 @@ Route::prefix( 'admin' )->middleware( 'auth:admin' )->group( function () {
     Route::get( '/', [IndexController::class, 'index'] )->name( 'index' );
     Route::get( 'getUser', [IndexController::class, 'getUser'] )->name( 'getUser' );
     Route::get( 'getPost', [IndexController::class, 'getPost'] )->name( 'getPost' );
-    Route::get( 'detailUser', [IndexController::class, 'getUser'] )->name( 'detailUser' );
+    Route::get( 'detailUser/{id}', [IndexController::class, 'getDetailUser'] )->name( 'detailUser' );
     Route::get( 'detailPost', [IndexController::class, 'getPost'] )->name( 'detailPost' );
+    Route::post( 'delete', [DeleteController::class, 'delete'] )->name( 'delete' );
 } );
 //パスワードリセットルート
 Route::get( '/reset-password/{token}', function ( $token ) {
