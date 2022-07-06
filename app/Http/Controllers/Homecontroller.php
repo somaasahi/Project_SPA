@@ -25,12 +25,11 @@ class Homecontroller extends Controller
         $keyword = $request->get('keyword');
         $total = $request->get('total');
 
-        $query = DB::table('posts')
-            ->select('posts.id as id', 'posts.img_url1', 'posts.content', 'posts.created_at', 'users.name', 'profiles.img_url')
+        $query = Post::select('posts.id as id', 'posts.img_url1', 'posts.content', 'posts.created_at', 'users.name', 'profiles.img_url')
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->leftJoin('profiles', 'users.id', '=', 'profiles.user_id');
-        // いいね数の取得まだ
-        // $query->withCount('likes');
+        $query->withCount('likes');
+        $query->withCount('reviews');
 
         if (!empty($animal)) {
             $query->where('animal_kind', $animal);
@@ -58,9 +57,7 @@ class Homecontroller extends Controller
         $query->skip($total)->take(10)->get();
 
         $results = $query->get();
-        // foreach ($results as $result) {
-        //     Log::debug($result);
-        // }
+
         return $results;
     }
 

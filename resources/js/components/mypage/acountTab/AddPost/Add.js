@@ -10,6 +10,7 @@ import {
     TextField,
 } from "@mui/material";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 import React, { useState } from "react";
 
@@ -29,19 +30,18 @@ function Add() {
     const contentChange = (event) => {
         setContent(event.target.value);
     };
-    // const [image, setImage] = useState();
-    // const imageChange = (event) => {
-    //     console.log(event);
-    //     setImage(event.target.files[0]);
-    //     console.log(image);
-    // };
+
     const fileInput = React.createRef();
+    const fileInput2 = React.createRef();
+    const fileInput3 = React.createRef();
 
     const submitPost = () => {
         const file = new FormData();
-        file.append("animal", animal);
-        file.append("kind", kind);
+        file.append("animal_kind", animal);
+        file.append("post_kind", kind);
         file.append("image", fileInput.current.files[0]);
+        file.append("image2", fileInput2.current.files[0]);
+        file.append("image3", fileInput3.current.files[0]);
         file.append("content", content);
 
         axios
@@ -52,11 +52,40 @@ function Add() {
             })
             .then((response) => {
                 console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+                const { status, statusText } = error.response;
+                if (status === 400) {
+                    toast.error("投稿ルールに従って下さい。", {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                } else {
+                    toast.error("システムエラー", {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                }
             });
     };
 
     return (
         <Card className="w-full">
+            <CardContent>
+                <p className="text-red-600">サブ画像を除いて必須項目です。</p>
+                <p className="text-red-600">投稿文は400文字以内です。</p>
+            </CardContent>
             <CardContent>
                 <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">動物</InputLabel>
@@ -109,13 +138,25 @@ function Add() {
             <CardContent>
                 <Button variant="contained" component="label">
                     サブ画像１を選択
-                    <input type="file" hidden />
+                    <input
+                        hidden
+                        type="file"
+                        name="image2"
+                        ref={fileInput2}
+                        accept="image/*"
+                    />
                 </Button>
             </CardContent>
             <CardContent>
                 <Button variant="contained" component="label">
                     サブ画像２を選択
-                    <input type="file" hidden />
+                    <input
+                        hidden
+                        type="file"
+                        name="image3"
+                        ref={fileInput3}
+                        accept="image/*"
+                    />
                 </Button>
             </CardContent>
             <CardContent>
