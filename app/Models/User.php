@@ -4,13 +4,14 @@ namespace App\Models;
 
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -66,5 +67,17 @@ class User extends Authenticatable
     {
         $url = url( "reset-password/${token}" );
         $this->notify( new ResetPasswordNotification( $url ) );
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting( function ( $user ) {
+            $user->posts()->delete();
+            $user->reviews()->delete();
+            $user->toAdminMessages()->delete();
+            $user->profile()->delete();
+        } );
     }
 }
