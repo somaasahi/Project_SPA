@@ -5,11 +5,11 @@
 <body>
     @include('Admin.header')
   <div class="container mt-5">
-    <form action="{{route('getUserSearch')}}" class="mt-3 mb-3" method="POST">
+    <form action="{{route('getSoftdeletesUserSearch')}}" class="mt-3 mb-3" method="POST">
         @csrf
         <div class="input-group w-75 m-auto">
-            <input type="text" class="form-control me-3" name="name" placeholder="名前で検索">
-            <input type="email" class="form-control" name="email" placeholder="メールアドレスで検索">
+            <input type="text" class="form-control me-3" placeholder="名前で検索">
+            <input type="email" class="form-control" placeholder="メールアドレスで検索">
         </div>
         <div class="w-75 m-auto mt-2 text-end">
             <button type="submit" class="btn btn-outline-success" type="button" id="button-addon2">
@@ -25,29 +25,26 @@
                 <th>メールアドレス</th>
                 <th>登録日</th>
                 <th>状態</th>
-                <th>詳細</th>
+                <th>複元</th>
                 <th>削除</th>
             </tr>
         </thead>
-
         <tbody>
-            @foreach($userList as $user)
+            @foreach($SoftDeletesUser as $user)
             <tr>
                 <td>{{$user->id}}</td>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
                 <td>{{$user->created_at}}</td>
-                <td>アクティブ</td>
-                <td><a href="{{ route('detailUser' , $user->id ) }}">詳細</a></td>
-                <td><a href="{{ route('softDeleteUser', $user->id ) }}">論理削除</a></td>
+                <td>ノンアクティブ</td>
+                <td><a href="{{ route('restorePost' , $user->id ) }}">更新</a></td>
+                <td><a href="{{ route('softDeletePost', $user->id ) }}">論理削除</a></td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    <button type="button"  class="btn btn-secondary">
-        <a href="{{reoute('getUser')}}"> 戻る </a>
-     </button>
-        <div class="w-75 m-auto text-end"><a href="{{route('getSoftdeletesUser')}}">ノンアクティブなデータへ</a></div>
+
+    <div class="w-75 m-auto text-end"><a href="{{route('getUser')}}">アクティブなデータへ</a></div>
 
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">

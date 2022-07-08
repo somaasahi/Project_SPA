@@ -48,4 +48,50 @@ class DeleteController extends Controller
 
     }
 
+    public function softDeleteUser( int $id )
+    {
+        $this->user->find( $id )->delete();
+
+        return redirect()->route( 'getUser' )->with( [
+            'delete_msg' => '削除しました。',
+        ] );
+    }
+
+    public function restoreUser( int $id )
+    {
+        $this->user->onlyTrashed()->find( $id )->restore();
+
+        return redirect()->route( 'getSoftdeletesUser' )->with( [
+            'delete_msg' => 'アクティブにしました。',
+        ] );
+    }
+
+    public function furuDelete( int $id )
+    {
+        $this->user->onlyTrashed()->find( $id )->forceDelete();
+
+        return redirect()->route( 'getSoftdeletesUser' )->with( [
+            'delete_msg' => '削除しました。',
+        ] );
+    }
+
+    public function softDeletePost( int $id )
+    {
+        dd( $id );
+        $this->post->find( $id )->delete();
+
+        return redirect()->route( 'getPost' )->with( [
+            'delete_msg' => '削除しました。',
+        ] );
+    }
+
+    public function restorePost( int $id )
+    {
+        $this->post->onlyTrashed()->find( $id )->restore();
+
+        return redirect()->route( 'getSoftdeletesPost' )->with( [
+            'delete_msg' => 'アクティブにしました。',
+        ] );
+    }
+
 }

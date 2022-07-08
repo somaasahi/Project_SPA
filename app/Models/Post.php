@@ -21,15 +21,26 @@ class Post extends Model
 
     public function reviews()
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany( Review::class );
     }
+
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->hasMany( Like::class );
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo( User::class );
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting( function ( $post ) {
+            $post->likes()->delete();
+            $post->reviews()->delete();
+        } );
     }
 }

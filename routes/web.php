@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DeleteController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,10 +28,17 @@ Route::prefix( 'admin' )->group( function () {
 Route::prefix( 'admin' )->middleware( 'auth:admin' )->group( function () {
     Route::get( '/', [IndexController::class, 'index'] )->name( 'index' );
     Route::get( 'getUser', [IndexController::class, 'getUser'] )->name( 'getUser' );
+    Route::get( 'getSoftdeletesUser', [IndexController::class, 'getSoftdeletesUser'] )->name( 'getSoftdeletesUser' );
     Route::get( 'getPost', [IndexController::class, 'getPost'] )->name( 'getPost' );
+    Route::get( 'detailPost/{id}', [IndexController::class, 'getDetailPost'] )->name( 'detailPost' );
     Route::get( 'detailUser/{id}', [IndexController::class, 'getDetailUser'] )->name( 'detailUser' );
-    Route::get( 'detailPost', [IndexController::class, 'getPost'] )->name( 'detailPost' );
+    Route::get( 'softDeleteUser/{id}', [DeleteController::class, 'softDeleteUser'] )->name( 'softDeleteUser' );
+    Route::get( 'restoreUser/{id}', [DeleteController::class, 'restoreUser'] )->name( 'restoreUser' );
+    Route::get( 'softDeletePost/{id}', [DeleteController::class, 'softDeletePost'] )->name( 'softDeletePost' );
+    Route::get( 'restorePost/{id}', [DeleteController::class, 'restorePost'] )->name( 'restorePost' );
     Route::post( 'delete', [DeleteController::class, 'delete'] )->name( 'delete' );
+    Route::post( 'getUserSearch', [SearchController::class, 'getUserSearch'] )->name( 'getUserSearch' );
+    Route::post( 'getSoftdeletesUserSearch', [SearchController::class, 'getSoftdeletesUserSearch'] )->name( 'getSoftdeletesUserSearch' );
 } );
 //パスワードリセットルート
 Route::get( '/reset-password/{token}', function ( $token ) {

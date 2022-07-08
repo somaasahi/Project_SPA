@@ -23,12 +23,12 @@
             <tr>
                 <td>{{$post->id}}</td>
                 <td>{{$post->name}}</td>
-                <td>{{$post->animal_kind}}</td>
-                <td>{{$post->post_kind}}</td>
+                <td>{{config('ini.animal_kinds.'.$post->animal_kind)}}</td>
+                <td>{{config('ini.post_kind.'.$post->post_kind)}}</td>
                 <td>{{$post->created_at ? $post->created_at : 'null'}}</td>
                 <td>{{$post->updated_at ? $post->updated_at : 'null'}}</td>
-                <td><a href="{{ route('admin.index') }}">詳細</a></td>
-                <td><a href="{{ route('admin.index') }}">論理削除</a></td>
+                <td><a href="{{ route('detailPost',$post->id) }}">詳細</a></td>
+                <td><a href="{{ route('softDeletePost',$post->id) }}">論理削除</a></td>
             </tr>
             @endforeach
         </tbody>

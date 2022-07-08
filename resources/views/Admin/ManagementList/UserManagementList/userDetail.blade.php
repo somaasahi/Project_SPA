@@ -39,9 +39,11 @@
             @csrf
             <input type="hidden" name="id" value="{{$user->id}}">
             <input type="hidden" name="model" value="user">
-            <button type="button" onClick="history.back()" class="btn btn-secondary">
-                戻る
-            </button>
+            <a href="{{route('getUser')}}">
+                <button  type="button" class="btn btn-secondary">
+                    戻る
+                </button>
+            </a>
             <button type="submit" class="btn btn-primary" onClick="delete_alert(event);return false;">
                 ユーザー削除
             </button>

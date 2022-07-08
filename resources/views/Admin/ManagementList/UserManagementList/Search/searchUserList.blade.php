@@ -33,20 +33,17 @@
         <tbody>
             @foreach($userList as $user)
             <tr>
-                <td>{{$user->id}}</td>
-                <td>{{$user->name}}</td>
-                <td>{{$user->email}}</td>
-                <td>{{$user->created_at}}</td>
+                <td>{{$user['id']}}</td>
+                <td>{{$user['name']}}</td>
+                <td>{{$user['email']}}</td>
+                <td>{{$user['created_at']}}</td>
                 <td>アクティブ</td>
-                <td><a href="{{ route('detailUser' , $user->id ) }}">詳細</a></td>
-                <td><a href="{{ route('softDeleteUser', $user->id ) }}">論理削除</a></td>
+                <td><a href="{{ route('detailUser' , $user['id'] ) }}">詳細</a></td>
+                <td><a href="{{ route('softDeletes', $user['id'] ) }}">論理削除</a></td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    <button type="button"  class="btn btn-secondary">
-        <a href="{{reoute('getUser')}}"> 戻る </a>
-     </button>
         <div class="w-75 m-auto text-end"><a href="{{route('getSoftdeletesUser')}}">ノンアクティブなデータへ</a></div>
 
       <nav aria-label="Page navigation example">
