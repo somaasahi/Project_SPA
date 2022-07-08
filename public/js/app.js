@@ -35450,7 +35450,8 @@ function PostDetail(props) {
     setUser(item.user_id);
   };
 
-  var closeUser = function closeUser() {
+  var closeUser = function closeUser(e) {
+    console.log(e);
     setUser(null);
   };
 
@@ -36001,6 +36002,10 @@ function UserInfo(props) {
     });
   }
 
+  var test = function test() {
+    props.handleClick(null);
+  };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "w-full md:flex m-3",
@@ -36029,9 +36034,7 @@ function UserInfo(props) {
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      onClick: function onClick() {
-        return props.handleClick(null);
-      },
+      onClick: test,
       style: {
         height: "70px",
         width: "70px"
@@ -36356,7 +36359,6 @@ function Add() {
       setAnimal = _useState2[1];
 
   var animalChange = function animalChange(event) {
-    console.log(event);
     setAnimal(event.target.value);
   };
 
@@ -36395,14 +36397,27 @@ function Add() {
         "content-type": "multipart/form-data"
       }
     }).then(function (response) {
-      console.log(response);
+      if (response.status == 200) {
+        react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.success("投稿に成功しました。", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+        setAnimal("");
+        setKind("");
+        setContent("");
+        fileInput.current.value = "";
+        fileInput2.current.value = "";
+        fileInput3.current.value = "";
+      }
     })["catch"](function (error) {
       console.log(error);
-      var _error$response = error.response,
-          status = _error$response.status,
-          statusText = _error$response.statusText;
 
-      if (status === 400) {
+      if (error.status === 400) {
         react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.error("投稿ルールに従って下さい。", {
           position: "top-center",
           autoClose: 1000,

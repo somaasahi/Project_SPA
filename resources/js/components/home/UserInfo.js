@@ -19,7 +19,6 @@ function UserInfo(props) {
                         },
                     })
                     .then((res) => {
-
                         setFriend(res.data);
                     })
                     .catch((error) => {
@@ -93,6 +92,9 @@ function UserInfo(props) {
     if (friend == 2) {
         message = <Button variant="contained">フレンドにはなれません</Button>;
     }
+    const test = () => {
+        props.handleClick(null);
+    };
     return (
         <div>
             <div className="w-full md:flex m-3">
@@ -112,7 +114,7 @@ function UserInfo(props) {
                 </div>
             </div>
             <IconButton
-                onClick={() => props.handleClick(null)}
+                onClick={test}
                 style={{ height: "70px", width: "70px" }}
                 aria-label="add to favorites"
             >

@@ -17,7 +17,6 @@ import React, { useState } from "react";
 function Add() {
     const [animal, setAnimal] = useState("");
     const animalChange = (event) => {
-        console.log(event);
         setAnimal(event.target.value);
     };
 
@@ -51,12 +50,28 @@ function Add() {
                 },
             })
             .then((response) => {
-                console.log(response);
+                if (response.status == 200) {
+                    toast.success("投稿に成功しました。", {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+
+                    setAnimal("");
+                    setKind("");
+                    setContent("");
+                    fileInput.current.value = "";
+                    fileInput2.current.value = "";
+                    fileInput3.current.value = "";
+                }
             })
             .catch((error) => {
                 console.log(error);
-                const { status, statusText } = error.response;
-                if (status === 400) {
+                if (error.status === 400) {
                     toast.error("投稿ルールに従って下さい。", {
                         position: "top-center",
                         autoClose: 1000,

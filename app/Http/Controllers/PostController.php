@@ -21,8 +21,27 @@ class PostController extends Controller
             'animal_kind' => 'required',
             'post_kind' => 'required',
             'content' => 'required|string|max:400',
-            'img_url1' => 'required',
         ]);
+
+        if (empty($request->file('image'))) {
+            $validator->after(function ($validator) {
+                $validator->errors()->add('image', '画像を指定してください');
+            });
+        } else {
+            $fileName = $request->file('image')->getClientOriginalName();
+            Storage::putFileAs('public/post_images', $request->file('image'), $fileName);
+            $fullFilePath = 'storage/post_images/' . $fileName;
+        }
+        if (!empty($request->file('image2'))) {
+            $fileName2 = $request->file('image2')->getClientOriginalName();
+            Storage::putFileAs('public/post_images', $request->file('image2'), $fileName2);
+            $fullFilePath2 = 'storage/post_images/' . $fileName2;
+        }
+        if (!empty($request->file('image3'))) {
+            $fileName3 = $request->file('image3')->getClientOriginalName();
+            Storage::putFileAs('public/post_images', $request->file('image3'), $fileName3);
+            $fullFilePath3 = 'storage/post_images/' . $fileName3;
+        }
 
         if ($validator->fails()) {
 
@@ -31,18 +50,6 @@ class PostController extends Controller
             DB::beginTransaction();
 
             try {
-                $fileName = $request->file('image')->getClientOriginalName();
-                Storage::putFileAs('public/post_images', $request->file('image'), $fileName);
-                $fullFilePath = 'storage/post_images/' . $fileName;
-
-                $fileName2 = $request->file('image2')->getClientOriginalName();
-                Storage::putFileAs('public/post_images', $request->file('image2'), $fileName2);
-                $fullFilePath2 = 'storage/post_images/' . $fileName2;
-
-                $fileName3 = $request->file('image3')->getClientOriginalName();
-                Storage::putFileAs('public/post_images', $request->file('image3'), $fileName3);
-                $fullFilePath3 = 'storage/post_images/' . $fileName3;
-
                 $post = new Post();
                 $post->user_id = Auth::user()->id;
                 $post->animal_kind = $request->animal;
