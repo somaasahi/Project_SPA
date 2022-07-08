@@ -23,7 +23,7 @@ class IndexController extends Controller
 
     public function getUser()
     {
-        $this->viewData['userList'] = $this->user->get();
+        $this->viewData['userList'] = $this->user->paginate( 10 );
 
         return view( 'Admin.ManagementList.UserManagementList.userList', $this->viewData );
     }
