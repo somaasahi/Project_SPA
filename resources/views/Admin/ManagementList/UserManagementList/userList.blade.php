@@ -44,9 +44,6 @@
             @endforeach
         </tbody>
     </table>
-    <button type="button"  class="btn btn-secondary">
-        <a href="{{reoute('getUser')}}"> 戻る </a>
-     </button>
         <div class="w-75 m-auto text-end"><a href="{{route('getSoftdeletesUser')}}">ノンアクティブなデータへ</a></div>
 
       <nav aria-label="Page navigation example">

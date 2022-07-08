@@ -62,8 +62,8 @@
 
         <form action="{{route('delete')}}" class="m-auto w-75 text-end" method="POST">
             @csrf
-            <input type="hidden" name="id" value="{{$post->id}}">
-            <input type="hidden" name="model" value="user">
+            <input type="hidden" name="id" value="{{$post->postId}}">
+            <input type="hidden" name="model" value="post">
             <a href="{{route('getPost')}}">
                 <button  type="button" class="btn btn-secondary">
                     戻る

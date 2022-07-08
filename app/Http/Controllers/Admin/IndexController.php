@@ -45,8 +45,9 @@ class IndexController extends Controller
     public function getPost()
     {
         $this->viewData['postList'] = $this->post
-            ->Join( 'users', 'user_id', '=', 'users.id' )
-            ->get();
+            ->select( 'posts.id as postId', 'user_id', 'animal_kind', 'post_kind', 'img_url1', 'img_url2', 'img_url3', 'content', 'posts.created_at', 'posts.updated_at', 'users.id as userId', 'name', 'email' )
+            ->leftJoin( 'users', 'user_id', '=', 'users.id' )
+            ->paginate( 10 );
 
         return view( 'Admin.ManagementList.PostManagementList.postList', $this->viewData );
     }
@@ -55,6 +56,7 @@ class IndexController extends Controller
     {
         $this->viewData['like'] = $this->like->where( 'post_id', $id )->get()->count();
         $this->viewData['post'] = $this->post
+            ->select( 'posts.id as postId', 'user_id', 'animal_kind', 'post_kind', 'img_url1', 'img_url2', 'img_url3', 'content', 'posts.created_at', 'posts.updated_at', 'posts.deleted_at', 'users.id as userId', 'name', 'email' )
             ->leftJoin( 'users', 'user_id', '=', 'users.id' )
             ->find( $id );
 

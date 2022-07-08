@@ -36,10 +36,9 @@
       </table>
 
   <ul>
-    <li>user情報（データの表示と削除）</li>
     <li>post情報（データの表示と削除）</li>
-    <li>検索機能</li>
-    <li></li>
+    <li>user,post検索機能</li>
+    <li>userを論理削除時、関連あるもののデリートフラグ追加、表示操作（getはいじる必要なし）</li>
   </ul>
 </body>
 </html>
