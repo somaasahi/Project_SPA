@@ -6,6 +6,8 @@ use App\Http\Controllers\FriendRelationController;
 use App\Http\Controllers\Homecontroller;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LikelistController;
+use App\Http\Controllers\PostlistController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -32,8 +34,14 @@ Route::get('logout', [AuthController::class, 'logout']);
 
 Route::post('/forgot-password', [MailController::class, 'sendMail'])->middleware('guest');
 
-
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('FriendRelation', [FriendRelationController::class, 'index']);
+    Route::get('FriendShow/{id}', [FriendRelationController::class, 'show']);
+    Route::post('mypage/update', [FriendRelationController::class, 'update']);
+    Route::get('mypage/chat', [ChatController::class, 'index']);
+    Route::post('mypage/chat', [ChatController::class, 'store']);
+
+
     Route::get('FriendRelation', [FriendRelationController::class, 'index']);
     Route::get('FriendShow/{id}', [FriendRelationController::class, 'show']);
     Route::post('mypage/update', [FriendRelationController::class, 'update']);
@@ -41,15 +49,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('mypage/chat', [ChatController::class, 'index']);
     Route::post('mypage/chat', [ChatController::class, 'store']);
     Route::post('mypage/post/store', [PostController::class, 'store']);
-
     Route::get('userInfo/checkFriend', [Homecontroller::class, 'checkFriend']);
     Route::post('userInfo/makeFriend', [Homecontroller::class, 'makeFriend']);
 
-    Route::get('mypage/likelist', 'App\Http\Controllers\Likelistcontroller@index');
-    Route::get('mypage/postlist', 'App\Http\Controllers\Postlistcontroller@index');
-    Route::post('mypage/postlist/delete', 'App\Http\Controllers\Postlistcontroller@delete');
-    Route::post('detail/review', 'App\Http\Controllers\Homecontroller@postReview');
-    Route::post('detail/like', 'App\Http\Controllers\Homecontroller@like');
+    Route::get('mypage/likelist', [LikelistController::class, 'index']);
+    Route::get('mypage/postlist', [PostlistController::class, 'index']);
+    Route::post('mypage/postlist/delete', [PostlistController::class, 'delete']);
+    Route::post('detail/review', [Homecontroller::class, 'postReview']);
+    Route::post('detail/like', [Homecontroller::class, 'like']);
 
     Route::post('user/updata', [UserController::class, 'update']);
 
