@@ -35,12 +35,6 @@ Route::get('logout', [AuthController::class, 'logout']);
 Route::post('/forgot-password', [MailController::class, 'sendMail'])->middleware('guest');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('FriendRelation', [FriendRelationController::class, 'index']);
-    Route::get('FriendShow/{id}', [FriendRelationController::class, 'show']);
-    Route::post('mypage/update', [FriendRelationController::class, 'update']);
-    Route::get('mypage/chat', [ChatController::class, 'index']);
-    Route::post('mypage/chat', [ChatController::class, 'store']);
-
 
     Route::get('FriendRelation', [FriendRelationController::class, 'index']);
     Route::get('FriendShow/{id}', [FriendRelationController::class, 'show']);
@@ -65,11 +59,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('ProfileUpdate', [ProfileController::class, 'update']);
 });
 
-Route::get('homeIndex', 'App\Http\Controllers\Homecontroller@homeIndex');
-Route::get('home/likeCount', 'App\Http\Controllers\Homecontroller@likeCount');
-Route::get('detail', 'App\Http\Controllers\Homecontroller@showDetail');
-Route::get('detail/checkLike', 'App\Http\Controllers\Homecontroller@checkLike');
-Route::get('detail/review', 'App\Http\Controllers\Homecontroller@showReview');
+Route::get('homeIndex', [Homecontroller::class, 'homeIndex']);
+Route::get('home/likeCount', [Homecontroller::class, 'likeCount']);
+Route::get('detail', [Homecontroller::class, 'showDetail']);
+Route::get('detail/checkLike', [Homecontroller::class, 'checkLike']);
+Route::get('detail/review', [Homecontroller::class, 'showReview']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 });
