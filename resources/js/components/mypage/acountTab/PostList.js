@@ -2,38 +2,18 @@ import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { ToastContainer, toast } from "react-toastify";
 import { useStateIfMounted } from "use-state-if-mounted";
-import PostDetail from "../../home/PostDetail";
+import PostDetail from "./PostDetail";
 import Post from "./Post";
 
 function PostList() {
     const [posts, setPosts] = useStateIfMounted([]);
     useEffect(() => {
         axios
-            .get("api/user/")
+            .get("api/mypage/postlist")
             .then((res) => {
-                const user = res.data;
-                axios
-                    .get("api/mypage/postlist", {
-                        params: {
-                            user_id: user.id,
-                        },
-                    })
-                    .then((res) => {
-                        const results = res.data;
-                        console.log(results);
-                        setPosts([...posts, ...results]);
-                    })
-                    .catch((error) => {
-                        toast.error("システムエラー", {
-                            position: "top-center",
-                            autoClose: 1000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        });
-                    });
+                const results = res.data;
+                console.log(results);
+                setPosts([...posts, ...results]);
             })
             .catch((error) => {
                 toast.error("システムエラー", {

@@ -37135,6 +37135,362 @@ function Post(props) {
 
 /***/ }),
 
+/***/ "./resources/js/components/mypage/acountTab/PostDetail.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/mypage/acountTab/PostDetail.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _mui_material_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material/styles */ "./node_modules/@mui/material/styles/styled.js");
+/* harmony import */ var _mui_material_Card__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material/Card */ "./node_modules/@mui/material/Card/Card.js");
+/* harmony import */ var _mui_material_CardHeader__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/CardHeader */ "./node_modules/@mui/material/CardHeader/CardHeader.js");
+/* harmony import */ var _mui_material_CardMedia__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material/CardMedia */ "./node_modules/@mui/material/CardMedia/CardMedia.js");
+/* harmony import */ var _mui_material_CardContent__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/CardContent */ "./node_modules/@mui/material/CardContent/CardContent.js");
+/* harmony import */ var _mui_material_CardActions__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/CardActions */ "./node_modules/@mui/material/CardActions/CardActions.js");
+/* harmony import */ var _mui_material_Avatar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/Avatar */ "./node_modules/@mui/material/Avatar/Avatar.js");
+/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/IconButton/IconButton.js");
+/* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/Typography/Typography.js");
+/* harmony import */ var _mui_material_colors__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/colors */ "./node_modules/@mui/material/colors/red.js");
+/* harmony import */ var _mui_icons_material_Favorite__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/icons-material/Favorite */ "./node_modules/@mui/icons-material/Favorite.js");
+/* harmony import */ var _mui_icons_material_ExpandMore__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/icons-material/ExpandMore */ "./node_modules/@mui/icons-material/ExpandMore.js");
+/* harmony import */ var _mui_icons_material_KeyboardReturn__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/icons-material/KeyboardReturn */ "./node_modules/@mui/icons-material/KeyboardReturn.js");
+/* harmony import */ var _home_Review__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../home/Review */ "./resources/js/components/home/Review.js");
+/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+var _excluded = ["expand"];
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var ExpandMore = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_4__["default"])(function (props) {
+  var expand = props.expand,
+      other = _objectWithoutProperties(props, _excluded);
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_5__["default"], _objectSpread({}, other));
+})(function (_ref) {
+  var theme = _ref.theme,
+      expand = _ref.expand;
+  return {
+    transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest
+    })
+  };
+});
+
+function PostDetail(props) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      item = _useState2[0],
+      setItem = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      user2 = _useState4[0],
+      setUser2 = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState6 = _slicedToArray(_useState5, 2),
+      profile = _useState6[0],
+      setProfile = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+      _useState8 = _slicedToArray(_useState7, 2),
+      likes = _useState8[0],
+      setLikes = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      userLike = _useState10[0],
+      setUserLike = _useState10[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    axios.get("api/detail/", {
+      params: {
+        id: props.detailId
+      }
+    }).then(function (res) {
+      var item = res.data;
+      setItem(item[0]);
+      setUser2(item[1]);
+      setProfile(item[2]);
+      setLikes(item[0].likes_count);
+    })["catch"](function (error) {
+      var _error$response = error.response,
+          status = _error$response.status,
+          statusText = _error$response.statusText;
+      alert("Error! HTTP Status: ".concat(status, " ").concat(statusText)); // 存在しないidをパラメータにurl叩いたらlaravelから404ページ返す？
+    });
+    axios.get("api/user/").then(function (res) {
+      var user = res.data;
+      axios.get("api/detail/checkLike", {
+        params: {
+          user_id: user.id,
+          post_id: props.detailId
+        }
+      }).then(function (res) {
+        if (res.data != "") {
+          setUserLike(true);
+        }
+      })["catch"](function (error) {
+        console.log("エラー");
+      });
+    })["catch"](function (error) {
+      console.log("未ログイン");
+    });
+  }, []);
+  var img;
+
+  if (item.img_url2 == null) {
+    img = "";
+  } else if (item.img_url3 == null) {
+    img = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_CardMedia__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      component: "img",
+      height: "194",
+      image: item.img_url2,
+      alt: "Paella dish"
+    });
+  } else {
+    img = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "md:flex md:justify-center w-full",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "flex justify-center w-full",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+          src: item.img_url2
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "flex justify-center w-full",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+          src: item.img_url3
+        })
+      })]
+    });
+  }
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+      _useState12 = _slicedToArray(_useState11, 2),
+      review = _useState12[0],
+      setReview = _useState12[1];
+
+  var reviewInfo;
+
+  var showReview = function showReview() {
+    setReview(item.user_id);
+  };
+
+  var closeReview = function closeReview() {
+    setReview(null);
+  };
+
+  if (review == null) {
+    reviewInfo = "";
+  } else {
+    reviewInfo = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_home_Review__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      postId: item.id,
+      handleClick: closeReview
+    });
+  }
+
+  var test;
+
+  var pushLike = function pushLike() {
+    axios.get("api/user/").then(function (res) {
+      var user = res.data;
+      axios.post("api/detail/like", {
+        params: {
+          user_id: user.id,
+          post_id: props.detailId
+        }
+      }).then(function (res) {
+        setLikes(res.data[0]);
+        setUserLike(res.data[1]);
+      })["catch"](function (error) {
+        react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error("システムエラー", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+      });
+    })["catch"](function (error) {
+      var _error$response2 = error.response,
+          status = _error$response2.status,
+          statusText = _error$response2.statusText;
+
+      if (status == 401) {
+        react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error("ログインが必要です。", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+      } else {
+        react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error("システムエラー。", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+      }
+    });
+  };
+
+  var favIcon;
+
+  if (userLike) {
+    favIcon = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_Favorite__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      style: {
+        height: "40px",
+        width: "40px",
+        color: "red"
+      }
+    });
+  } else {
+    favIcon = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_Favorite__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      style: {
+        height: "40px",
+        width: "40px"
+      }
+    });
+  }
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Card__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      sx: {
+        width: 1
+      },
+      children: [test, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_CardHeader__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        style: {
+          height: "10px"
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        onClick: function onClick() {
+          return props.handleClick("");
+        },
+        style: {
+          height: "70px",
+          width: "70px"
+        },
+        "aria-label": "add to favorites",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_KeyboardReturn__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          style: {
+            height: "40px",
+            width: "40px"
+          }
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_CardHeader__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        style: {
+          height: "100px",
+          fontSize: "40px"
+        },
+        avatar: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Avatar__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          src: profile.img_url,
+          sx: {
+            bgcolor: _mui_material_colors__WEBPACK_IMPORTED_MODULE_12__["default"][500]
+          },
+          "aria-label": "recipe",
+          style: {
+            height: "70px",
+            width: "70px"
+          },
+          children: "img"
+        }),
+        action: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          onClick: pushLike,
+          style: {
+            height: "70px",
+            width: "70px"
+          },
+          "aria-label": "add to favorites",
+          children: [favIcon, likes]
+        }),
+        title: user2.name
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_CardMedia__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        component: "img",
+        height: "194",
+        image: item.img_url1,
+        alt: "Paella dish"
+      }), img, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_CardContent__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          variant: "body2",
+          color: "text.secondary",
+          children: "\u6295\u7A3F\u65E5"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_CardContent__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          fontSize: 20,
+          className: "break-words",
+          children: item.content
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_CardActions__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        disableSpacing: true,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(ExpandMore, {
+          "aria-label": "show more",
+          onClick: showReview,
+          children: ["\u30B3\u30E1\u30F3\u30C8\u3092\u898B\u308B", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_icons_material_ExpandMore__WEBPACK_IMPORTED_MODULE_16__["default"], {})]
+        })
+      }), reviewInfo]
+    })
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PostDetail);
+
+/***/ }),
+
 /***/ "./resources/js/components/mypage/acountTab/PostEdit.js":
 /*!**************************************************************!*\
   !*** ./resources/js/components/mypage/acountTab/PostEdit.js ***!
@@ -37185,7 +37541,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_infinite_scroller__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_infinite_scroller__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.js");
 /* harmony import */ var use_state_if_mounted__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! use-state-if-mounted */ "./node_modules/use-state-if-mounted/index.js");
-/* harmony import */ var _home_PostDetail__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../home/PostDetail */ "./resources/js/components/home/PostDetail.js");
+/* harmony import */ var _PostDetail__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PostDetail */ "./resources/js/components/mypage/acountTab/PostDetail.js");
 /* harmony import */ var _Post__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Post */ "./resources/js/components/mypage/acountTab/Post.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -37224,27 +37580,10 @@ function PostList() {
       setPosts = _useStateIfMounted2[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    axios.get("api/user/").then(function (res) {
-      var user = res.data;
-      axios.get("api/mypage/postlist", {
-        params: {
-          user_id: user.id
-        }
-      }).then(function (res) {
-        var results = res.data;
-        console.log(results);
-        setPosts([].concat(_toConsumableArray(posts), _toConsumableArray(results)));
-      })["catch"](function (error) {
-        react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error("システムエラー", {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined
-        });
-      });
+    axios.get("api/mypage/postlist").then(function (res) {
+      var results = res.data;
+      console.log(results);
+      setPosts([].concat(_toConsumableArray(posts), _toConsumableArray(results)));
     })["catch"](function (error) {
       react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error("システムエラー", {
         position: "top-center",
@@ -37286,7 +37625,7 @@ function PostList() {
       })
     });
   } else {
-    content = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_home_PostDetail__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    content = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_PostDetail__WEBPACK_IMPORTED_MODULE_4__["default"], {
       detailId: detailId,
       handleClick: handleSetDetailId,
       "class": "bg-orange-200",
