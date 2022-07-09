@@ -15,7 +15,6 @@ class PostController extends Controller
 {
     public function store(Request $request)
     {
-        Log::debug($request->all());
 
         $validator = Validator::make($request->all(), [
             'animal_kind' => 'required',
@@ -52,16 +51,23 @@ class PostController extends Controller
             try {
                 $post = new Post();
                 $post->user_id = Auth::user()->id;
-                $post->animal_kind = $request->animal;
-                $post->post_kind = $request->kind;
+                $post->animal_kind = $request->animal_kind;
+                $post->post_kind = $request->post_kind;
                 $post->content = $request->content;
                 $post->img_url1 = $fullFilePath;
-                $post->img_url2 = $fullFilePath2;
-                $post->img_url3 = $fullFilePath3;
+
+                if (!empty($request->file('image2'))) {
+                    $post->img_url2 = $fullFilePath2;
+                }
+                if (!empty($request->file('image3'))) {
+                    $post->img_url3 = $fullFilePath3;
+                }
                 $post->save();
                 DB::commit();
             } catch (Exception $exception) {
+                Log::debug("message");
                 DB::rollBack();
+                return response()->json(['message' => '保存失敗'], 500);
             }
         }
     }

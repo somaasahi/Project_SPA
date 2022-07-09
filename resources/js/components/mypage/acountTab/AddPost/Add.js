@@ -11,8 +11,26 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-
 import React, { useState } from "react";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+import { styled } from "@mui/material/styles";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+    transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+        duration: theme.transitions.duration.shortest,
+    }),
+}));
 
 function Add() {
     const [animal, setAnimal] = useState("");
@@ -51,27 +69,31 @@ function Add() {
             })
             .then((response) => {
                 if (response.status == 200) {
-                    toast.success("投稿に成功しました。", {
-                        position: "top-center",
-                        autoClose: 1000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
+                    toast.success(
+                        "投稿に成功しました。自分の投稿一覧から確認してみましょう。",
+                        {
+                            position: "top-center",
+                            autoClose: 1000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        }
+                    );
 
                     setAnimal("");
                     setKind("");
                     setContent("");
-                    fileInput.current.value = "";
-                    fileInput2.current.value = "";
-                    fileInput3.current.value = "";
+                    // fileInput.current.value = "";
+                    // fileInput2.current.value = "";
+                    // fileInput3.current.value = "";
+                    setOpen(false);
                 }
             })
             .catch((error) => {
-                console.log(error);
-                if (error.status === 400) {
+                const { status, statusText } = error.response;
+                if (status === 400) {
                     toast.error("投稿ルールに従って下さい。", {
                         position: "top-center",
                         autoClose: 1000,
@@ -93,6 +115,15 @@ function Add() {
                     });
                 }
             });
+    };
+
+    const [open, setOpen] = useState(false);
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
     };
 
     return (
@@ -190,12 +221,26 @@ function Add() {
             </CardContent>
             <CardActions className="flex justify-end">
                 <button
-                    onClick={submitPost}
+                    onClick={handleClickOpen}
                     className="text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                     投稿
                 </button>
             </CardActions>
+            <Dialog
+                open={open}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleClose}
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle>{"この内容で投稿しますか？"}</DialogTitle>
+
+                <DialogActions>
+                    <Button onClick={handleClose}>いいえ</Button>
+                    <Button onClick={submitPost}>はい</Button>
+                </DialogActions>
+            </Dialog>
         </Card>
     );
 }

@@ -19,7 +19,8 @@ class PostlistController extends Controller
                 ->select('posts.id as id', 'posts.img_url1', 'posts.content', 'posts.created_at', 'users.name', 'profiles.img_url')
                 ->join('users', 'posts.user_id', '=', 'users.id')
                 ->leftJoin('profiles', 'users.id', '=', 'profiles.user_id')
-                ->where('posts.id', $id)->get();
+                ->where('posts.id', $id)
+                ->orderBy('posts.created_at', 'desc')->get();
             // $list[] = Post::find($id);
         }
         $result = [];
