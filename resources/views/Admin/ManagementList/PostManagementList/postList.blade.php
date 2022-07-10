@@ -27,8 +27,8 @@
                 <td>{{config('ini.post_kind.'.$post->post_kind)}}</td>
                 <td>{{$post->created_at ? $post->created_at : 'null'}}</td>
                 <td>{{$post->updated_at ? $post->updated_at : 'null'}}</td>
-                <td><a href="{{ route('detailPost',$post->postId) }}">詳細</a></td>
-                <td><a href="{{ route('softDeletePost',$post->postId) }}">論理削除</a></td>
+                <td><a href="{{ route( 'detailPost',$post->postId ) }}">詳細</a></td>
+                <td><a href="{{ route( 'softDeletePost',$post->postId ) }}">論理削除</a></td>
             </tr>
             @endforeach
         </tbody>
@@ -37,6 +37,7 @@
   <div class="m-auto" style='width:40%'>
     {{$postList->links()}}
   </div>
+  <div class="w-75 m-auto text-end"><a href="{{route('getSoftdeletesPost')}}">ノンアクティブなデータへ</a></div>
 
 </body>
 </html>

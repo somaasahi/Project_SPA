@@ -25,8 +25,8 @@
                 <th>メールアドレス</th>
                 <th>登録日</th>
                 <th>状態</th>
+                <th>詳細</th>
                 <th>複元</th>
-                <th>削除</th>
             </tr>
         </thead>
         <tbody>
@@ -37,8 +37,8 @@
                 <td>{{$user->email}}</td>
                 <td>{{$user->created_at}}</td>
                 <td>ノンアクティブ</td>
+                <td><a href="{{ route('getDetailSoftdeleteUser', $user->id ) }}">詳細</a></td>
                 <td><a href="{{ route('restoreUser' , $user->id ) }}">更新</a></td>
-                <td><a href="{{ route('softDeleteUser', $user->id ) }}">論理削除</a></td>
             </tr>
             @endforeach
         </tbody>

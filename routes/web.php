@@ -26,17 +26,29 @@ Route::prefix( 'admin' )->group( function () {
 } );
 //管理者認証ルート
 Route::prefix( 'admin' )->middleware( 'auth:admin' )->group( function () {
+    //管理者トップ
     Route::get( '/', [IndexController::class, 'index'] )->name( 'index' );
+
+    //リスト表示
     Route::get( 'getUser', [IndexController::class, 'getUser'] )->name( 'getUser' );
-    Route::get( 'getSoftdeletesUser', [IndexController::class, 'getSoftdeletesUser'] )->name( 'getSoftdeletesUser' );
     Route::get( 'getPost', [IndexController::class, 'getPost'] )->name( 'getPost' );
+    Route::get( 'getSoftdeletesUser', [IndexController::class, 'getSoftdeletesUser'] )->name( 'getSoftdeletesUser' );
+    Route::get( 'getSoftdeletesPost', [IndexController::class, 'getSoftdeletesPost'] )->name( 'getSoftdeletesPost' );
+
+    //投稿詳細
     Route::get( 'detailPost/{id}', [IndexController::class, 'getDetailPost'] )->name( 'detailPost' );
     Route::get( 'detailUser/{id}', [IndexController::class, 'getDetailUser'] )->name( 'detailUser' );
+    Route::get( 'getDetailSoftdeletePost/{id}', [IndexController::class, 'getDetailSoftdeletePost'] )->name( 'getDetailSoftdeletePost' );
+    Route::get( 'getDetailSoftdeleteUser/{id}', [IndexController::class, 'getDetailSoftdeleteUser'] )->name( 'getDetailSoftdeleteUser' );
+
+    //削除
     Route::get( 'softDeleteUser/{id}', [DeleteController::class, 'softDeleteUser'] )->name( 'softDeleteUser' );
     Route::get( 'restoreUser/{id}', [DeleteController::class, 'restoreUser'] )->name( 'restoreUser' );
     Route::get( 'softDeletePost/{id}', [DeleteController::class, 'softDeletePost'] )->name( 'softDeletePost' );
     Route::get( 'restorePost/{id}', [DeleteController::class, 'restorePost'] )->name( 'restorePost' );
     Route::post( 'delete', [DeleteController::class, 'delete'] )->name( 'delete' );
+
+    //検索
     Route::post( 'getUserSearch', [SearchController::class, 'getUserSearch'] )->name( 'getUserSearch' );
     Route::post( 'getSoftdeletesUserSearch', [SearchController::class, 'getSoftdeletesUserSearch'] )->name( 'getSoftdeletesUserSearch' );
 } );

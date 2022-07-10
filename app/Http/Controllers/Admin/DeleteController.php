@@ -75,9 +75,17 @@ class DeleteController extends Controller
         ] );
     }
 
+    public function furuDeletePost( int $id )
+    {
+        $this->post->onlyTrashed()->find( $id )->forceDelete();
+
+        return redirect()->route( 'getSoftdeletesPost' )->with( [
+            'delete_msg' => '削除しました。',
+        ] );
+    }
+
     public function softDeletePost( int $id )
     {
-        dd( $id );
         $this->post->find( $id )->delete();
 
         return redirect()->route( 'getPost' )->with( [
