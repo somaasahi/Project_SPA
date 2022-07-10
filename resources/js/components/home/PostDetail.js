@@ -111,7 +111,8 @@ function PostDetail(props) {
     const showUser = () => {
         setUser(item.user_id);
     };
-    const closeUser = () => {
+    const closeUser = (e) => {
+        console.log(e);
         setUser(null);
     };
     if (user == null) {

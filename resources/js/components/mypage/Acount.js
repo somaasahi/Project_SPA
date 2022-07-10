@@ -1,11 +1,11 @@
-import { Badge, Box, IconButton, Tab, Tabs } from "@mui/material";
+import { Box, Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EditIcon from "@mui/icons-material/Edit";
-import PostAddIcon from "@mui/icons-material/PostAdd";
 import Profile from "./acountTab/Profile/Profile";
 import PostList from "./acountTab/PostList";
-import EditList from "./acountTab/EditList";
+import Add from "./acountTab/AddPost/Add";
+import AddCardIcon from "@mui/icons-material/AddCard";
 
 function Acount() {
     const [value, setValue] = useState("profile");
@@ -15,17 +15,17 @@ function Acount() {
     };
 
     //表示component
-    function TabChange(tab) {
+    const TabChange = (tab) => {
         if (tab == "profile") {
             return <Profile />;
         } else if (tab == "post") {
             return <PostList />;
-        } else if (tab == "edit") {
-            return <EditList />;
+        } else if (tab == "add") {
+            return <Add tabchange={TabChange} />;
         } else {
             return <Profile />;
         }
-    }
+    };
 
     //通知
 
@@ -43,8 +43,9 @@ function Acount() {
                     label="プロフィール"
                     icon={<AccountCircleIcon />}
                 />
+
                 <Tab value="post" label="自分の投稿" icon={<EditIcon />} />
-                <Tab value="edit" label="編集・削除" icon={<PostAddIcon />} />
+                <Tab value="add" label="投稿する" icon={<AddCardIcon />} />
             </Tabs>
             {TabChange(value)}
         </Box>
