@@ -70,7 +70,7 @@
                 </button>
             </a>
             <button type="submit" class="btn btn-primary" onClick="delete_alert(event);return false;">
-                ユーザー削除
+                投稿削除
             </button>
         </form>
 </body>

@@ -25,39 +25,25 @@
                 <th>メールアドレス</th>
                 <th>登録日</th>
                 <th>状態</th>
+                <th>詳細</th>
                 <th>複元</th>
-                <th>削除</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($SoftDeletesUser as $user)
+            @foreach($SoftDeletesPost as $post)
             <tr>
-                <td>{{$user->id}}</td>
-                <td>{{$user->name}}</td>
-                <td>{{$user->email}}</td>
-                <td>{{$user->created_at}}</td>
+                <td>{{$post->postId}}</td>
+                <td>{{$post->name}}</td>
+                <td>{{$post->email}}</td>
+                <td>{{$post->created_at}}</td>
                 <td>ノンアクティブ</td>
-                <td><a href="{{ route('restorePost' , $user->id ) }}">更新</a></td>
-                <td><a href="{{ route('softDeletePost', $user->id ) }}">論理削除</a></td>
+                <td><a href="{{ route('getDetailSoftdeletePost' , $post->postId ) }}">詳細</a></td>
+                <td><a href="{{ route('restorePost' , $post->postId ) }}">更新</a></td>
             </tr>
             @endforeach
         </tbody>
     </table>
 
-    <div class="w-75 m-auto text-end"><a href="{{route('getUser')}}">アクティブなデータへ</a></div>
-
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-          </li>
-        </ul>
-      </nav>
+    <div class="w-75 m-auto text-end"><a href="{{route('getPost')}}">アクティブなデータへ</a></div>
 </body>
 </html>
