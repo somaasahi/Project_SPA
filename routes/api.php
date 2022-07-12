@@ -43,6 +43,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('mypage/chat', [ChatController::class, 'index']);
     Route::post('mypage/chat', [ChatController::class, 'store']);
     Route::post('mypage/post/store', [PostController::class, 'store']);
+    Route::get('mypage/post/show', [PostController::class, 'show']);
+    Route::post('mypage/post/update', [PostController::class, 'update']);
     Route::get('userInfo/checkFriend', [Homecontroller::class, 'checkFriend']);
     Route::post('userInfo/makeFriend', [Homecontroller::class, 'makeFriend']);
 
