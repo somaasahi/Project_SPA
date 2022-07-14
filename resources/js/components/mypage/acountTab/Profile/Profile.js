@@ -1,19 +1,33 @@
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import {
+    Avatar,
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    CardHeader,
+    CardMedia,
+    Divider,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SettingChang from "./SettingChange";
 
 function Profile() {
-
     const settingList = [
         "プロフィール編集",
         "パスワード変更",
         "ヘルプとサポート",
-        "push通知設定"
-    ]
+        "push通知設定",
+    ];
 
     //設定タイプ
-    const [setting, setSetting] = useState('');
+    const [setting, setSetting] = useState("");
     //表示切り替え用
     const [swich, setSwich] = useState(false);
 
@@ -32,28 +46,26 @@ function Profile() {
         return (
             <Card className="w-full">
                 <CardContent>
-                    <Avatar
-                        image="storage/post_images/noimg.png"
-                        alt="profile"
-                        sx={{ width: 80, height: 80 }}
-                    />
-                </CardContent>
-                <CardContent>
                     <List>
                         <Divider />
-                        {
-                            settingList.map((listitem) => (
-                                <ListItem disablePadding key={listitem} value={listitem}>
-                                    <ListItemButton >
-                                        <ListItemText primary={listitem} />
-                                        <ListItemIcon >
-                                            <ChevronRightIcon onClick={() => handleClick(listitem)} />
-                                        </ListItemIcon>
-                                    </ListItemButton>
-                                </ListItem>
-                            ))
-                        }
-
+                        {settingList.map((listitem) => (
+                            <ListItem
+                                disablePadding
+                                key={listitem}
+                                value={listitem}
+                            >
+                                <ListItemButton>
+                                    <ListItemText primary={listitem} />
+                                    <ListItemIcon>
+                                        <ChevronRightIcon
+                                            onClick={() =>
+                                                handleClick(listitem)
+                                            }
+                                        />
+                                    </ListItemIcon>
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
                     </List>
                 </CardContent>
                 <CardActions>
@@ -62,7 +74,7 @@ function Profile() {
                 </CardActions>
             </Card>
         );
-    }
+    };
 
     //表示
     const showProfile = () => {
@@ -77,13 +89,9 @@ function Profile() {
         } else {
             return profile();
         }
-    }
+    };
 
-    return (
-        <>
-            {showProfile()}
-        </>
-    );
+    return <>{showProfile()}</>;
 }
 
 export default Profile;

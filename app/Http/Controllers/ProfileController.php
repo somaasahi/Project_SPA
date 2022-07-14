@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
+use App\Models\User;
 use App\UseCases\Profile\Validate as ProfileValidate;
 use Illuminate\Http\Request;
 use App\UseCases\Validate;
 use Error;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Stmt\TryCatch;
 
 class ProfileController extends Controller
@@ -39,23 +43,22 @@ class ProfileController extends Controller
     public function store(
         Request $request,
         ProfileValidate $ProfileValidate
-        )
-    {
+    ) {
         $error = $ProfileValidate($request);
         //バリデーション
-        if(count($error) > 0){
+        if (count($error) > 0) {
             return response()->json(['message' => $error]);
         }
 
         DB::beginTransaction();
         try {
-        $this->profile->user_id = $request->id;
-        $this->profile->description = $request->description;
-        $this->profile->img_url = $request->img;
-        $this->profile->profileName = $request->name;
-        $this->profile->save();
+            $this->profile->user_id = $request->id;
+            $this->profile->description = $request->description;
+            $this->profile->img_url = $request->img;
+            $this->profile->profileName = $request->name;
+            $this->profile->save();
 
-        DB::commit();
+            DB::commit();
         } catch (Exception $e) {
             DB::rollback();
             Log::error($e->getMessage());
@@ -71,9 +74,10 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        $profile =  Profile::where('user_id', '=', $id)->get();
+        $id = Auth::id();
+        $profile =  Profile::with('user')->where('user_id', '=', $id)->first();
 
         return $profile;
     }
@@ -86,46 +90,49 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(
-        Request $request,
-        ProfileValidate $ProfileValidate
-        )
+    public function update(Request $request)
     {
-        $error = $ProfileValidate($request);
-        //バリデーション
-        if(count($error) > 0){
-            return response()->json(['message' => $error]);
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'string|max:20',
+            'description' => 'string|max:250',
+        ]);
+
+        if (!empty($request->file('image'))) {
+            $fileName = $request->file('image')->getClientOriginalName();
+            Storage::putFileAs('public/post_images', $request->file('image'), $fileName);
+            $fullFilePath = 'storage/post_images/' . $fileName;
         }
 
-        DB::beginTransaction();
-        try {
-            $profile = Profile::find($request->id);
 
-            $profile->description = $request->description;
-            $profile->img_url = $request->img;
-            $profile->profileName = $request->name;
+        if ($validator->fails()) {
+            return response()->json(['message' => '投稿ルールに反しています。'], 400);
+        } else {
+            DB::beginTransaction();
+            try {
+                $profile = Profile::find($request->id);
+                $profile->description = $request->description;
+                if (!empty($request->file('image'))) {
+                    $profile->img_url = $fullFilePath;
+                    Log::error('kk');
+                }
+                $profile->save();
+                $user = User::find($profile->user_id);
+                $user->name = $request->name;
+                $user->save();
 
-            $profile->update();
-
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollback();
-            Log::error($e->getMessage());
-            return response()->json(['error' => 'プロフィール更新エラー']);
+                DB::commit();
+                if (!empty($request->file('image'))) {
+                    return $fullFilePath;
+                }
+            } catch (Exception $e) {
+                DB::rollback();
+                Log::error($e->getMessage());
+                return response()->json(['error' => 'プロフィール更新エラー']);
+            }
         }
 
 
         return true;
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
