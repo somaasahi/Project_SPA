@@ -56,9 +56,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('user/updata', [UserController::class, 'update']);
 
-    Route::get('ProfileShow/{id}', [ProfileController::class, 'show']);
-    Route::post('ProfileStor', [ProfileController::class, 'store']);
-    Route::post('ProfileUpdate', [ProfileController::class, 'update']);
+    Route::get('ProfileShow', [ProfileController::class, 'show']);
+    Route::post('profileUpdate', [ProfileController::class, 'update']);
 });
 
 Route::get('homeIndex', [Homecontroller::class, 'homeIndex']);

@@ -38137,17 +38137,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Card/Card.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardContent/CardContent.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Avatar/Avatar.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/List/List.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Divider/Divider.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/ListItem/ListItem.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/ListItemButton/ListItemButton.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/ListItemText/ListItemText.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/ListItemIcon/ListItemIcon.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardActions/CardActions.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/List/List.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Divider/Divider.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/ListItem/ListItem.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/ListItemButton/ListItemButton.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/ListItemText/ListItemText.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/ListItemIcon/ListItemIcon.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardActions/CardActions.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _mui_icons_material_ChevronRight__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/icons-material/ChevronRight */ "./node_modules/@mui/icons-material/ChevronRight.js");
+/* harmony import */ var _mui_icons_material_ChevronRight__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/icons-material/ChevronRight */ "./node_modules/@mui/icons-material/ChevronRight.js");
 /* harmony import */ var _SettingChange__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SettingChange */ "./resources/js/components/mypage/acountTab/Profile/SettingChange.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -38173,7 +38172,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function Profile() {
   var settingList = ["プロフィール編集", "パスワード変更", "ヘルプとサポート", "push通知設定"]; //設定タイプ
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
       setting = _useState2[0],
       setSetting = _useState2[1]; //表示切り替え用
@@ -38198,25 +38197,16 @@ function Profile() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
       className: "w-full",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          image: "storage/post_images/noimg.png",
-          alt: "profile",
-          sx: {
-            width: 80,
-            height: 80
-          }
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {}), settingList.map(function (listitem) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {}), settingList.map(function (listitem) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
               disablePadding: true,
               value: listitem,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
                   primary: listitem
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_icons_material_ChevronRight__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_icons_material_ChevronRight__WEBPACK_IMPORTED_MODULE_11__["default"], {
                     onClick: function onClick() {
                       return handleClick(listitem);
                     }
@@ -38226,11 +38216,11 @@ function Profile() {
             }, listitem);
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
           size: "small",
           children: "Share"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
           size: "small",
           children: "Learn More"
         })]
@@ -38787,9 +38777,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardContent/CardContent.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Divider/Divider.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Avatar/Avatar.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TextField/TextField.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/FormControl/FormControl.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardActions/CardActions.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TextField/TextField.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/FormControl/FormControl.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardActions/CardActions.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -38797,12 +38788,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PrivateSetting__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PrivateSetting */ "./resources/js/components/mypage/acountTab/Profile/setting/PrivateSetting.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -38833,259 +38818,102 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function ProfileSetting(props) {
-  //プロフィール情報の有無
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
-    check: '',
-    profileName: '',
-    description: ''
-  }),
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get("api/ProfileShow").then(function (res) {
+      var data = res.data;
+      setId(data.id);
+      setName(data.user.name);
+      setDescription(data.description);
+      setIcon(data.img_url);
+    })["catch"](function (e) {
+      react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.error("システムエラー", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
+    });
+  });
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
-      profileEmpty = _useState2[0],
-      setProfileEmpty = _useState2[1]; //user
+      id = _useState2[0],
+      setId = _useState2[1];
 
-
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
-      user = _useState4[0],
-      setUser = _useState4[1]; //user取得
+      name = _useState4[0],
+      setName = _useState4[1];
 
-
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().get('api/user').then( /*#__PURE__*/function () {
-              var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(res) {
-                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-                  while (1) {
-                    switch (_context.prev = _context.next) {
-                      case 0:
-                        setUser(res.data); //プロフィールデータ検索
-
-                        _context.next = 3;
-                        return axios__WEBPACK_IMPORTED_MODULE_1___default().get('api/ProfileShow/' + res.data.id).then(function (res) {
-                          var data = res.data;
-
-                          if (data[0].id == '') {
-                            return false;
-                          } //あれば、デフォルトの設定で使う
-
-
-                          //あれば、デフォルトの設定で使う
-                          setProfileEmpty(function (prevState) {
-                            return _objectSpread(_objectSpread({}, prevState), {}, {
-                              check: data[0].id
-                            });
-                          });
-                          setProfileEmpty(function (prevState) {
-                            return _objectSpread(_objectSpread({}, prevState), {}, {
-                              profileName: data[0].profileName
-                            });
-                          });
-                          setProfileEmpty(function (prevState) {
-                            return _objectSpread(_objectSpread({}, prevState), {}, {
-                              description: data[0].description
-                            });
-                          }); //プロフィールデータ検索用
-
-                          //プロフィールデータ検索用
-                          setProfillData(function (prevState) {
-                            return _objectSpread(_objectSpread({}, prevState), {}, {
-                              id: data[0].id
-                            });
-                          });
-                        })["catch"](function (e) {
-                          console.log(e.message);
-                        });
-
-                      case 3:
-                      case "end":
-                        return _context.stop();
-                    }
-                  }
-                }, _callee);
-              }));
-
-              return function (_x) {
-                return _ref2.apply(this, arguments);
-              };
-            }());
-
-          case 2:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  })), []); //postして送るデータ
-
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
-    id: '',
-    img: '',
-    name: '',
-    description: ''
-  }),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
       _useState6 = _slicedToArray(_useState5, 2),
-      profillData = _useState6[0],
-      setProfillData = _useState6[1]; //各バリデーションメッセージ格納
+      nameNew = _useState6[0],
+      setNameNew = _useState6[1];
 
-
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
-    name: '名前は必須です',
-    password: ''
-  }),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
       _useState8 = _slicedToArray(_useState7, 2),
-      errorMessage = _useState8[0],
-      setErrorMessage = _useState8[1]; //error判定
+      descriptionNew = _useState8[0],
+      setDescriptionNew = _useState8[1];
 
-
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
-    img: false,
-    email: false,
-    password: false
-  }),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
       _useState10 = _slicedToArray(_useState9, 2),
-      inputError = _useState10[0],
-      setInputError = _useState10[1];
+      description = _useState10[0],
+      setDescription = _useState10[1];
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+      _useState12 = _slicedToArray(_useState11, 2),
+      icon = _useState12[0],
+      setIcon = _useState12[1];
 
   var getName = function getName(event) {
-    var name = event.target.value;
-
-    if (name == '') {
-      setErrorMessage(function (prevState) {
-        return _objectSpread(_objectSpread({}, prevState), {}, {
-          name: '名前は必須です'
-        });
-      });
-    } else if (name.langh > 255) {
-      setErrorMessage(function (prevState) {
-        return _objectSpread(_objectSpread({}, prevState), {}, {
-          name: '名前は255文字以下で記載してください。'
-        });
-      });
-    } else {
-      setErrorMessage(function (prevState) {
-        return _objectSpread(_objectSpread({}, prevState), {}, {
-          name: ''
-        });
-      });
-      setProfillData(function (prevState) {
-        return _objectSpread(_objectSpread({}, prevState), {}, {
-          name: name
-        });
-      });
-    }
+    setNameNew(event.target.value);
   };
 
   var getDescription = function getDescription(event) {
-    var description = event.target.value;
+    setDescriptionNew(event.target.value);
+  };
 
-    if (description.langh > 255) {
-      setErrorMessage(function (prevState) {
-        return _objectSpread(_objectSpread({}, prevState), {}, {
-          description: '名前は255文字以下で記載してください。'
-        });
-      });
-    } else {
-      setErrorMessage(function (prevState) {
-        return _objectSpread(_objectSpread({}, prevState), {}, {
-          description: ''
-        });
-      });
-      setProfillData(function (prevState) {
-        return _objectSpread(_objectSpread({}, prevState), {}, {
-          description: description
-        });
-      });
-    }
-  }; //更新処理
-
+  var fileInput = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createRef(); //更新処理
 
   var changeProfile = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-      var data, error1, error2, check;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var file;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context.prev = _context.next) {
             case 0:
-              data = {
-                id: profillData.id ? profillData.id : user.id,
-                img: profillData.img,
-                name: profillData.name,
-                description: profillData.description
-              }; //プロフィールがあれば、更新処理
+              //更新処理
+              console.log(descriptionNew);
+              file = new FormData();
+              file.append("id", id);
 
-              error1 = true;
-              error2 = true; //名前に変更がなければ更新前の値を入れなおす
-
-              if (!profillData.name) {
-                setErrorMessage(function (prevState) {
-                  return _objectSpread(_objectSpread({}, prevState), {}, {
-                    name: ''
-                  });
-                });
-                data.name = profileEmpty.profileName;
-                error1 = false;
-              } //紹介メッセージに変更がなければ更新前の値を入れなおす
-
-
-              if (!profillData.description) {
-                setErrorMessage(function (prevState) {
-                  return _objectSpread(_objectSpread({}, prevState), {}, {
-                    description: ''
-                  });
-                });
-                data.description = profileEmpty.description;
-                error2 = false;
-              } //エラーメッセージ初期化
-
-
-              setInputError(function (prevState) {
-                return _objectSpread(_objectSpread({}, prevState), {}, {
-                  img: false,
-                  name: false,
-                  description: false
-                });
-              }); //バリデーションチェック
-
-              check = 0;
-
-              if (!error1) {
-                true;
-              } else if (errorMessage.name != '') {
-                setInputError(function (prevState) {
-                  return _objectSpread(_objectSpread({}, prevState), {}, {
-                    name: true
-                  });
-                });
-                check++;
+              if (nameNew === "") {
+                file.append("name", name);
+              } else {
+                file.append("name", nameNew);
               }
 
-              if (!error2) {
-                true;
-              } else if (errorMessage.description != '') {
-                setInputError(function (prevState) {
-                  return _objectSpread(_objectSpread({}, prevState), {}, {
-                    description: true
-                  });
-                });
-                check++;
+              if (descriptionNew === "") {
+                file.append("description", description);
+              } else {
+                file.append("description", descriptionNew);
               }
 
-              if (!(check > 0)) {
-                _context3.next = 11;
-                break;
-              }
-
-              return _context3.abrupt("return", false);
-
-            case 11:
-              _context3.next = 13;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().post('api/ProfileUpdate', data).then(function (res) {
-                if (res.data == true) {
-                  return react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.success("更新しました", {
+              file.append("image", fileInput.current.files[0]);
+              axios__WEBPACK_IMPORTED_MODULE_1___default().post("api/profileUpdate", file, {
+                headers: {
+                  "content-type": "multipart/form-data"
+                }
+              }).then(function (response) {
+                if (response.status == 200) {
+                  setName(nameNew);
+                  setDescription(descriptionNew);
+                  console.log(response.data);
+                  setIcon(response.data.img_url);
+                  react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.success("更新に成功しました。", {
                     position: "top-center",
                     autoClose: 1000,
                     hideProgressBar: false,
@@ -39095,33 +38923,44 @@ function ProfileSetting(props) {
                     progress: undefined
                   });
                 }
+              })["catch"](function (error) {
+                var _error$response = error.response,
+                    status = _error$response.status,
+                    statusText = _error$response.statusText;
 
-                var errorList = res.data.message;
-                var validMessage = '';
-                errorList.forEach(function (error) {
-                  validMessage += error;
-                });
-                return react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.error(validMessage, {
-                  position: "top-center",
-                  autoClose: 1000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined
-                });
+                if (status === 400) {
+                  react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.error("ニックネームは20文字、紹介は250文字以内です。", {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined
+                  });
+                } else {
+                  react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.error("システムエラー", {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined
+                  });
+                }
               });
 
-            case 13:
+            case 7:
             case "end":
-              return _context3.stop();
+              return _context.stop();
           }
         }
-      }, _callee3);
+      }, _callee);
     }));
 
     return function changeProfile() {
-      return _ref3.apply(this, arguments);
+      return _ref.apply(this, arguments);
     };
   }(); //戻る
 
@@ -39130,11 +38969,6 @@ function ProfileSetting(props) {
     props.setSwich(true);
   }
 
-  if (!user) {
-    return 'Loading...';
-  }
-
-  ;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
       className: "w-full",
@@ -39144,7 +38978,7 @@ function ProfileSetting(props) {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
-          image: "storage/post_images/noimg.png",
+          src: icon,
           alt: "profile",
           sx: {
             width: 160,
@@ -39152,19 +38986,30 @@ function ProfileSetting(props) {
           },
           className: "m-auto"
         })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        className: "flex justify-center",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          variant: "outlined",
+          component: "label",
+          children: ["\u753B\u50CF\u3092\u66F4\u65B0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+            hidden: true,
+            type: "file",
+            name: "image",
+            ref: fileInput,
+            accept: "image/*"
+          })]
+        })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
-          children: "\u30CB\u30C3\u30AF\u30CD\u30FC\u30E0"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          children: "\u540D\u524D"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "w-full",
-          error: inputError.name,
-          helperText: inputError.name && errorMessage.name,
           id: "filled-search",
           multiline: true,
           type: "text",
           variant: "standard",
           onChange: getName,
-          defaultValue: profileEmpty.profileName,
+          defaultValue: name,
           inputProps: {
             style: {
               fontSize: 25,
@@ -39173,12 +39018,12 @@ function ProfileSetting(props) {
           }
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
           className: "w-full",
           variant: "standard",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
             children: "\u7D39\u4ECB\u30E1\u30C3\u30BB\u30FC\u30B8"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
             className: "w-full p-1",
             id: "outlined-multiline-static",
             multiline: true,
@@ -39190,10 +39035,10 @@ function ProfileSetting(props) {
                 padding: 4
               }
             },
-            defaultValue: profileEmpty.description
+            defaultValue: description
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
         className: "flex justify-end",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
           onClick: backPage,
