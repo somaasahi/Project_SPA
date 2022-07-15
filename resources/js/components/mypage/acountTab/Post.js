@@ -62,10 +62,6 @@ function Post(props) {
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon style={{ height: "30px", width: "30px" }} />
-                    {props.content.likes_count}
-                </IconButton>
                 <ExpandMore
                     aria-label="show more"
                     onClick={() => props.handleClick(props.content.id)}
