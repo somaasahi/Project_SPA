@@ -18,15 +18,19 @@ class SearchController extends Controller
 
     public function getUserSearch( Request $request )
     {
-        $userName = $this->user
-            ->where( 'name', 'like', '%' . $request->name . '%' )
-            ->get()->toArray();
-        $userEmail = $this->user
-            ->where( 'email', 'like', '%' . $request->email . '%' )
-            ->get()->toArray();
+        $query = $this->user::query();
 
-        $userList                   = array_merge( $userName, $userEmail );
-        $this->viewData['userList'] = $userList;
+        if ( $request->name ) {
+            $query
+                ->where( 'name', 'like', '%' . $request->name . '%' );
+        }
+
+        if ( $request->email ) {
+            $query
+                ->where( 'email', 'like', '%' . $request->email . '%' );
+        }
+
+        $this->viewData['userList'] = $query->get()->toArray();
 
         return view( 'Admin.ManagementList.UserManagementList.Search.searchUserList', $this->viewData );
 
@@ -34,21 +38,22 @@ class SearchController extends Controller
 
     public function getSoftdeletesUserSearch( Request $request )
     {
-        $userName = $this->user
-            ->where( 'name', 'like', '%' . $request->name . '%' )
-            ->onlyTrashed()
-            ->get()
-            ->toArray();
-        $userEmail = $this->user
-            ->where( 'email', 'like', '%' . $request->email . '%' )
-            ->onlyTrashed()
-            ->get()
-            ->toArray();
+        $query = $this->user::query();
 
-        $userList                   = array_merge( $userName, $userEmail );
-        $this->viewData['userList'] = $userList;
+        if ( $request->name ) {
+            $query
+                ->where( 'name', 'like', '%' . $request->name . '%' )->onlyTrashed();
+        }
 
-        return view( 'Admin.ManagementList.UserManagementList.softdeletesUserList', $this->viewData );
+        if ( $request->email ) {
+            $query
+                ->where( 'email', 'like', '%' . $request->email . '%' )->onlyTrashed();
+        }
+
+        $this->viewData['userList'] = $query->onlyTrashed()->get()->toArray();
+
+        return view( 'Admin.ManagementList.UserManagementList.Search.searchSoftdeletesUserList', $this->viewData );
 
     }
+
 }

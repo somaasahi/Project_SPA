@@ -3,17 +3,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Like;
+use App\Models\Notification;
 use App\Models\Post;
 use App\Models\User;
 
 class IndexController extends Controller
 {
-    public function __construct( User $user, Post $post, Like $like )
+    public function __construct( User $user, Post $post, Like $like, Notification $notification )
     {
-        $this->user     = $user;
-        $this->post     = $post;
-        $this->like     = $like;
-        $this->viewData = [];
+        $this->user         = $user;
+        $this->post         = $post;
+        $this->like         = $like;
+        $this->notification = $notification;
+        $this->viewData     = [];
     }
 
     public function index()
@@ -94,5 +96,10 @@ class IndexController extends Controller
             ->find( $id );
 
         return view( 'Admin.ManagementList.UserManagementList.userDetail', $this->viewData );
+    }
+
+    public function getNotification()
+    {
+        return view( 'Admin.ManagementList.NotificationManagementList.notificationList' );
     }
 }

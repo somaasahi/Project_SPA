@@ -32,12 +32,18 @@
                 <td>投稿リスト</td>
                 <td><a href="{{ route('getPost') }}">投稿リストへ</a></td>
             </tr>
+            <tr>
+                <td>3</td>
+                <td>通知</td>
+                <td><a href="{{ route('getNotification') }}">通知リストへ</a></td>
+            </tr>
         </tbody>
       </table>
 
   <ul>
     <li>user,post検索機能</li>
-    <li>userを論理削除時、関連あるもののデリートフラグ追加、表示操作（getはいじる必要なし）</li>
+    <li>通知、メール</li>
+    <li>通知の種類（ヘルプ？、報告コメント）</li>
   </ul>
 </body>
 </html>
