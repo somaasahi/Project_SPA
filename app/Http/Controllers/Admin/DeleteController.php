@@ -59,7 +59,10 @@ class DeleteController extends Controller
 
     public function restoreUser( int $id )
     {
-        $this->user->onlyTrashed()->find( $id )->restore();
+        $this->user
+            ->onlyTrashed()
+            ->find( $id )
+            ->restore();
 
         return redirect()->route( 'getSoftdeletesUser' )->with( [
             'delete_msg' => 'アクティブにしました。',

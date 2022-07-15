@@ -35,6 +35,9 @@ Route::prefix( 'admin' )->middleware( 'auth:admin' )->group( function () {
     Route::get( 'getSoftdeletesUser', [IndexController::class, 'getSoftdeletesUser'] )->name( 'getSoftdeletesUser' );
     Route::get( 'getSoftdeletesPost', [IndexController::class, 'getSoftdeletesPost'] )->name( 'getSoftdeletesPost' );
 
+    //通知
+    Route::get( 'getNotification', [IndexController::class, 'getNotification'] )->name( 'getNotification' );
+
     //投稿詳細
     Route::get( 'detailPost/{id}', [IndexController::class, 'getDetailPost'] )->name( 'detailPost' );
     Route::get( 'detailUser/{id}', [IndexController::class, 'getDetailUser'] )->name( 'detailUser' );

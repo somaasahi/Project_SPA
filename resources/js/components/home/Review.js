@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
-import { Button, TextField } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fab, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { ToastContainer, toast } from "react-toastify";
+import NotificationImportantIcon from '@mui/icons-material/NotificationImportant';
+import NavigationIcon from '@mui/icons-material/Navigation';
 
 function Review(props) {
     const [reviews, setReview] = useState([]);
@@ -100,6 +102,38 @@ function Review(props) {
         noreview = "";
     }
 
+    // 通報関連処理
+    const [open, setOpen] = React.useState(false);
+    const [report, setReport] = useState('');
+    const [review_id, setReviewId] = useState('');
+    //レビューId取得
+    const mouseEnterHandler = (event) => {
+        setReviewId(event.target.id);
+    }
+    const handleClickOpen = (event) => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleReport = (event) => {
+        setReport(event.target.value);
+    }
+
+    const postReport = async (event) => {
+        const data = {
+            post_id: props.postId,
+            report: report,
+            review_id: review_id,
+        }
+
+        console.log(data);
+    }
+
+
+
     return (
         <div className="w-full px-3">
             <div className="w-full p-4 border-2 border-slate-200 rounded-md mb-7">
@@ -117,6 +151,11 @@ function Review(props) {
                         </div>
                         <div className="flex items-center ml-4 px-7 border-2 rounded-md w-full">
                             <div className="">{review.comment}</div>
+                        </div>
+                        <div className="pt-3.5 pl-1">
+                            <IconButton>
+                                <NotificationImportantIcon fontSize="large" id={review.id} onMouseEnter={mouseEnterHandler} onClick={handleClickOpen} />
+                            </IconButton>
                         </div>
                     </div>
                 ))}
@@ -155,6 +194,28 @@ function Review(props) {
             >
                 <KeyboardReturnIcon style={{ height: "40px", width: "40px" }} />
             </IconButton>
+
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>通報しますか？</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="理由"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        onChange={handleReport}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>やめる</Button>
+                    <Button onClick={postReport}>通報する</Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 }
