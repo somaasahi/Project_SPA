@@ -56,4 +56,55 @@ class SearchController extends Controller
 
     }
 
+    public function getPostSearch( Request $request )
+    {
+        $query = $this->post::query();
+        $query
+            ->select( 'posts.id as postId', 'user_id', 'animal_kind', 'post_kind', 'img_url1', 'img_url2', 'img_url3', 'content', 'posts.created_at', 'posts.updated_at', 'posts.deleted_at', 'users.id as userId', 'name', 'email' )
+            ->join( 'users', 'users.id', '=', 'posts.user_id' );
+
+        if ( $request->name ) {
+            $query->where( 'name', 'like', '%' . $request->name . '%' );
+        }
+
+        if ( $request->animal_kind ) {
+            $query->where( 'animal_kind', 'like', '%' . $request->animal_kind . '%' );
+        }
+
+        if ( $request->post_kind ) {
+            $query->where( 'post_kind', 'like', '%' . $request->post_kind . '%' );
+        }
+
+        $this->viewData['postList'] = $query->paginate( 10 );
+
+        return view( 'Admin.ManagementList.PostManagementList.Search.searchPostList', $this->viewData );
+
+    }
+
+    public function getSoftdeletesPostSearch( Request $request )
+    {
+        $query = $this->post::query();
+        $query
+            ->select( 'posts.id as postId', 'user_id', 'animal_kind', 'post_kind', 'img_url1', 'img_url2', 'img_url3', 'content', 'posts.created_at', 'posts.updated_at', 'posts.deleted_at', 'users.id as userId', 'name', 'email' )
+            ->join( 'users', 'users.id', '=', 'posts.user_id' )
+            ->onlyTrashed();
+
+        if ( $request->name ) {
+            $query->where( 'name', 'like', '%' . $request->name . '%' );
+        }
+
+        if ( $request->animal_kind ) {
+            $query->where( 'animal_kind', 'like', '%' . $request->animal_kind . '%' );
+        }
+
+        if ( $request->post_kind ) {
+            $query->where( 'post_kind', 'like', '%' . $request->post_kind . '%' );
+        }
+
+        $this->viewData['SoftDeletesPost'] = $query->paginate( 10 );
+
+        return view( 'Admin.ManagementList.PostManagementList.Search.searchSoftdeletesPostList', $this->viewData );
+
+    }
+
 }

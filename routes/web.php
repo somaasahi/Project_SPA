@@ -54,6 +54,8 @@ Route::prefix( 'admin' )->middleware( 'auth:admin' )->group( function () {
     //検索
     Route::post( 'getUserSearch', [SearchController::class, 'getUserSearch'] )->name( 'getUserSearch' );
     Route::post( 'getSoftdeletesUserSearch', [SearchController::class, 'getSoftdeletesUserSearch'] )->name( 'getSoftdeletesUserSearch' );
+    Route::post( 'getPostSearch', [SearchController::class, 'getPostSearch'] )->name( 'getPostSearch' );
+    Route::post( 'getSoftdeletesPostSearch', [SearchController::class, 'getSoftdeletesPostSearch'] )->name( 'getSoftdeletesPostSearch' );
 } );
 //パスワードリセットルート
 Route::get( '/reset-password/{token}', function ( $token ) {
