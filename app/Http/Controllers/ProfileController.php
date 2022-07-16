@@ -94,7 +94,7 @@ class ProfileController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'string|max:20',
+
             'description' => 'string|max:250',
         ]);
 
@@ -117,9 +117,7 @@ class ProfileController extends Controller
                     Log::error('kk');
                 }
                 $profile->save();
-                $user = User::find($profile->user_id);
-                $user->name = $request->name;
-                $user->save();
+
 
                 DB::commit();
                 if (!empty($request->file('image'))) {

@@ -27,7 +27,6 @@ function ProfileSetting(props) {
             .then((res) => {
                 const data = res.data;
                 setId(data.id);
-                setName(data.user.name);
                 setDescription(data.description);
                 setIcon(data.img_url);
             })
@@ -44,15 +43,11 @@ function ProfileSetting(props) {
             });
     });
     const [id, setId] = useState("");
-    const [name, setName] = useState("");
-    const [nameNew, setNameNew] = useState("");
+
     const [descriptionNew, setDescriptionNew] = useState("");
     const [description, setDescription] = useState("");
     const [icon, setIcon] = useState("");
 
-    const getName = (event) => {
-        setNameNew(event.target.value);
-    };
     const getDescription = (event) => {
         setDescriptionNew(event.target.value);
     };
@@ -64,11 +59,7 @@ function ProfileSetting(props) {
         console.log(descriptionNew);
         const file = new FormData();
         file.append("id", id);
-        if (nameNew === "") {
-            file.append("name", name);
-        } else {
-            file.append("name", nameNew);
-        }
+
         if (descriptionNew === "") {
             file.append("description", description);
         } else {
@@ -84,7 +75,6 @@ function ProfileSetting(props) {
             })
             .then((response) => {
                 if (response.status == 200) {
-                    setName(nameNew);
                     setDescription(descriptionNew);
                     console.log(response.data);
                     setIcon(response.data.img_url);
@@ -104,18 +94,15 @@ function ProfileSetting(props) {
                 const { status, statusText } = error.response;
 
                 if (status === 400) {
-                    toast.error(
-                        "ニックネームは20文字、紹介は250文字以内です。",
-                        {
-                            position: "top-center",
-                            autoClose: 1000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        }
-                    );
+                    toast.error("紹介は250文字以内です。", {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
                 } else {
                     toast.error("システムエラー", {
                         position: "top-center",
@@ -162,19 +149,7 @@ function ProfileSetting(props) {
                         />
                     </Button>
                 </CardContent>
-                <CardContent>
-                    <label>名前</label>
-                    <TextField
-                        className="w-full"
-                        id="filled-search"
-                        multiline
-                        type="text"
-                        variant="standard"
-                        onChange={getName}
-                        defaultValue={name}
-                        inputProps={{ style: { fontSize: 25, padding: 4 } }}
-                    />
-                </CardContent>
+
                 <CardContent>
                     <FormControl className="w-full" variant="standard">
                         <label>紹介メッセージ</label>
