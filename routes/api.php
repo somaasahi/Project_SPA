@@ -60,6 +60,8 @@ Route::group( ['middleware' => ['auth:sanctum']], function () {
 
     Route::get( 'ProfileShow', [ProfileController::class, 'show'] );
     Route::post( 'profileUpdate', [ProfileController::class, 'update'] );
+
+    Route::post( 'sendMessage', [MailController::class, 'sendMessage'] );
 } );
 
 Route::get( 'homeIndex', [Homecontroller::class, 'homeIndex'] );
