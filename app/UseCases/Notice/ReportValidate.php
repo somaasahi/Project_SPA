@@ -1,11 +1,18 @@
 <?php
 
-namespace App\UseCases\Profile;
+namespace App\UseCases\Notice;
 
+use App\Models\Notification;
 use Illuminate\Http\Request;
 
-class Validate
+class ReportValidate
 {
+
+    public function __construct( Notification $notification )
+    {
+        $this->notification = $notification;
+    }
+
     /**
      *
      * @param Request $request
@@ -27,14 +34,8 @@ class Validate
     {
         $errorMessage = [];
 
-        if ( empty( $request->name ) ) {
-            $errorMessage[] = '名前は必須です';
-        }
-
-        $description = mb_strlen( $request->description );
-
-        if ( $description > 255 ) {
-            $errorMessage[] = '紹介メッセージは255文字以下で記入してください';
+        if ( empty( $request->user_id ) || empty( $request->type ) ) {
+            $errorMessage[] = 'システムエラー、運営にお問い合わせ下さい。';
         }
 
         return $errorMessage;

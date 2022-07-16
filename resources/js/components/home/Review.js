@@ -7,10 +7,10 @@ import { Box } from "@mui/system";
 import { ToastContainer, toast } from "react-toastify";
 import NotificationImportantIcon from '@mui/icons-material/NotificationImportant';
 import NavigationIcon from '@mui/icons-material/Navigation';
+import axios from "axios";
 
 function Review(props) {
     const [reviews, setReview] = useState([]);
-
     useEffect(() => {
         axios
             .get("api/detail/review", {
@@ -121,17 +121,58 @@ function Review(props) {
     const handleReport = (event) => {
         setReport(event.target.value);
     }
-
+    // コメント通報処理
     const postReport = async (event) => {
-        const data = {
-            post_id: props.postId,
-            report: report,
-            review_id: review_id,
-        }
+        await axios.get('api/user/')
+            .then(async (res) => {
+                const data = {
+                    user_id: res.data.id,
+                    post_id: props.postId,
+                    about: report,
+                    review_id: review_id,
+                    type: 1,
+                }
+                await axios.post('api/detail/notification', data)
+                    .then((res) => {
+                        if (res.data.message === 'ok') {
+                            setOpen(false);
+                            toast.success("通報しました。", {
+                                position: "top-center",
+                                autoClose: 1000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            });
+                        } else {
+                            toast.error(res.data.message, {
+                                position: "top-center",
+                                autoClose: 1000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            });
+                        }
 
-        console.log(data);
+                    })
+
+            }).catch((error) => {
+                if (error.response.status == 401) {
+                    toast.error("ログインが必要です。", {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                }
+            });
     }
-
 
 
     return (
@@ -219,5 +260,4 @@ function Review(props) {
         </div>
     );
 }
-
 export default Review;

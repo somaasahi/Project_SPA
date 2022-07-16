@@ -9,11 +9,12 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
+    private $viewData = [];
+
     public function __construct( User $user, Post $post )
     {
-        $this->user     = $user;
-        $this->post     = $post;
-        $this->viewData = [];
+        $this->user = $user;
+        $this->post = $post;
     }
 
     public function getUserSearch( Request $request )
