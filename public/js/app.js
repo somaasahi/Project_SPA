@@ -38763,14 +38763,139 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Card/Card.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardContent/CardContent.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/FormControl/FormControl.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TextField/TextField.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardActions/CardActions.js");
+/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
 
 
 
 function Inquiry(props) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-    children: "Inquiry"
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_1__.useState(""),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      message = _React$useState2[0],
+      setMessage = _React$useState2[1];
+
+  var getMessage = function getMessage(event) {
+    setMessage(event.target.value);
+    console.log(message);
+  };
+
+  var backPage = function backPage() {
+    props.setSwich(true);
+  };
+
+  var sendMessage = function sendMessage() {
+    axios__WEBPACK_IMPORTED_MODULE_2___default().post("api/sendMessage", {
+      message: message
+    }).then(function (res) {
+      react_toastify__WEBPACK_IMPORTED_MODULE_0__.toast.success("送信しました。ご登録のメールアドレスに回答をお送りさせて頂きます。", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
+      setMessage("");
+    })["catch"](function (error) {
+      var _error$response = error.response,
+          status = _error$response.status,
+          statusText = _error$response.statusText;
+
+      if (status === 400) {
+        react_toastify__WEBPACK_IMPORTED_MODULE_0__.toast.error("250文字以内です。", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+      } else {
+        react_toastify__WEBPACK_IMPORTED_MODULE_0__.toast.error("システムエラー", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+      }
+    });
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    className: "w-full",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        className: "w-full",
+        variant: "standard",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+          className: "mb-7 mt-7",
+          children: "\u7BA1\u7406\u8005\u306B\u30E1\u30C3\u30BB\u30FC\u30B8\u3092\u9001\u308B"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          className: "w-full p-1",
+          id: "outlined-multiline-static",
+          multiline: true,
+          rows: 9,
+          onChange: getMessage,
+          inputProps: {
+            style: {
+              fontSize: 25,
+              padding: 4
+            }
+          },
+          value: message
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      className: "flex justify-end",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        onClick: backPage,
+        className: "text-lg bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded",
+        children: "\u623B\u308B"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        onClick: sendMessage,
+        className: "text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
+        children: "\u9001\u4FE1"
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_toastify__WEBPACK_IMPORTED_MODULE_0__.ToastContainer, {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      newestOnTop: false,
+      closeOnClick: true,
+      rtl: false,
+      pauseOnFocusLoss: true,
+      draggable: true,
+      pauseOnHover: true
+    })]
   });
 }
 
@@ -39195,8 +39320,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Divider/Divider.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Avatar/Avatar.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TextField/TextField.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/FormControl/FormControl.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/FormControl/FormControl.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TextField/TextField.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardActions/CardActions.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
@@ -39239,7 +39364,6 @@ function ProfileSetting(props) {
     axios__WEBPACK_IMPORTED_MODULE_1___default().get("api/ProfileShow").then(function (res) {
       var data = res.data;
       setId(data.id);
-      setName(data.user.name);
       setDescription(data.description);
       setIcon(data.img_url);
     })["catch"](function (e) {
@@ -39262,32 +39386,18 @@ function ProfileSetting(props) {
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
-      name = _useState4[0],
-      setName = _useState4[1];
+      descriptionNew = _useState4[0],
+      setDescriptionNew = _useState4[1];
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
       _useState6 = _slicedToArray(_useState5, 2),
-      nameNew = _useState6[0],
-      setNameNew = _useState6[1];
+      description = _useState6[0],
+      setDescription = _useState6[1];
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
       _useState8 = _slicedToArray(_useState7, 2),
-      descriptionNew = _useState8[0],
-      setDescriptionNew = _useState8[1];
-
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
-      _useState10 = _slicedToArray(_useState9, 2),
-      description = _useState10[0],
-      setDescription = _useState10[1];
-
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
-      _useState12 = _slicedToArray(_useState11, 2),
-      icon = _useState12[0],
-      setIcon = _useState12[1];
-
-  var getName = function getName(event) {
-    setNameNew(event.target.value);
-  };
+      icon = _useState8[0],
+      setIcon = _useState8[1];
 
   var getDescription = function getDescription(event) {
     setDescriptionNew(event.target.value);
@@ -39307,12 +39417,6 @@ function ProfileSetting(props) {
               file = new FormData();
               file.append("id", id);
 
-              if (nameNew === "") {
-                file.append("name", name);
-              } else {
-                file.append("name", nameNew);
-              }
-
               if (descriptionNew === "") {
                 file.append("description", description);
               } else {
@@ -39326,7 +39430,6 @@ function ProfileSetting(props) {
                 }
               }).then(function (response) {
                 if (response.status == 200) {
-                  setName(nameNew);
                   setDescription(descriptionNew);
                   console.log(response.data);
                   setIcon(response.data.img_url);
@@ -39346,7 +39449,7 @@ function ProfileSetting(props) {
                     statusText = _error$response.statusText;
 
                 if (status === 400) {
-                  react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.error("ニックネームは20文字、紹介は250文字以内です。", {
+                  react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.error("紹介は250文字以内です。", {
                     position: "top-center",
                     autoClose: 1000,
                     hideProgressBar: false,
@@ -39368,7 +39471,7 @@ function ProfileSetting(props) {
                 }
               });
 
-            case 7:
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -39416,31 +39519,13 @@ function ProfileSetting(props) {
             accept: "image/*"
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
-          children: "\u540D\u524D"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
-          className: "w-full",
-          id: "filled-search",
-          multiline: true,
-          type: "text",
-          variant: "standard",
-          onChange: getName,
-          defaultValue: name,
-          inputProps: {
-            style: {
-              fontSize: 25,
-              padding: 4
-            }
-          }
-        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
           className: "w-full",
           variant: "standard",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
             children: "\u7D39\u4ECB\u30E1\u30C3\u30BB\u30FC\u30B8"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
             className: "w-full p-1",
             id: "outlined-multiline-static",
             multiline: true,

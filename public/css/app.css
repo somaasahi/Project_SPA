@@ -485,6 +485,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mt-3 {
   margin-top: 0.75rem;
 }
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
 .block {
   display: block;
 }
