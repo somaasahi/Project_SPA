@@ -12,8 +12,14 @@ class Notification extends Model
     protected $fillable = [
         'user_id',
         'post_id',
-        'ttpe',
+        'review_id',
+        'type',
         'about',
         'check_flg',
     ];
+
+    public function reviews()
+    {
+        return $this->hasMany( Review::class );
+    }
 }

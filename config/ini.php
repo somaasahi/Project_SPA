@@ -13,4 +13,9 @@ return [
         '2' => '面白い',
         '3' => '助けてほしい！',
     ],
+    'notification_type' => [
+        '1' => 'review',
+        '2' => 'post',
+        '3' => 'help',
+    ],
 ];

@@ -24,7 +24,7 @@
                 <th>種類</th>
                 <th>通知日</th>
                 <th>詳細</th>
-                <th>未読</th>
+                <th>未対応</th>
             </tr>
         </thead>
 

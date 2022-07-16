@@ -9,13 +9,14 @@ use App\Models\User;
 
 class IndexController extends Controller
 {
+    private $viewData = [];
+
     public function __construct( User $user, Post $post, Like $like, Notification $notification )
     {
         $this->user         = $user;
         $this->post         = $post;
         $this->like         = $like;
         $this->notification = $notification;
-        $this->viewData     = [];
     }
 
     public function index()
