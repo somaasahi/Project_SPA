@@ -427,6 +427,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .static {
   position: static;
 }
+.fixed {
+  position: fixed;
+}
 .relative {
   position: relative;
 }
@@ -485,8 +488,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mt-3 {
   margin-top: 0.75rem;
 }
-.mb-5 {
-  margin-bottom: 1.25rem;
+.mt-20 {
+  margin-top: 5rem;
 }
 .block {
   display: block;
@@ -656,6 +659,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .pl-4 {
   padding-left: 1rem;
+}
+.pt-10 {
+  padding-top: 2.5rem;
+}
+.pt-20 {
+  padding-top: 5rem;
 }
 .text-right {
   text-align: right;

@@ -43,19 +43,31 @@ function UserInfo(props) {
             .get("api/user/")
             .then((res) => {
                 const user = res.data;
-                axios
-                    .post("api/userInfo/makeFriend", {
-                        params: {
-                            from_user_id: user.id,
-                            to_user_id: props.postUserId,
-                        },
-                    })
-                    .then((res) => {
-                        setFriend(res.data);
-                    })
-                    .catch((error) => {
-                        console.log("エラー");
+                if (user.id === props.postUserId) {
+                    toast.error("自分自身に申請を送ることはできません。", {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
                     });
+                } else {
+                    axios
+                        .post("api/userInfo/makeFriend", {
+                            params: {
+                                from_user_id: user.id,
+                                to_user_id: props.postUserId,
+                            },
+                        })
+                        .then((res) => {
+                            setFriend(res.data);
+                        })
+                        .catch((error) => {
+                            console.log("エラー");
+                        });
+                }
             })
             .catch((error) => {
                 const { status, statusText } = error.response;
