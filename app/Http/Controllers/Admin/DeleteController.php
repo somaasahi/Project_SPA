@@ -3,16 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\Post;
+use App\Models\Review;
 use App\Models\User;
+use App\UseCases\Notice\NoticeMessage;
 use Illuminate\Http\Request;
 
 class DeleteController extends Controller
 {
-    public function __construct( User $user, Post $post )
+    private $user;
+    private $post;
+    private $review;
+    private $notification;
+
+    public function __construct( User $user, Post $post, Review $review, Notification $notification )
     {
-        $this->user = $user;
-        $this->post = $post;
+        $this->user         = $user;
+        $this->post         = $post;
+        $this->review       = $review;
+        $this->notification = $notification;
     }
 
     public function index()
@@ -28,10 +38,63 @@ class DeleteController extends Controller
             $model = $request->model;
 
             if ( $model ) {
+
                 $model = $this->$model;
                 $model->destroy( $id );
             }
 
+        }
+
+        if ( $request->model == 'user' ) {
+            return redirect()->route( 'getUser' )->with( [
+                'delete_msg' => '削除しました。',
+            ] );
+        }
+
+        if ( $request->model == 'post' ) {
+            return redirect()->route( 'getPost' )->with( [
+                'delete_msg' => '削除しました。',
+            ] );
+        }
+
+        if ( $request->model == 'review' ) {
+            return redirect()->route( 'getNotification' )->with( [
+                'delete_msg' => '削除しました。',
+            ] );
+        }
+
+    }
+
+    /**
+     *
+     * @param Request $request
+     * @param NoticeMessage $noticeMessage
+     * @return array
+     */
+    public function softDeleteNotification(
+        Request $request,
+        NoticeMessage $noticeMessage
+    ) {
+        $id = $request->id;
+
+        if ( $id ) {
+            $model = $request->model;
+
+            if ( $model ) {
+                $model = $this->$model;
+                $model->find( $id )->delete();
+            }
+
+        }
+
+        if ( $request->model == 'review' ) {
+            //通知削除
+            $this->notification->where( 'review_id', $id )->delete();
+            //通知メッセージ
+            $noticeMessage( $request->post_id );
+            return redirect()->route( 'getNotification' )->with( [
+                'delete_msg' => '削除しました。',
+            ] );
         }
 
         if ( $request->model == 'user' ) {

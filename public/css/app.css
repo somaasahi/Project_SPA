@@ -485,9 +485,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mt-3 {
   margin-top: 0.75rem;
 }
-.mb-5 {
-  margin-bottom: 1.25rem;
-}
 .block {
   display: block;
 }
@@ -654,17 +651,17 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-left: 1rem;
   padding-right: 1rem;
 }
+.pl-4 {
+  padding-left: 1rem;
+}
 .pt-3\.5 {
   padding-top: 0.875rem;
-}
-.pl-1 {
-  padding-left: 0.25rem;
 }
 .pt-3 {
   padding-top: 0.75rem;
 }
-.pl-4 {
-  padding-left: 1rem;
+.pl-1 {
+  padding-left: 0.25rem;
 }
 .text-right {
   text-align: right;
@@ -698,6 +695,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-blue-700 {
   --tw-text-opacity: 1;
   color: rgb(29 78 216 / var(--tw-text-opacity));
+}
+.text-rose-600 {
+  --tw-text-opacity: 1;
+  color: rgb(225 29 72 / var(--tw-text-opacity));
 }
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
