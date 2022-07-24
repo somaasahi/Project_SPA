@@ -4,7 +4,7 @@ import Inquiry from "./setting/Inquiry";
 import PasswordSetting from "./setting/PasswordSetting";
 import PrivateSetting from "./setting/PrivateSetting";
 import ProfileSetting from "./setting/ProfileSetting";
-import PushSetting from "./setting/PushSetting";
+import PushSetting from "./setting/Push/PushSetting";
 
 function SettingChang(props) {
 
@@ -27,7 +27,7 @@ function SettingChang(props) {
         else if (props.setting == 'ヘルプとサポート') {
             return <Inquiry setSwich={setSwich} />
         }
-        else if (props.setting == 'push通知設定') {
+        else if (props.setting == '通知') {
             return <PushSetting setSwich={setSwich} />
         }
         else {

@@ -43,6 +43,7 @@ Route::prefix( 'admin' )->middleware( 'auth:admin' )->group( function () {
     Route::get( 'detailUser/{id}', [IndexController::class, 'getDetailUser'] )->name( 'detailUser' );
     Route::get( 'getDetailSoftdeletePost/{id}', [IndexController::class, 'getDetailSoftdeletePost'] )->name( 'getDetailSoftdeletePost' );
     Route::get( 'getDetailSoftdeleteUser/{id}', [IndexController::class, 'getDetailSoftdeleteUser'] )->name( 'getDetailSoftdeleteUser' );
+    Route::get( 'detailReview/{id}', [IndexController::class, 'detailReview'] )->name( 'detailReview' );
 
     //削除
     Route::get( 'softDeleteUser/{id}', [DeleteController::class, 'softDeleteUser'] )->name( 'softDeleteUser' );
@@ -50,12 +51,14 @@ Route::prefix( 'admin' )->middleware( 'auth:admin' )->group( function () {
     Route::get( 'softDeletePost/{id}', [DeleteController::class, 'softDeletePost'] )->name( 'softDeletePost' );
     Route::get( 'restorePost/{id}', [DeleteController::class, 'restorePost'] )->name( 'restorePost' );
     Route::post( 'delete', [DeleteController::class, 'delete'] )->name( 'delete' );
+    Route::post( 'softDeleteNotification', [DeleteController::class, 'softDeleteNotification'] )->name( 'softDeleteNotification' );
 
     //検索
     Route::post( 'getUserSearch', [SearchController::class, 'getUserSearch'] )->name( 'getUserSearch' );
     Route::post( 'getSoftdeletesUserSearch', [SearchController::class, 'getSoftdeletesUserSearch'] )->name( 'getSoftdeletesUserSearch' );
     Route::post( 'getPostSearch', [SearchController::class, 'getPostSearch'] )->name( 'getPostSearch' );
     Route::post( 'getSoftdeletesPostSearch', [SearchController::class, 'getSoftdeletesPostSearch'] )->name( 'getSoftdeletesPostSearch' );
+    Route::post( 'getNotificationSearch', [SearchController::class, 'getNotificationSearch'] )->name( 'getNotificationSearch' );
 } );
 //パスワードリセットルート
 Route::get( '/reset-password/{token}', function ( $token ) {

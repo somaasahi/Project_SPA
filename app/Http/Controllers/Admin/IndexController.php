@@ -5,18 +5,31 @@ use App\Http\Controllers\Controller;
 use App\Models\Like;
 use App\Models\Notification;
 use App\Models\Post;
+use App\Models\Review;
 use App\Models\User;
 
 class IndexController extends Controller
 {
-    private $viewData = [];
+    private $viewData;
+    private $notification;
+    private $post;
+    private $user;
+    private $like;
+    private $review;
 
-    public function __construct( User $user, Post $post, Like $like, Notification $notification )
-    {
+    public function __construct(
+        User $user,
+        Post $post,
+        Like $like,
+        Notification $notification,
+        Review $review
+    ) {
         $this->user         = $user;
         $this->post         = $post;
         $this->like         = $like;
         $this->notification = $notification;
+        $this->review       = $review;
+        $this->viewData     = [];
     }
 
     public function index()
@@ -101,6 +114,23 @@ class IndexController extends Controller
 
     public function getNotification()
     {
-        return view( 'Admin.ManagementList.NotificationManagementList.notificationList' );
+        $this->viewData['notificationList'] = $this->notification
+            ->leftJoin( 'users', 'user_id', '=', 'users.id' )
+            ->where( 'notifications.deleted_at', null )
+            ->withTrashed()
+            ->paginate( 10 );
+
+        return view( 'Admin.ManagementList.NotificationManagementList.notificationList', $this->viewData );
+    }
+
+    public function detailReview( int $id )
+    {
+        $this->viewData['review'] = $this->review
+            ->select( 'reviews.id as reviewId', 'post_id', 'comment', 'reviews.created_at', 'reviews.updated_at', 'users.id as userId', 'name', 'email', 'reviews.deleted_at' )
+            ->join( 'users', 'user_id', '=', 'users.id' )
+            ->withTrashed()
+            ->find( $id );
+
+        return view( 'Admin.ManagementList.NotificationManagementList.notificationDetail', $this->viewData );
     }
 }

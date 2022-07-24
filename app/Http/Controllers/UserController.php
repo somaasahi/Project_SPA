@@ -14,6 +14,9 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    private $user;
+    private $profile;
+
     public function __construct( User $user, Profile $profile )
     {
         $this->user    = $user;

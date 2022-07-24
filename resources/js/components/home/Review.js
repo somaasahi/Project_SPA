@@ -191,7 +191,9 @@ function Review(props) {
                             </Avatar>
                         </div>
                         <div className="flex items-center ml-4 px-7 border-2 rounded-md w-full">
-                            <div className="">{review.comment}</div>
+                            <div className="">
+                                {review.deleted_at ? <p className="text-rose-600">このコメントは削除されました</p> : review.comment}
+                            </div>
                         </div>
                         <div className="pt-3.5 pl-1">
                             <IconButton>
@@ -257,7 +259,7 @@ function Review(props) {
                     <Button onClick={postReport}>通報する</Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </div >
     );
 }
 export default Review;

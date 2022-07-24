@@ -3,18 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\Post;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
     private $viewData = [];
+    private $user;
+    private $post;
+    private $notification;
 
-    public function __construct( User $user, Post $post )
+    public function __construct( User $user, Post $post, Notification $notification, Review $review )
     {
-        $this->user = $user;
-        $this->post = $post;
+        $this->user         = $user;
+        $this->post         = $post;
+        $this->notification = $notification;
     }
 
     public function getUserSearch( Request $request )
@@ -105,6 +111,35 @@ class SearchController extends Controller
         $this->viewData['SoftDeletesPost'] = $query->paginate( 10 );
 
         return view( 'Admin.ManagementList.PostManagementList.Search.searchSoftdeletesPostList', $this->viewData );
+
+    }
+
+    public function getNotificationSearch( Request $request )
+    {
+        $query = $this->notification::query();
+        $query
+            ->select( 'notifications.id as notificationId', 'type', 'about', 'notifications.created_at', 'notifications.updated_at', 'notifications.deleted_at', 'users.id as userId', 'name', 'post_id', 'review_id' )
+            ->join( 'users', 'users.id', '=', 'notifications.user_id' );
+
+        if ( $request->name ) {
+            $query->where( 'name', 'like', '%' . $request->name . '%' );
+        }
+
+        if ( $request->type ) {
+            $query->where( 'type', '=', $request->type );
+        }
+
+        if ( $request->softDeletes == 0 ) {
+            $query
+                ->where( 'notifications.deleted_at', null )
+                ->withTrashed();
+        } else {
+            $query->onlyTrashed();
+        }
+
+        $this->viewData['notificationList'] = $query->paginate( 10 );
+
+        return view( 'Admin.ManagementList.NotificationManagementList.notificationList', $this->viewData );
 
     }
 
