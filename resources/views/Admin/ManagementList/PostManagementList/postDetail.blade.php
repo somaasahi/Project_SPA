@@ -64,11 +64,9 @@
             @csrf
             <input type="hidden" name="id" value="{{$post->postId}}">
             <input type="hidden" name="model" value="post">
-            <a href="{{route('getPost')}}">
-                <button  type="button" class="btn btn-secondary">
+                <button  type="button" class="btn btn-secondary" onClick="history.back()">
                     戻る
                 </button>
-            </a>
             <button type="submit" class="btn btn-primary" onClick="delete_alert(event);return false;">
                 投稿削除
             </button>

@@ -31,7 +31,7 @@
     <table class="table w-75 m-auto mb-5">
         <thead class="table-light">
             <tr>
-                <th>ユーザー名</th>
+                <th>通報者</th>
                 <th>種類</th>
                 <th>通報理由</th>
                 <th>通知日</th>
