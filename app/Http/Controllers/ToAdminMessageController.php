@@ -24,7 +24,11 @@ class ToAdminMessageController extends Controller
      */
     public function index()
     {
-        $adminMessage = $this->toAdminMessage->get()->toArray();
+        $adminMessage = $this->toAdminMessage
+            ->select( 'to_admin_messages.id as adminId', 'about', 'reviews.id as reviewId', 'post_id', 'check_flg' )
+            ->join( 'reviews', 'reviews.id', '=', 'to_admin_messages.review_id' )
+            ->get()
+            ->toArray();
 
         return $adminMessage;
     }

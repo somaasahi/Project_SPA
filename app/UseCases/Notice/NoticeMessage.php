@@ -19,12 +19,14 @@ class NoticeMessage
     /**
      *
      * @param int $postId
+     * @param int $reviewId
      * @return array
      */
-    public function __invoke( int $postId )
+    public function __invoke( int $postId, int $reviewId )
     {
         $userId = $this->findUser( $postId );
-        $this->registerToAdminMessage( $userId );
+        // toAdminMessageへ格納
+        $this->registerToAdminMessage( $userId, $reviewId );
     }
 
     /**
@@ -44,12 +46,14 @@ class NoticeMessage
      * ユーザーへ通知メッセージ登録処理
      *
      * @param int $userId
+     * @param int $reviewId
      * @return int
      */
-    public function registerToAdminMessage( int $userId )
+    public function registerToAdminMessage( int $userId, int $reviewId )
     {
-        $this->toAdminMessage->user_id = $userId;
-        $this->toAdminMessage->about   = '投稿に対する不適切なコメントがあったため、削除しました。';
+        $this->toAdminMessage->user_id   = $userId;
+        $this->toAdminMessage->review_id = $reviewId;
+        $this->toAdminMessage->about     = '投稿に対する不適切なコメントがあったため、削除しました。';
         $this->toAdminMessage->save();
     }
 }
