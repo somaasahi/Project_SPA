@@ -4,7 +4,7 @@ import Inquiry from "./setting/Inquiry";
 import PasswordSetting from "./setting/PasswordSetting";
 import PrivateSetting from "./setting/PrivateSetting";
 import ProfileSetting from "./setting/ProfileSetting";
-import PushSetting from "./setting/PushSetting";
+import PushSetting from "./setting/Push/PushSetting";
 
 function SettingChang(props) {
 

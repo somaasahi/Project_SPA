@@ -10,6 +10,7 @@ use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostlistController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ToAdminMessageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,6 +49,8 @@ Route::group( ['middleware' => ['auth:sanctum']], function () {
     Route::post( 'mypage/post/update', [PostController::class, 'update'] );
     Route::get( 'userInfo/checkFriend', [Homecontroller::class, 'checkFriend'] );
     Route::post( 'userInfo/makeFriend', [Homecontroller::class, 'makeFriend'] );
+    Route::get( 'getAdminMessage', [ToAdminMessageController::class, 'index'] );
+    Route::post( 'readAdminMessage', [ToAdminMessageController::class, 'update'] );
 
     Route::get( 'mypage/likelist', [LikelistController::class, 'index'] );
     Route::get( 'mypage/postlist', [PostlistController::class, 'index'] );
