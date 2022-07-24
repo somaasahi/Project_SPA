@@ -30,6 +30,7 @@ class Homecontroller extends Controller
             ->leftJoin('profiles', 'users.id', '=', 'profiles.user_id');
         $query->withCount('likes');
         $query->withCount('reviews');
+        $query->selectRaw('DATE_FORMAT(posts.created_at, "%Y/%m/%d/%h:%m") AS date');
 
         if (!empty($animal)) {
             $query->where('animal_kind', $animal);
@@ -40,9 +41,8 @@ class Homecontroller extends Controller
         if (!empty($keyword)) {
             $query->where('content', 'LIKE', "%{$keyword}%");
         }
-        if ($order === '1') {
-            // 後でupdated_atに変更
-            $query->orderBy('id', 'desc');
+        if (empty($order) || $order === '1') {
+            $query->orderBy('created_at', 'desc');
         }
         if ($order === '2') {
             $query->orderBy('likes_count', 'desc');
@@ -50,9 +50,8 @@ class Homecontroller extends Controller
         if ($order === '3') {
             $query->orderBy('reviews_count', 'desc');
         }
-        if (empty($order) || $order === '4') {
-            // 後でupdated_atに変更
-            $query->orderBy('id', 'asc');
+        if ($order === '4') {
+            $query->orderBy('created_at', 'asc');
         }
         $query->skip($total)->take(10)->get();
 
@@ -207,4 +206,3 @@ class Homecontroller extends Controller
         }
     }
 }
-

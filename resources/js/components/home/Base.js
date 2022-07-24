@@ -194,9 +194,7 @@ function Base(props) {
                             onChange={orderChange}
                         >
                             <MenuItem value={""}>選択しない</MenuItem>
-                            <MenuItem value={1}>
-                                新しい順(今はid大きい順)
-                            </MenuItem>
+                            <MenuItem value={1}>新しい順</MenuItem>
                             <MenuItem value={2}>人気順</MenuItem>
                             <MenuItem value={3}>
                                 コメントが盛り上がってる順

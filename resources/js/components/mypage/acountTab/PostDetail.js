@@ -244,7 +244,7 @@ function PostDetail(props) {
                 {img}
                 <CardContent>
                     <Typography variant="body2" color="text.secondary">
-                        投稿日
+                        {item.updated_at}
                     </Typography>
                 </CardContent>
                 <CardContent>

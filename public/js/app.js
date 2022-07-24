@@ -33493,16 +33493,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _images_about_jpeg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./images/about.jpeg */ "./resources/js/components/images/about.jpeg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
 
 
 
 
 function About() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-    className: "md:w-8/12 m-auto",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-      children: "about"
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    className: "pt-20",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "bg-no-repeat w-full bg-cover bg-center",
+      style: {
+        backgroundImage: "url(".concat(_images_about_jpeg__WEBPACK_IMPORTED_MODULE_2__["default"], ")"),
+        height: "600px"
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "m-auto pt-20 flex",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "pl-5 w-1/2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+            className: "italic",
+            children: ["Animal_Rescue\u306F", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {})]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+            className: "italic font-medium",
+            children: ["\u99C6\u3051\u51FA\u3057\u306E\u30B7\u30B9\u30C6\u30E0\u30A8\u30F3\u30B8\u30CB\u30A2\u4E8C\u4EBA\u304C\u4F5C\u3063\u305F\u3001\u300C\u77E5\u300D\u306E\u5DE1\u308A\u3092\u4FC3\u9032\u3059\u308B\u70BA\u306E\u30B5\u30FC\u30D3\u30B9\u3067\u3059\u3002", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {})]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+            className: "italic",
+            children: ["\u52D5\u7269\u9054\u306B\u95A2\u3059\u308B\u77E5\u8B58\u3092\u6301\u3061\u5BC4\u308B\u3053\u3068\u3067\u3001\u5F7C\u3089\u306E\u3088\u308A\u826F\u3044\u66AE\u3089\u3057\u306B\u7E4B\u304C\u308C\u3070\u826F\u3044\u3068\u8003\u3048\u3066\u3044\u307E\u3059\u3002", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {})]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "w-1/2"
+        })]
+      })
     })
   });
 }
@@ -33510,7 +33535,7 @@ function About() {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (About);
 
 if (document.getElementById("app")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(About, {}), document.getElementById("app"));
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(About, {}), document.getElementById("app"));
 }
 
 /***/ }),
@@ -34729,22 +34754,35 @@ function Navigation(props) {
     },
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_AppBar__WEBPACK_IMPORTED_MODULE_6__["default"], {
       position: "fixed",
+      style: {
+        background: "#3CB371"
+      },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Toolbar__WEBPACK_IMPORTED_MODULE_7__["default"], {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
           sx: {
             p: 0
           },
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
-            src: "storage/post_images/service_icon.jpg"
+            src: "storage/post_images/header2.jpg"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          fontStyle: "oblique",
+          letterSpacing: 6,
           variant: "h5",
           component: "div",
           sx: {
             flexGrow: 1,
             ml: 1
           },
-          children: "ANIMAL_RESCUE"
+          children: ["ANIMAL_RESCUE", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            sx: {
+              ml: 1,
+              p: 0
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+              src: "storage/post_images/header2.jpg"
+            })
+          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
           className: "mr-4",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
@@ -35105,7 +35143,7 @@ function Base(props) {
               children: "\u9078\u629E\u3057\u306A\u3044"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_MenuItem__WEBPACK_IMPORTED_MODULE_13__["default"], {
               value: 1,
-              children: "\u65B0\u3057\u3044\u9806(\u4ECA\u306Fid\u5927\u304D\u3044\u9806)"
+              children: "\u65B0\u3057\u3044\u9806"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material_MenuItem__WEBPACK_IMPORTED_MODULE_13__["default"], {
               value: 2,
               children: "\u4EBA\u6C17\u9806"
@@ -35296,7 +35334,7 @@ function Post(props) {
         children: "img"
       }),
       title: props.content.name,
-      subheader: props.content.created_at
+      subheader: props.content.date
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material_CardMedia__WEBPACK_IMPORTED_MODULE_7__["default"], {
       component: "img",
       height: "194",
@@ -35700,7 +35738,7 @@ function PostDetail(props) {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_17__["default"], {
           variant: "body2",
           color: "text.secondary",
-          children: "\u6295\u7A3F\u65E5"
+          children: item.updated_at
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_CardContent__WEBPACK_IMPORTED_MODULE_16__["default"], {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_17__["default"], {
@@ -37186,7 +37224,7 @@ function Post(props) {
         children: "img"
       }),
       title: props.content.name,
-      subheader: props.content.created_at
+      subheader: props.content.date
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material_CardMedia__WEBPACK_IMPORTED_MODULE_7__["default"], {
       component: "img",
       height: "194",
@@ -37547,7 +37585,7 @@ function PostDetail(props) {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
           variant: "body2",
           color: "text.secondary",
-          children: "\u6295\u7A3F\u65E5"
+          children: item.updated_at
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_CardContent__WEBPACK_IMPORTED_MODULE_13__["default"], {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_14__["default"], {
@@ -45135,6 +45173,21 @@ module.exports = function (cssWithMappingToString) {
 
   return list;
 };
+
+/***/ }),
+
+/***/ "./resources/js/components/images/about.jpeg":
+/*!***************************************************!*\
+  !*** ./resources/js/components/images/about.jpeg ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/about.jpeg?0c361e4c7daf20f975b03c6bf8a8eb48");
 
 /***/ }),
 

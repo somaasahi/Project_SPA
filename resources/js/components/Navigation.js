@@ -29,18 +29,24 @@ function Navigation(props) {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="fixed">
+            <AppBar position="fixed" style={{ background: "#3CB371" }}>
                 <Toolbar>
                     <IconButton sx={{ p: 0 }}>
-                        <Avatar src="storage/post_images/service_icon.jpg" />
+                        <Avatar src="storage/post_images/header2.jpg" />
                     </IconButton>
                     <Typography
+                        fontStyle="oblique"
+                        letterSpacing={6}
                         variant="h5"
                         component="div"
                         sx={{ flexGrow: 1, ml: 1 }}
                     >
                         ANIMAL_RESCUE
+                        <IconButton sx={{ ml: 1, p: 0 }}>
+                            <Avatar src="storage/post_images/header2.jpg" />
+                        </IconButton>
                     </Typography>
+
                     <span className="mr-4">
                         <Link to="/">home</Link>
                     </span>
