@@ -196,9 +196,9 @@ function Review(props) {
                             </div>
                         </div>
                         <div className="pt-3.5 pl-1">
-                            <IconButton>
+                            {!review.deleted_at && <IconButton>
                                 <NotificationImportantIcon fontSize="large" id={review.id} onMouseEnter={mouseEnterHandler} onClick={handleClickOpen} />
-                            </IconButton>
+                            </IconButton>}
                         </div>
                     </div>
                 ))}

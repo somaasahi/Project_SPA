@@ -46,11 +46,9 @@
             <input type="hidden" name="post_id" value="{{$review->post_id}}">
             <input type="hidden" name="model" value="review">
             <input type="hidden" name="mailType" value=1>
-            <a href="{{route('getNotification')}}">
-                <button  type="button" class="btn btn-secondary">
+                <button  type="button" class="btn btn-secondary" onClick="history.back()">
                     戻る
                 </button>
-            </a>
             <button type="submit" class="btn btn-primary" onClick="delete_alert(event);return false;">
                 投稿削除
             </button>
