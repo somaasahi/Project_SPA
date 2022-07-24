@@ -30,4 +30,9 @@ class Review extends Model
     {
         return $this->belongsTo( Notification::class );
     }
+
+    public function toAdminMessage()
+    {
+        return $this->hasMany( ToAdminMessage::class );
+    }
 }

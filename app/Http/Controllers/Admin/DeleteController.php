@@ -91,7 +91,7 @@ class DeleteController extends Controller
             //通知削除
             $this->notification->where( 'review_id', $id )->delete();
             //通知メッセージ
-            $noticeMessage( $request->post_id );
+            $noticeMessage( $request->post_id, $id );
             return redirect()->route( 'getNotification' )->with( [
                 'delete_msg' => '削除しました。',
             ] );

@@ -199,17 +199,20 @@ function PostDetail(props) {
         <div>
             <Card sx={{ width: 1 }}>
                 {test}
-                <CardHeader style={{ height: "10px" }} />
-                <IconButton
-                    onClick={() => props.handleClick("")}
-                    style={{ height: "70px", width: "70px" }}
-                    aria-label="add to favorites"
-                >
-                    <KeyboardReturnIcon
-                        style={{ height: "40px", width: "40px" }}
-                    />
-                </IconButton>
-
+                {!props.pushCheck &&
+                    <>
+                        <CardHeader style={{ height: "10px" }} />
+                        <IconButton
+                            onClick={() => props.handleClick("")}
+                            style={{ height: "70px", width: "70px" }}
+                            aria-label="add to favorites"
+                        >
+                            <KeyboardReturnIcon
+                                style={{ height: "40px", width: "40px" }}
+                            />
+                        </IconButton>
+                    </>
+                }
                 <CardHeader
                     style={{ height: "100px", fontSize: "40px" }}
                     avatar={
