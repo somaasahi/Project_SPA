@@ -4,7 +4,7 @@ import background from "./images/about.jpeg";
 
 function About() {
     return (
-        <div className="pt-20">
+        <div className="pt-20 min-h-screen">
             <div
                 className="bg-no-repeat w-full bg-cover bg-center"
                 style={{
@@ -19,7 +19,7 @@ function About() {
                             <br></br>
                         </p>
                         <p className="italic font-medium">
-                            駆け出しのシステムエンジニア二人が作った、「知」の巡りを促進する為のサービスです。
+                            駆け出しのシステムエンジニア二人が作った、動物達に関する「知」の巡りを促進する為のサービスです。
                             <br></br>
                             <br></br>
                         </p>
@@ -28,7 +28,7 @@ function About() {
                             <br></br>
                         </p> */}
                         <p className="italic">
-                            動物達に関する知識を持ち寄ることで、彼らのより良い暮らしに繋がれば良いと考えています。
+                            知識を持ち寄ることで、彼らのより良い暮らしに繋がれば良いと考えています。
                             <br></br>
                             <br></br>
                         </p>

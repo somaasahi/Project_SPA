@@ -4,8 +4,7 @@ import Base from "./Base";
 
 function Home() {
     return (
-        <div className="md:w-8/12 m-auto pt-20">
-            {/* <img src="storage/post_images/noimg.png" /> */}
+        <div className="md:w-8/12 m-auto pt-20 min-h-screen">
             <Base />
         </div>
     );

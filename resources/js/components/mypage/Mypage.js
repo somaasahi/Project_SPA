@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 function Mypage() {
     return (
-        <div className="md:flex mt-20">
+        <div className="md:flex mt-20 min-h-screen">
             <div className="md:w-3/6 m-5">
                 <Acount />
             </div>

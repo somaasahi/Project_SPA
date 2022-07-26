@@ -144,7 +144,7 @@ function Login(props) {
     };
 
     return (
-        <div>
+        <div className="min-h-screen">
             <Avatar
                 alt="logo"
                 src="storage/post_images/service_icon.jpg"

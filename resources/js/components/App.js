@@ -11,7 +11,7 @@ import ProtectedRoute from "./Login/ProtectedRoute";
 import { authCheck } from "./Login/AuthCheck";
 import PasswordReset from "./Login/PasswordReset";
 import About from "./About";
-
+import Foot from "./Foot";
 
 function App() {
     //trueなら認証している
@@ -37,25 +37,26 @@ function App() {
 
     return (
         <Box>
-                <BrowserRouter>
-                    <Navigation authUser={authUser} setAuthUser={setAuthUser} />
-                    <main className={"m-5"}>
-                        <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/mypage" element={<Mypage />} />
-                            <Route
-                                path="/login"
-                                element={<Login setAuthUser={setAuthUser} />}
-                            />
-                            <Route path="/signUp" element={<SignUp />} />
-                            <Route
-                                path="/passwordReset"
-                                element={<PasswordReset />}
-                            />
-                            <Route path="/about" element={<About />} />
-                        </Routes>
-                    </main>
-                </BrowserRouter>
+            <BrowserRouter>
+                <Navigation authUser={authUser} setAuthUser={setAuthUser} />
+                <main className={"m-5"}>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/mypage" element={<Mypage />} />
+                        <Route
+                            path="/login"
+                            element={<Login setAuthUser={setAuthUser} />}
+                        />
+                        <Route path="/signUp" element={<SignUp />} />
+                        <Route
+                            path="/passwordReset"
+                            element={<PasswordReset />}
+                        />
+                        <Route path="/about" element={<About />} />
+                    </Routes>
+                </main>
+            </BrowserRouter>
+            <Foot />
         </Box>
     );
 }
