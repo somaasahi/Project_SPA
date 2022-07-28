@@ -92,7 +92,7 @@ function PostEdit(props) {
         const file = new FormData();
         file.append("id", props.detailId);
         if (animal == "") {
-            console.log("animal is empty");
+            file.append("animal_kind", preAnimal);
         } else {
             file.append("animal_kind", animal);
         }

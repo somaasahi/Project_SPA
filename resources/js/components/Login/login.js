@@ -56,9 +56,7 @@ function Login(props) {
         await axios
             .get("api/mail/sendMail")
             .then((res) => {})
-            .catch((e) => {
-                console.log(e.message);
-            });
+            .catch((e) => {});
     }, [data]);
 
     const getPassword = () => {

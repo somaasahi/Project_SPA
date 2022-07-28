@@ -73,11 +73,27 @@ function PostDetail(props) {
                         }
                     })
                     .catch((error) => {
-                        console.log("エラー");
+                        toast.error("システムエラー", {
+                            position: "top-center",
+                            autoClose: 1000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
                     });
             })
             .catch((error) => {
-                console.log("未ログイン");
+                toast.error("システムエラー", {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
             });
     }, []);
 
@@ -112,7 +128,6 @@ function PostDetail(props) {
         setUser(item.user_id);
     };
     const closeUser = (e) => {
-        console.log(e);
         setUser(null);
     };
     if (user == null) {

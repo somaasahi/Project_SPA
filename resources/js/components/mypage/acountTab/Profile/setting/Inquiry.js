@@ -14,7 +14,6 @@ function Inquiry(props) {
     const [message, setMessage] = React.useState("");
     const getMessage = (event) => {
         setMessage(event.target.value);
-        console.log(message);
     };
     const backPage = () => {
         props.setSwich(true);

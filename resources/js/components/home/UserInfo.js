@@ -34,7 +34,15 @@ function UserInfo(props) {
                     });
             })
             .catch((error) => {
-                console.log("未ログイン");
+                toast.error("未ログインです", {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
             });
     }, []);
 
@@ -65,7 +73,15 @@ function UserInfo(props) {
                             setFriend(res.data);
                         })
                         .catch((error) => {
-                            console.log("エラー");
+                            toast.error("システムエラー", {
+                                position: "top-center",
+                                autoClose: 1000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            });
                         });
                 }
             })
