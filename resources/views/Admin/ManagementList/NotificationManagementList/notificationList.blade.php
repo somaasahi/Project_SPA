@@ -48,9 +48,9 @@
                 <td>{{$notification->about}}</td>
                 <td>{{$notification->created_at}}</td>
                 @if ($notification->type == 1)
-                    <td><a href="{{ route('detailReview' , $notification->review_id ) }}">詳細</a></td>
+                <td><a href="detailReview/{{$notification->review_id}}">詳細</a></td>
                 @else
-                    <td><a href="{{ route('detailPost' , $notification->post_id ) }}">詳細</a></td>
+                <td><a href="detailReview/{{$notification->post_id}}?action={{$notification->notificationId}}">詳細</a></td>
                 @endif
                 <td>{{$notification->deleted_at ? 'ノンアクティブ':'アクティブ'}}</td>
             </tr>

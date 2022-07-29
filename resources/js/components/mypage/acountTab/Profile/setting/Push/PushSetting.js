@@ -9,7 +9,8 @@ import { ExpandMore, Streetview } from "@mui/icons-material";
 import AdminContent from "./AdminContent";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import PostDetail from "../../../PostDetail";
+import PostDetail from "../../../../../home/PostDetail";
+
 
 function PushSetting(props) {
     const [checked, setChecked] = React.useState([0]);
@@ -73,6 +74,39 @@ function PushSetting(props) {
         setView(false);
     }
 
+    const handleButton = (value) => {
+        console.log(value);
+        if (value.reviewId == null) {
+            return '';
+        }
+
+        if (view) {
+            return <Button size="large" onClick={closePostDetail}>戻る</Button>;
+        }
+
+        return <Button size="large" onClick={openPostDetail}>投稿詳細</Button>;
+    }
+
+    // 投稿削除の通知の場合非表示
+    const postDetail = (value) => {
+        if (view) {
+
+            if (value.reviewId == null) {
+                return '';
+            }
+
+            return <PostDetail
+                detailId={value.post_id}
+                pushCheck={true}
+                class="bg-orange-200"
+                style={{ height: "1000px" }}
+            />;
+        }
+
+        return '';
+
+    }
+
 
 
     if (!adminMessage) return 'ロード中・・・';
@@ -98,17 +132,11 @@ function PushSetting(props) {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography>
-                                    下記の{value.about}
+                                    {value.about}
                                 </Typography>
                                 <Typography>
-                                    {view ? <Button size="large" onClick={closePostDetail}>戻る</Button>
-                                        : <Button size="large" onClick={openPostDetail}>投稿詳細</Button>}
-                                    {view && <PostDetail
-                                        detailId={value.post_id}
-                                        pushCheck={true}
-                                        class="bg-orange-200"
-                                        style={{ height: "1000px" }}
-                                    />}
+                                    {handleButton(value)}
+                                    {postDetail(value)}
                                 </Typography>
                                 <Typography>
                                     <IconButton>

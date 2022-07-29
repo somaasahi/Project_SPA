@@ -7,10 +7,11 @@ use App\Models\Notification;
 use App\Models\Post;
 use App\Models\Review;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
-    private $viewData;
+    private $viewData = [];
     private $notification;
     private $post;
     private $user;
@@ -29,7 +30,6 @@ class IndexController extends Controller
         $this->like         = $like;
         $this->notification = $notification;
         $this->review       = $review;
-        $this->viewData     = [];
     }
 
     public function index()
@@ -72,12 +72,15 @@ class IndexController extends Controller
         return view( 'Admin.ManagementList.PostManagementList.postList', $this->viewData );
     }
 
-    public function getDetailPost( $id )
+    public function getDetailPost( Request $request, $id )
     {
+        $this->viewData['action'] = $request->input( 'action' );
+
         $this->viewData['like'] = $this->like->where( 'post_id', $id )->get()->count();
         $this->viewData['post'] = $this->post
             ->select( 'posts.id as postId', 'user_id', 'animal_kind', 'post_kind', 'img_url1', 'img_url2', 'img_url3', 'content', 'posts.created_at', 'posts.updated_at', 'posts.deleted_at', 'users.id as userId', 'name', 'email' )
             ->leftJoin( 'users', 'user_id', '=', 'users.id' )
+            ->withTrashed()
             ->find( $id );
 
         return view( 'Admin.ManagementList.PostManagementList.postDetail', $this->viewData );
@@ -115,6 +118,7 @@ class IndexController extends Controller
     public function getNotification()
     {
         $this->viewData['notificationList'] = $this->notification
+            ->select( 'notifications.id as notificationId', 'post_id', 'user_id', 'type', 'about', 'notifications.created_at', 'notifications.updated_at', 'name', 'email' )
             ->leftJoin( 'users', 'user_id', '=', 'users.id' )
             ->where( 'notifications.deleted_at', null )
             ->withTrashed()
