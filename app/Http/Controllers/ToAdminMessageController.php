@@ -22,11 +22,14 @@ class ToAdminMessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( Request $request )
     {
+        \Log::debug( $request );
+        \Log::debug( 'ok' );
         $adminMessage = $this->toAdminMessage
-            ->select( 'to_admin_messages.id as adminId', 'about', 'reviews.id as reviewId', 'post_id', 'check_flg' )
+            ->select( 'to_admin_messages.id as adminId', 'to_admin_messages.user_id', 'about', 'reviews.id as reviewId', 'reviews.post_id', 'check_flg' )
             ->leftjoin( 'reviews', 'reviews.id', '=', 'to_admin_messages.review_id' )
+        // ->where()
             ->get()
             ->toArray();
 

@@ -73,13 +73,17 @@ class Homecontroller extends Controller
 
     public function showDetail( Request $request )
     {
+        \Log::debug( $request );
+        \Log::debug( 'request通過' );
         $result = [];
-        Log::debug( $request->all() );
+        // Log::debug( $request->all() );
         $id = $request->get( 'id' );
-
+        \Log::debug( $id );
+        \Log::debug( 'id通過' );
         $detail   = Post::withCount( 'likes' )->find( $id );
         $result[] = $detail;
-        Log::debug( $detail );
+        \Log::debug( $detail );
+        \Log::debug( 'detail通過' );
         $result[] = User::find( $detail->user_id );
         $result[] = Profile::where( 'user_id', $detail->user_id )->first();
         return $result;
