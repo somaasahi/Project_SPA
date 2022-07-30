@@ -32,13 +32,19 @@
                 <td>投稿リスト</td>
                 <td><a href="{{ route('getPost') }}">投稿リストへ</a></td>
             </tr>
+            <tr>
+                <td>3</td>
+                <td>通知</td>
+                <td><a href="{{ route('getNotification') }}">通知リストへ</a></td>
+            </tr>
         </tbody>
       </table>
 
   <ul>
-    <li>post情報（データの表示と削除）</li>
-    <li>user,post検索機能</li>
-    <li>userを論理削除時、関連あるもののデリートフラグ追加、表示操作（getはいじる必要なし）</li>
+    <li>viewに表示（post or review）切り替えロジック</li>
+    <li>詳細の切り替えロジック、詳細画面</li>
+    <li>警告処理（投稿であれば、投稿削除とメッセージ　or レビューであれば、レビュー削除と、メッセージ）</li>
+    <li>警告処理をだす、投稿削除されているかの確認</li>
   </ul>
 </body>
 </html>

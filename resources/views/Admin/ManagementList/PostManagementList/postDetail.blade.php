@@ -60,19 +60,32 @@
         </tbody>
       </table>
 
-        <form action="{{route('delete')}}" class="m-auto w-75 text-end" method="POST">
-            @csrf
-            <input type="hidden" name="id" value="{{$post->postId}}">
-            <input type="hidden" name="model" value="post">
-            <a href="{{route('getPost')}}">
-                <button  type="button" class="btn btn-secondary">
-                    戻る
-                </button>
-            </a>
-            <button type="submit" class="btn btn-primary" onClick="delete_alert(event);return false;">
-                ユーザー削除
+      @if ($post->deleted_at == null)
+      <form action="{{route('softDeleteNotification')}}" class="m-auto w-75 text-end" method="POST">
+        @csrf
+        <input type="hidden" name="id" value="{{$post->postId}}">
+        <input type="hidden" name="notice_id" value="{{$action}}">
+        <input type="hidden" name="model" value="post">
+            <button  type="button" class="btn btn-secondary" onClick="history.back()">
+                戻る
             </button>
-        </form>
+        <button type="submit" class="btn btn-primary" onClick="delete_alert(event);return false;">
+            投稿削除
+        </button>
+    </form>
+      @else
+      <form action="{{route('delete')}}" class="m-auto w-75 text-end" method="POST">
+        @csrf
+        <input type="hidden" name="id" value="{{$post->postId}}">
+        <input type="hidden" name="model" value="post">
+            <button  type="button" class="btn btn-secondary" onClick="history.back()">
+                戻る
+            </button>
+        <button type="submit" class="btn btn-primary" onClick="delete_alert(event);return false;">
+            投稿削除
+        </button>
+    </form>
+      @endif
 </body>
 <script>
     function delete_alert(e){

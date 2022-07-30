@@ -17,6 +17,8 @@ import Review from "./Review";
 import { ToastContainer, toast } from "react-toastify";
 import { authCheck } from "../Login/AuthCheck";
 import { authId } from "../Login/AuthId";
+import NotificationImportantIcon from '@mui/icons-material/NotificationImportant';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -235,6 +237,76 @@ function PostDetail(props) {
         );
     }
 
+    // 通報関連処理
+    const [open, setOpen] = React.useState(false);
+    const [report, setReport] = useState('');
+    const [review_id, setReviewId] = useState('');
+
+    const handleClickOpen = (event) => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleReport = (event) => {
+        setReport(event.target.value);
+    }
+
+    // コメント通報処理
+    const postReport = async (event) => {
+        await axios.get('api/user/')
+            .then(async (res) => {
+                const data = {
+                    user_id: res.data.id,
+                    post_id: props.detailId,
+                    about: report,
+                    review_id: '',
+                    type: 2
+                }
+                await axios.post('api/detail/notification', data)
+                    .then((res) => {
+                        if (res.data.message === 'ok') {
+                            setOpen(false);
+                            toast.success("通報しました。", {
+                                position: "top-center",
+                                autoClose: 1000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            });
+                        } else {
+                            toast.error(res.data.message, {
+                                position: "top-center",
+                                autoClose: 1000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            });
+                        }
+
+                    })
+
+            }).catch((error) => {
+                if (error.response.status == 401) {
+                    toast.error("ログインが必要です。", {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                }
+            })
+    }
+
     return (
         <div>
             <Card sx={{ width: 1 }}>
@@ -295,6 +367,9 @@ function PostDetail(props) {
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
+                    <IconButton>
+                        <NotificationImportantIcon fontSize="large" onClick={handleClickOpen} />
+                    </IconButton>
                     <ExpandMore aria-label="show more" onClick={showReview}>
                         コメントを見る
                         <ExpandMoreIcon />
@@ -302,6 +377,28 @@ function PostDetail(props) {
                 </CardActions>
                 {reviewInfo}
             </Card>
+
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>通報しますか？</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="理由"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        onChange={handleReport}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>やめる</Button>
+                    <Button onClick={postReport}>通報する</Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 }

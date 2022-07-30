@@ -60,6 +60,9 @@
   <div class="m-auto" style='width:40%'>
     {{$postList->links()}}
   </div>
+    @if (empty($postList))
+        <div class="w-75 m-auto text-center mb-3">検索結果はありません</div>
+    @endif
   <div class="w-75 m-auto text-end"><a href="{{route('getSoftdeletesPost')}}">ノンアクティブなデータへ</a></div>
 
 </body>

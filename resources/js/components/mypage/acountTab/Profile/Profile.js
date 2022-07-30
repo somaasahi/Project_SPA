@@ -1,5 +1,6 @@
 import {
     Avatar,
+    Badge,
     Button,
     Card,
     CardActions,
@@ -17,13 +18,14 @@ import {
 import React, { useEffect, useState } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SettingChang from "./SettingChange";
+import MailIcon from '@mui/icons-material/Mail';
 
 function Profile() {
     const settingList = [
         "プロフィール編集",
         "パスワード変更",
         "ヘルプとサポート",
-        "push通知設定",
+        "通知",
     ];
 
     //設定タイプ
@@ -55,7 +57,7 @@ function Profile() {
                                 value={listitem}
                             >
                                 <ListItemButton>
-                                    <ListItemText primary={listitem} />
+                                    <ListItemText primary={listitem == '通知' ? listitem : listitem} />
                                     <ListItemIcon>
                                         <ChevronRightIcon
                                             onClick={() =>
