@@ -12,7 +12,7 @@ class ToAdminMessageController extends Controller
 {
     private $toAdminMessage;
 
-    public function __construct( ToAdminMessage $toAdminMessage )
+    public function __construct(ToAdminMessage $toAdminMessage)
     {
         $this->toAdminMessage = $toAdminMessage;
     }
@@ -22,14 +22,13 @@ class ToAdminMessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index( Request $request )
+    public function index(Request $request)
     {
-        \Log::debug( $request );
-        \Log::debug( 'ok' );
         $adminMessage = $this->toAdminMessage
-            ->select( 'to_admin_messages.id as adminId', 'to_admin_messages.user_id', 'about', 'reviews.id as reviewId', 'reviews.post_id', 'check_flg' )
-            ->leftjoin( 'reviews', 'reviews.id', '=', 'to_admin_messages.review_id' )
-        // ->where()
+            ->select('to_admin_messages.id as adminId', 'to_admin_messages.user_id', 'about', 'reviews.id as reviewId', 'reviews.post_id', 'check_flg', 'reviews.deleted_at')
+            ->leftjoin('reviews', 'reviews.id', '=', 'to_admin_messages.review_id')
+            ->where('to_admin_messages.user_id', $request->id)
+            ->orderBy('to_admin_messages.created_at', 'desc')
             ->get()
             ->toArray();
 
@@ -42,9 +41,8 @@ class ToAdminMessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store( Request $request )
+    public function store(Request $request)
     {
-
     }
 
     /**
@@ -53,7 +51,7 @@ class ToAdminMessageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show( $id )
+    public function show($id)
     {
         //
     }
@@ -65,17 +63,17 @@ class ToAdminMessageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update( Request $request )
+    public function update(Request $request)
     {
         DB::beginTransaction();
         try {
-            $query            = $this->toAdminMessage->find( $request->id );
+            $query            = $this->toAdminMessage->find($request->id);
             $query->check_flg = 1;
             $query->save();
             DB::commit();
-        } catch ( Exception $e ) {
+        } catch (Exception $e) {
             DB::rollback();
-            Log::error( $e->getMessage() );
+            Log::error($e->getMessage());
         }
     }
 
@@ -85,7 +83,7 @@ class ToAdminMessageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $id )
+    public function destroy($id)
     {
         //
     }
