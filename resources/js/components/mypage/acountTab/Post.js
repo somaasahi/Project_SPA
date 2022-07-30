@@ -48,7 +48,7 @@ function Post(props) {
                     </Avatar>
                 }
                 title={props.content.name}
-                subheader={props.content.created_at}
+                subheader={props.content.date}
             />
             <CardMedia
                 component="img"

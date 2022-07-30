@@ -33,7 +33,8 @@ class PostlistController extends Controller
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->leftJoin('profiles', 'users.id', '=', 'profiles.user_id')
             ->orderBy('posts.created_at', 'desc')
-            ->where("posts.user_id", Auth::user()->id)->get();
+            ->where("posts.user_id", Auth::user()->id)
+            ->selectRaw('DATE_FORMAT(posts.created_at, "%Y/%m/%d/%h:%m") AS date')->get();
         Log::debug($result);
         return $result;
     }

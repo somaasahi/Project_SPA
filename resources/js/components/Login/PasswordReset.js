@@ -74,7 +74,7 @@ function PasswordReset() {
     }
 
     return (
-        <div>
+        <div className="min-h-screen">
             <Card className="py-3 px-6 w-2/5 m-auto my-36">
                 {/* <form action="" onSubmit={handleSubmit}> */}
                 <CardHeader title='パスワードリセット' />

@@ -12,7 +12,6 @@ function PostList() {
             .get("api/mypage/postlist")
             .then((res) => {
                 const results = res.data;
-                console.log(results);
                 setPosts([...posts, ...results]);
             })
             .catch((error) => {

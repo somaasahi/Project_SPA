@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -34,107 +35,117 @@ class IndexController extends Controller
 
     public function index()
     {
-        return view( 'Admin.index' );
+        return view('Admin.index');
     }
 
     public function getUser()
     {
-        $this->viewData['userList'] = $this->user->paginate( 10 );
+        $this->viewData['userList'] = $this->user->paginate(10);
 
-        return view( 'Admin.ManagementList.UserManagementList.userList', $this->viewData );
+        return view('Admin.ManagementList.UserManagementList.userList', $this->viewData);
     }
 
     public function getSoftdeletesUser()
     {
         $this->viewData['SoftDeletesUser'] = $this->user->onlyTrashed()->get();
 
-        return view( 'Admin.ManagementList.UserManagementList.softdeletesUserList', $this->viewData );
+        return view('Admin.ManagementList.UserManagementList.softdeletesUserList', $this->viewData);
     }
 
     public function getSoftdeletesPost()
     {
         $this->viewData['SoftDeletesPost'] = $this->post
-            ->select( 'posts.id as postId', 'user_id', 'animal_kind', 'post_kind', 'img_url1', 'img_url2', 'img_url3', 'content', 'posts.created_at', 'posts.updated_at', 'users.id as userId', 'posts.deleted_at', 'name', 'email' )
-            ->leftJoin( 'users', 'user_id', '=', 'users.id' )
+            ->select('posts.id as postId', 'user_id', 'animal_kind', 'post_kind', 'img_url1', 'img_url2', 'img_url3', 'content', 'posts.created_at', 'posts.updated_at', 'users.id as userId', 'posts.deleted_at', 'name', 'email')
+            ->leftJoin('users', 'user_id', '=', 'users.id')
             ->onlyTrashed()
-            ->paginate( 10 );
+            ->paginate(10);
 
-        return view( 'Admin.ManagementList.PostManagementList.softdeletesPostList', $this->viewData );
+        return view('Admin.ManagementList.PostManagementList.softdeletesPostList', $this->viewData);
     }
 
     public function getPost()
     {
         $this->viewData['postList'] = $this->post
-            ->select( 'posts.id as postId', 'user_id', 'animal_kind', 'post_kind', 'img_url1', 'img_url2', 'img_url3', 'content', 'posts.created_at', 'posts.updated_at', 'users.id as userId', 'name', 'email' )
-            ->leftJoin( 'users', 'user_id', '=', 'users.id' )
-            ->paginate( 10 );
+            ->select('posts.id as postId', 'user_id', 'animal_kind', 'post_kind', 'img_url1', 'img_url2', 'img_url3', 'content', 'posts.created_at', 'posts.updated_at', 'users.id as userId', 'name', 'email')
+            ->leftJoin('users', 'user_id', '=', 'users.id')
+            ->paginate(10);
 
-        return view( 'Admin.ManagementList.PostManagementList.postList', $this->viewData );
+        return view('Admin.ManagementList.PostManagementList.postList', $this->viewData);
     }
 
-    public function getDetailPost( Request $request, $id )
+    public function getDetailPost(Request $request, $id)
     {
-        $this->viewData['action'] = $request->input( 'action' );
+        if (is_null($request->input('type'))) {
+            $this->viewData['action'] = $request->input('action');
 
-        $this->viewData['like'] = $this->like->where( 'post_id', $id )->get()->count();
-        $this->viewData['post'] = $this->post
-            ->select( 'posts.id as postId', 'user_id', 'animal_kind', 'post_kind', 'img_url1', 'img_url2', 'img_url3', 'content', 'posts.created_at', 'posts.updated_at', 'posts.deleted_at', 'users.id as userId', 'name', 'email' )
-            ->leftJoin( 'users', 'user_id', '=', 'users.id' )
-            ->withTrashed()
-            ->find( $id );
+            $this->viewData['like'] = $this->like->where('post_id', $id)->get()->count();
+            $this->viewData['post'] = $this->post
+                ->select('posts.id as postId', 'user_id', 'animal_kind', 'post_kind', 'img_url1', 'img_url2', 'img_url3', 'content', 'posts.created_at', 'posts.updated_at', 'posts.deleted_at', 'users.id as userId', 'name', 'email')
+                ->leftJoin('users', 'user_id', '=', 'users.id')
+                ->withTrashed()
+                ->find($id);
 
-        return view( 'Admin.ManagementList.PostManagementList.postDetail', $this->viewData );
+            return view('Admin.ManagementList.PostManagementList.postDetail', $this->viewData);
+        } else {
+            $this->viewData['review'] = $this->review
+                ->select('reviews.id as reviewId', 'post_id', 'comment', 'reviews.created_at', 'reviews.updated_at', 'users.id as userId', 'name', 'email', 'reviews.deleted_at')
+                ->join('users', 'user_id', '=', 'users.id')
+                ->withTrashed()
+                ->find($id);
+
+            return view('Admin.ManagementList.NotificationManagementList.notificationDetail', $this->viewData);
+        }
     }
 
-    public function getDetailSoftdeletePost( $id )
+    public function getDetailSoftdeletePost($id)
     {
-        $this->viewData['like'] = $this->like->where( 'post_id', $id )->get()->count();
+        $this->viewData['like'] = $this->like->where('post_id', $id)->get()->count();
         $this->viewData['post'] = $this->post
-            ->select( 'posts.id as postId', 'user_id', 'animal_kind', 'post_kind', 'img_url1', 'img_url2', 'img_url3', 'content', 'posts.created_at', 'posts.updated_at', 'posts.deleted_at', 'users.id as userId', 'name', 'email' )
-            ->leftJoin( 'users', 'user_id', '=', 'users.id' )
+            ->select('posts.id as postId', 'user_id', 'animal_kind', 'post_kind', 'img_url1', 'img_url2', 'img_url3', 'content', 'posts.created_at', 'posts.updated_at', 'posts.deleted_at', 'users.id as userId', 'name', 'email')
+            ->leftJoin('users', 'user_id', '=', 'users.id')
             ->onlyTrashed()
-            ->find( $id );
+            ->find($id);
 
-        return view( 'Admin.ManagementList.PostManagementList.postDetail', $this->viewData );
+        return view('Admin.ManagementList.PostManagementList.postDetail', $this->viewData);
     }
 
-    public function getDetailUser( $id )
+    public function getDetailUser($id)
     {
         $this->viewData['user'] = $this->user
-            ->find( $id );
+            ->find($id);
 
-        return view( 'Admin.ManagementList.UserManagementList.userDetail', $this->viewData );
+        return view('Admin.ManagementList.UserManagementList.userDetail', $this->viewData);
     }
 
-    public function getDetailSoftdeleteUser( $id )
+    public function getDetailSoftdeleteUser($id)
     {
         $this->viewData['user'] = $this->user
             ->onlyTrashed()
-            ->find( $id );
+            ->find($id);
 
-        return view( 'Admin.ManagementList.UserManagementList.userDetail', $this->viewData );
+        return view('Admin.ManagementList.UserManagementList.userDetail', $this->viewData);
     }
 
     public function getNotification()
     {
         $this->viewData['notificationList'] = $this->notification
-            ->select( 'notifications.id as notificationId', 'post_id', 'user_id', 'type', 'about', 'notifications.created_at', 'notifications.updated_at', 'name', 'email' )
-            ->leftJoin( 'users', 'user_id', '=', 'users.id' )
-            ->where( 'notifications.deleted_at', null )
+            ->select('notifications.id as notificationId', 'post_id', 'review_id', 'user_id', 'type', 'about', 'notifications.created_at', 'notifications.updated_at', 'name', 'email')
+            ->leftJoin('users', 'user_id', '=', 'users.id')
+            ->where('notifications.deleted_at', null)
             ->withTrashed()
-            ->paginate( 10 );
+            ->paginate(10);
 
-        return view( 'Admin.ManagementList.NotificationManagementList.notificationList', $this->viewData );
+        return view('Admin.ManagementList.NotificationManagementList.notificationList', $this->viewData);
     }
 
-    public function detailReview( int $id )
+    public function detailReview($id)
     {
         $this->viewData['review'] = $this->review
-            ->select( 'reviews.id as reviewId', 'post_id', 'comment', 'reviews.created_at', 'reviews.updated_at', 'users.id as userId', 'name', 'email', 'reviews.deleted_at' )
-            ->join( 'users', 'user_id', '=', 'users.id' )
+            ->select('reviews.id as reviewId', 'post_id', 'comment', 'reviews.created_at', 'reviews.updated_at', 'users.id as userId', 'name', 'email', 'reviews.deleted_at')
+            ->join('users', 'user_id', '=', 'users.id')
             ->withTrashed()
-            ->find( $id );
+            ->find($id);
 
-        return view( 'Admin.ManagementList.NotificationManagementList.notificationDetail', $this->viewData );
+        return view('Admin.ManagementList.NotificationManagementList.notificationDetail', $this->viewData);
     }
 }
