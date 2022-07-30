@@ -7,6 +7,7 @@ use App\Models\Notification;
 use App\Models\Post;
 use App\Models\Review;
 use App\Models\User;
+use App\UseCases\Notice\GetNotificationType;
 use App\UseCases\Notice\NoticeMessage;
 use Illuminate\Http\Request;
 
@@ -17,8 +18,12 @@ class DeleteController extends Controller
     private $review;
     private $notification;
 
-    public function __construct( User $user, Post $post, Review $review, Notification $notification )
-    {
+    public function __construct(
+        User $user,
+        Post $post,
+        Review $review,
+        Notification $notification
+    ) {
         $this->user         = $user;
         $this->post         = $post;
         $this->review       = $review;
@@ -65,6 +70,15 @@ class DeleteController extends Controller
 
     }
 
+    public function softDeletePost( int $id )
+    {
+        $this->post->find( $id )->delete();
+
+        return redirect()->route( 'getPost' )->with( [
+            'delete_msg' => '削除しました。',
+        ] );
+    }
+
     /**
      *
      * @param Request $request
@@ -73,6 +87,7 @@ class DeleteController extends Controller
      */
     public function softDeleteNotification(
         Request $request,
+        GetNotificationType $getNotificationType,
         NoticeMessage $noticeMessage
     ) {
         $id = $request->id;
@@ -90,8 +105,10 @@ class DeleteController extends Controller
         if ( $request->model == 'review' ) {
             //通知削除
             $this->notification->where( 'review_id', $id )->delete();
+            // 通知タイプ取得
+            $notice_type = $getNotificationType( $id );
             //通知メッセージ
-            $noticeMessage( $request->post_id, $id );
+            $noticeMessage( $request->post_id, $id, $notice_type );
             return redirect()->route( 'getNotification' )->with( [
                 'delete_msg' => '削除しました。',
             ] );
@@ -104,6 +121,21 @@ class DeleteController extends Controller
         }
 
         if ( $request->model == 'post' ) {
+
+//管理者側が削除した場合
+            if ( $request->notice_id ) {
+                // 通知タイプ取得
+                $notice_type = $getNotificationType( $request->notice_id );
+                //通知削除
+                $this->notification->find( $request->notice_id )->delete();
+                //通知メッセージ
+                $noticeMessage( $id, $request->notice_id, $notice_type );
+
+                return redirect()->route( 'getNotification' )->with( [
+                    'delete_msg' => '削除しました。',
+                ] );
+            }
+
             return redirect()->route( 'getPost' )->with( [
                 'delete_msg' => '削除しました。',
             ] );
@@ -146,15 +178,6 @@ class DeleteController extends Controller
         $this->post->onlyTrashed()->find( $id )->forceDelete();
 
         return redirect()->route( 'getSoftdeletesPost' )->with( [
-            'delete_msg' => '削除しました。',
-        ] );
-    }
-
-    public function softDeletePost( int $id )
-    {
-        $this->post->find( $id )->delete();
-
-        return redirect()->route( 'getPost' )->with( [
             'delete_msg' => '削除しました。',
         ] );
     }

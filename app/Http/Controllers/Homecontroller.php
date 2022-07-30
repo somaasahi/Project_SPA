@@ -77,12 +77,12 @@ class Homecontroller extends Controller
     public function showDetail( Request $request )
     {
         $result = [];
-
+        Log::debug( $request->all() );
         $id = $request->get( 'id' );
 
         $detail   = Post::withCount( 'likes' )->find( $id );
         $result[] = $detail;
-        Log::debug( $detail->user_id );
+        Log::debug( $detail );
         $result[] = User::find( $detail->user_id );
         $result[] = Profile::where( 'user_id', $detail->user_id )->first();
         return $result;

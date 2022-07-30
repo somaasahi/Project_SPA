@@ -20,13 +20,14 @@ class NoticeMessage
      *
      * @param int $postId
      * @param int $reviewId
+     * @param int $type
      * @return array
      */
-    public function __invoke( int $postId, int $reviewId )
+    public function __invoke( int $postId, int $noticeType )
     {
         $userId = $this->findUser( $postId );
         // toAdminMessageへ格納
-        $this->registerToAdminMessage( $userId, $reviewId );
+        $this->registerToAdminMessage( $userId, $noticeType );
     }
 
     /**
@@ -37,7 +38,10 @@ class NoticeMessage
      */
     public function findUser( int $postId ): int
     {
-        $post = $this->post->find( $postId )->first();
+        $post = $this->post
+            ->where( 'id', $postId )
+            ->withTrashed()
+            ->first();
 
         return $post->user_id;
     }
@@ -49,11 +53,11 @@ class NoticeMessage
      * @param int $reviewId
      * @return int
      */
-    public function registerToAdminMessage( int $userId, int $reviewId )
+    public function registerToAdminMessage( int $userId, int $noticeType )
     {
         $this->toAdminMessage->user_id   = $userId;
-        $this->toAdminMessage->review_id = $reviewId;
-        $this->toAdminMessage->about     = '投稿に対する不適切なコメントがあったため、削除しました。';
+        $this->toAdminMessage->review_id = '';
+        $this->toAdminMessage->about     = config( 'ini.notification_about.' . $noticeType );
         $this->toAdminMessage->save();
     }
 }
