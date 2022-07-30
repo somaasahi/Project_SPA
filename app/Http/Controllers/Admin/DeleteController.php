@@ -103,12 +103,14 @@ class DeleteController extends Controller
         }
 
         if ( $request->model == 'review' ) {
-            //通知削除
-            $this->notification->where( 'review_id', $id )->delete();
+
+            $notice = $this->notification->where( 'review_id', '=', $id )->first();
             // 通知タイプ取得
-            $notice_type = $getNotificationType( $id );
+            $notice_type = $getNotificationType( $notice->id );
+            //通知削除
+            $notice->delete();
             //通知メッセージ
-            $noticeMessage( $request->post_id, $id, $notice_type );
+            $noticeMessage( $request->post_id, $notice->id, $id, $notice_type );
             return redirect()->route( 'getNotification' )->with( [
                 'delete_msg' => '削除しました。',
             ] );
@@ -121,6 +123,7 @@ class DeleteController extends Controller
         }
 
         if ( $request->model == 'post' ) {
+            $reviewId = '';
 
 //管理者側が削除した場合
             if ( $request->notice_id ) {
@@ -129,7 +132,7 @@ class DeleteController extends Controller
                 //通知削除
                 $this->notification->find( $request->notice_id )->delete();
                 //通知メッセージ
-                $noticeMessage( $id, $request->notice_id, $notice_type );
+                $noticeMessage( $id, $request->notice_id, $reviewId, $notice_type );
 
                 return redirect()->route( 'getNotification' )->with( [
                     'delete_msg' => '削除しました。',
