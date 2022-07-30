@@ -35848,7 +35848,15 @@ function SignUp() {
               return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/user", data).then(function () {
                 setPostCheck(true);
               })["catch"](function (error) {
-                console.log(error);
+                toast.error("システムエラー", {
+                  position: "top-center",
+                  autoClose: 1000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined
+                });
               });
 
             case 11:
@@ -36073,9 +36081,7 @@ function Login(props) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().get("api/mail/sendMail").then(function (res) {})["catch"](function (e) {
-              console.log(e.message);
-            });
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get("api/mail/sendMail").then(function (res) {})["catch"](function (e) {});
 
           case 2:
           case "end":
@@ -37151,10 +37157,26 @@ function PostDetail(props) {
           setUserLike(true);
         }
       })["catch"](function (error) {
-        console.log("エラー");
+        react_toastify__WEBPACK_IMPORTED_MODULE_4__.toast.error("システムエラー", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
       });
     })["catch"](function (error) {
-      console.log("未ログイン");
+      react_toastify__WEBPACK_IMPORTED_MODULE_4__.toast.error("システムエラー", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
     });
   }, []);
   var img;
@@ -37197,7 +37219,6 @@ function PostDetail(props) {
   };
 
   var closeUser = function closeUser(e) {
-    console.log(e);
     setUser(null);
   };
 
@@ -37999,7 +38020,15 @@ function UserInfo(props) {
         });
       });
     })["catch"](function (error) {
-      console.log("未ログイン");
+      react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.error("未ログインです", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
     });
   }, []);
 
@@ -38026,7 +38055,15 @@ function UserInfo(props) {
         }).then(function (res) {
           setFriend(res.data);
         })["catch"](function (error) {
-          console.log("エラー");
+          react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.error("システムエラー", {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+          });
         });
       }
     })["catch"](function (error) {
@@ -39348,10 +39385,26 @@ function PostDetail(props) {
           setUserLike(true);
         }
       })["catch"](function (error) {
-        console.log("エラー");
+        react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error("システムエラー", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
       });
     })["catch"](function (error) {
-      console.log("未ログイン");
+      react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error("システムエラー", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
     });
   }, []);
   var img;
@@ -39741,7 +39794,7 @@ function PostEdit(props) {
     file.append("id", props.detailId);
 
     if (animal == "") {
-      console.log("animal is empty");
+      file.append("animal_kind", preAnimal);
     } else {
       file.append("animal_kind", animal);
     }
@@ -40097,7 +40150,6 @@ function PostList() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     axios.get("api/mypage/postlist").then(function (res) {
       var results = res.data;
-      console.log(results);
       setPosts([].concat(_toConsumableArray(posts), _toConsumableArray(results)));
     })["catch"](function (error) {
       react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error("システムエラー", {
@@ -40432,7 +40484,6 @@ function Inquiry(props) {
 
   var getMessage = function getMessage(event) {
     setMessage(event.target.value);
-    console.log(message);
   };
 
   var backPage = function backPage() {
@@ -41045,7 +41096,6 @@ function ProfileSetting(props) {
           switch (_context.prev = _context.next) {
             case 0:
               //更新処理
-              console.log(descriptionNew);
               file = new FormData();
               file.append("id", id);
 
@@ -41063,7 +41113,6 @@ function ProfileSetting(props) {
               }).then(function (response) {
                 if (response.status == 200) {
                   setDescription(descriptionNew);
-                  console.log(response.data);
                   setIcon(response.data.img_url);
                   react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.success("更新に成功しました。", {
                     position: "top-center",
@@ -41103,7 +41152,7 @@ function ProfileSetting(props) {
                 }
               });
 
-            case 6:
+            case 5:
             case "end":
               return _context.stop();
           }

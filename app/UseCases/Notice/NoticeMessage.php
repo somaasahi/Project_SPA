@@ -19,15 +19,16 @@ class NoticeMessage
     /**
      *
      * @param int $postId
-     * @param int $reviewId
+     * @param null $noticeId
+     * @param null $reviewId
      * @param int $type
      * @return array
      */
-    public function __invoke( int $postId, int $noticeType )
+    public function __invoke( int $postId, $noticeId = null, $reviewId = null, int $noticeType )
     {
         $userId = $this->findUser( $postId );
         // toAdminMessageへ格納
-        $this->registerToAdminMessage( $userId, $noticeType );
+        $this->registerToAdminMessage( $userId, $noticeType, $reviewId );
     }
 
     /**
@@ -50,13 +51,14 @@ class NoticeMessage
      * ユーザーへ通知メッセージ登録処理
      *
      * @param int $userId
-     * @param int $reviewId
+     * @param int $noticeType
+     * @param int|null $reviewId
      * @return int
      */
-    public function registerToAdminMessage( int $userId, int $noticeType )
+    public function registerToAdminMessage( int $userId, int $noticeType, $reviewId = null )
     {
         $this->toAdminMessage->user_id   = $userId;
-        $this->toAdminMessage->review_id = '';
+        $this->toAdminMessage->review_id = $reviewId;
         $this->toAdminMessage->about     = config( 'ini.notification_about.' . $noticeType );
         $this->toAdminMessage->save();
     }
