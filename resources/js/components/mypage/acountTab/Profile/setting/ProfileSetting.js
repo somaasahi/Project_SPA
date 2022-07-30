@@ -56,7 +56,6 @@ function ProfileSetting(props) {
     //更新処理
     const changeProfile = async () => {
         //更新処理
-        console.log(descriptionNew);
         const file = new FormData();
         file.append("id", id);
 
@@ -76,7 +75,6 @@ function ProfileSetting(props) {
             .then((response) => {
                 if (response.status == 200) {
                     setDescription(descriptionNew);
-                    console.log(response.data);
                     setIcon(response.data.img_url);
 
                     toast.success("更新に成功しました。", {
