@@ -10,6 +10,7 @@ import AdminContent from "./AdminContent";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PostDetail from "../../../../../home/PostDetail";
+import PushPostDetail from "./PushPostDtail";
 
 
 function PushSetting(props) {
@@ -17,22 +18,34 @@ function PushSetting(props) {
     const [adminMessage, setAdminMessage] = useState('');
     const [read, setRead] = useState(false);
     const [view, setView] = useState(false);
+    const [data1, setData] = useState();
+    const [detailId, setDetailId] = useState('');
+
+    useEffect(() => { }, [data1]);
     // メッセージ受けとり
     useEffect(async () => {
-        await axios.get("api/getAdminMessage")
-            .then((res) => {
-                setAdminMessage(res.data);
-            }).catch((e) => {
-                toast.error("システムエラー", {
-                    position: "top-center",
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
+        await axios.get('api/user/')
+            .then(async (res) => {
+                await axios.get("api/getAdminMessage/", {
+                    params: {
+                        id: res.data.id,
+                    },
                 })
-            });
+                    .then((res) => {
+                        // console.log(res.data);
+                        setAdminMessage(res.data);
+                    }).catch((e) => {
+                        toast.error("システムエラー", {
+                            position: "top-center",
+                            autoClose: 1000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        })
+                    });
+            })
     }, []);
 
     // 既読挙動
@@ -49,6 +62,7 @@ function PushSetting(props) {
 
     // 既読時にチェックを入れる
     const readMessage = async (value) => {
+        setData(value);
         setRead(true);
         const adminId = { id: value.adminId }
         await axios.post("api/readAdminMessage", adminId)
@@ -67,7 +81,8 @@ function PushSetting(props) {
             })
     };
 
-    const openPostDetail = (toAdminMessage) => {
+
+    const openPostDetail = () => {
         setView(true);
     }
     const closePostDetail = () => {
@@ -75,7 +90,7 @@ function PushSetting(props) {
     }
 
     const handleButton = (value) => {
-        console.log(value);
+        // console.log(value);
         if (value.reviewId == null) {
             return '';
         }
@@ -89,6 +104,7 @@ function PushSetting(props) {
 
     // 投稿削除の通知の場合非表示
     const postDetail = (value) => {
+        // console.log(value);
         if (view) {
 
             if (value.reviewId == null) {
@@ -110,17 +126,17 @@ function PushSetting(props) {
 
 
     if (!adminMessage) return 'ロード中・・・';
-    console.log(adminMessage);
+
     return (
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-            {adminMessage.map((value) => {
+            {!view ? adminMessage.map((value) => {
                 return (
                     <div key={value.adminId}>
                         <Accordion>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1bh-content"
-                                id="panel1bh-header"
+                                id={value}
                                 onClick={() => readMessage(value)}
                             >
                                 <Typography sx={{ width: '33%', flexShrink: 0 }}>
@@ -135,19 +151,15 @@ function PushSetting(props) {
                                     {value.about}
                                 </Typography>
                                 <Typography>
-                                    {handleButton(value)}
-                                    {postDetail(value)}
-                                </Typography>
-                                <Typography>
                                     <IconButton>
-                                        <KeyboardReturnIcon />
+                                        {value.reviewId == null ? '' : <Button size="large" onClick={openPostDetail}>投稿詳細</Button>}
                                     </IconButton>
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>
                     </div>
                 );
-            })
+            }) : <PostDetail detailId={detailId} />
             }
         </List >
     )
