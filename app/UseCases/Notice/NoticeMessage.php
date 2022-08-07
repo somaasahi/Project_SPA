@@ -24,7 +24,7 @@ class NoticeMessage
      * @param int $type
      * @return array
      */
-    public function __invoke( int $postId, $noticeId = null, $reviewId = null, int $noticeType )
+    public function __invoke( int $postId, $noticeId = null, int $reviewId = null, int $noticeType )
     {
         $userId = $this->findUser( $postId );
         // toAdminMessageへ格納

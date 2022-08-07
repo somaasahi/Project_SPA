@@ -123,7 +123,7 @@ class DeleteController extends Controller
         }
 
         if ( $request->model == 'post' ) {
-            $reviewId = '';
+            $reviewId = null;
 
 //管理者側が削除した場合
             if ( $request->notice_id ) {
